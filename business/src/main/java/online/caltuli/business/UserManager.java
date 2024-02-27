@@ -1,11 +1,22 @@
 package online.caltuli.business;
 
-import online.caltuli.consumer.UserConnectionsDaoImpl;
+import online.caltuli.business.exception.BusinessException;
+import online.caltuli.consumer.api.abuseipdb.IpValidator;
+import online.caltuli.consumer.api.abuseipdb.exception.AbuseIpDbException;
 import online.caltuli.model.*;
-import online.caltuli.consumer.*;
+
+import online.caltuli.consumer.dao.DaoFactory;
+import online.caltuli.consumer.dao.interfaces.UserConnectionsDao;
+import online.caltuli.consumer.dao.interfaces.UsersDao;
+import online.caltuli.consumer.dao.exceptions.DaoException;
 
 import java.sql.Timestamp;
 import java.util.List;
+
+import online.caltuli.model.exceptions.user.UserException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 public class UserManager {
@@ -14,15 +25,14 @@ public class UserManager {
     public static UserConnection
     logUserConnection(
             String ipAddress,
-            Timestamp timestamp,
-            Integer userId)
+            Timestamp timestamp)
             throws BusinessException {
         UserConnectionsDao userConnectionsDao = null;
         int id = 0;
         // add a record in connections table ; get primary key in id
         try {
             userConnectionsDao = DaoFactory.getInstance().getUserConnectionsDao();
-            id = userConnectionsDao.addUserConnection(ipAddress, timestamp, userId);
+            id = userConnectionsDao.addUserConnection(ipAddress, timestamp);
         } catch (DaoException e) {
             throw new BusinessException("Can't register connection in database.");
         }
@@ -46,30 +56,41 @@ public class UserManager {
         }
     }
 
-    public static int
+    public static User
     registerUser(
             String username,
             String password,
             String email,
             String message)
-            throws BusinessException {
+            throws BusinessException, UserException {
+        Logger logger = LogManager.getLogger(UserManager.class);
+        User user = null;
         UsersDao usersDao = null;
         // add a record in users table ; get primary key in id
         try {
             usersDao = DaoFactory.getInstance().getUsersDao();
-            // Générer un Salt et hasher le mot de passe
+            // generate a Salt and hash the password
             String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
-            if (usersDao.getUserByUsername(username) != null) return -1;
-            return usersDao.addUser(username, passwordHash, email, message);
+            // check if username is already used
+            try {
+                if (usersDao.getUserByUsername(username) != null) {
+                    logger.info("try to registrer but username is already used");
+                    return null;
+                }
+            } catch (UserException e) {
+                // the validity of the username and other values fetched from the users table
+                // will be verified by catching exceptions in the addUser method
+            }
+            // the message of the exception thrown by addUser contains all the reasons
+            // for the registration failure
+            user = usersDao.addUser(username, passwordHash, email, message);
         } catch (DaoException e) {
             throw new BusinessException("Can't register user in database.");
         }
-
-        // ATTENTION IL FAUDRA AUSSI S'ASSURER QUE LE NOM D'UTILISATEUR N'EST PAS DÉJÀ PRÉSENT
-        // DANS LA TABLE
+        return user;
     }
 
-    public static User authenticateUser(String username, String password) throws BusinessException {
+    public static User authenticateUser(String username, String password) throws BusinessException, UserException {
         UsersDao usersDao = null;
         try {
             usersDao = DaoFactory.getInstance().getUsersDao();

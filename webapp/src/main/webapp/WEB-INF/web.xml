@@ -10,24 +10,58 @@
     <servlet-class>online.caltuli.webapp.servlet.Home</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>Register</servlet-name>
-    <servlet-class>online.caltuli.webapp.servlet.Register</servlet-class>
+    <servlet-name>Registration</servlet-name>
+    <servlet-class>online.caltuli.webapp.servlet.Registration</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>Authentification</servlet-name>
-    <servlet-class>online.caltuli.webapp.servlet.Authentification</servlet-class>
+    <servlet-name>Authentication</servlet-name>
+    <servlet-class>online.caltuli.webapp.servlet.Authentication</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>online.caltuli.webapp.servlet.Logout</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Error</servlet-name>
+    <servlet-class>online.caltuli.webapp.servlet.Error</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>Home</servlet-name>
     <url-pattern>/home</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>Register</servlet-name>
-    <url-pattern>/register</url-pattern>
+    <servlet-name>Registration</servlet-name>
+    <url-pattern>/registration</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Authentication</servlet-name>
+    <url-pattern>/authentication</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Error</servlet-name>
+    <url-pattern>/error</url-pattern>
   </servlet-mapping>
 
-  <servlet-mapping>
-    <servlet-name>Authentification</servlet-name>
-    <url-pattern>/authentification</url-pattern>
-  </servlet-mapping>
+  <filter>
+    <filter-name>SessionCheckFilter</filter-name>
+    <filter-class>online.caltuli.webapp.filter.SessionCheckFilter</filter-class>
+  </filter>
+  <filter>
+    <filter-name>IPCheckFilter</filter-name>
+    <filter-class>online.caltuli.webapp.filter.IPCheckFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>SessionCheckFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>IPCheckFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>

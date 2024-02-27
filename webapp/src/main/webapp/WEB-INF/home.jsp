@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>home</title>
+    <title>Onlineplay homepage</title>
 </head>
 
 <body>
@@ -22,22 +22,27 @@
         </br>
         sessionScope.userConnection.userId : <c:out value="${sessionScope.userConnection.userId}" />
         </br>
+        sessionScope.userConnection.isAllowed : <c:out value="${sessionScope.userConnection.isAllowed}" />
+        </br>
     </p>
 
     <p>
-        <a href="register">Sign up</a>
+        <a href="registration">Sign up</a>
         </br>
-        <a href="authentification">log in</a>
+        <a href="authentication">log in</a>
+        <c:if test="${sessionScope.userConnection.userId !=-1}">
+            </br>
+            <a href="logout">log out</a>
+        </c:if>
     </p>
 
     <c:if test="${sessionScope.userConnection.userId != -1}">
         <p>
-            You are authenticated
+            You are authenticated as <c:out value="${sessionScope.user.username}" />
             </br>
             Your user'id is <c:out value="${sessionScope.userConnection.userId}" />
         </p>
     </c:if>
-
 
 </body>
 </html>

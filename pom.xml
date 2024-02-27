@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             
   <modelVersion>4.0.0</modelVersion>
             
@@ -58,17 +60,32 @@
       </dependency>
 
       <!-- ===== Third-party Libraries ===== -->
+      <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
       <dependency>
         <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter</artifactId>
+        <artifactId>junit-jupiter-api</artifactId>
         <version>5.10.1</version>
         <scope>test</scope>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+      <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.10.1</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-params</artifactId>
+        <version>5.10.1</version>
+        <scope>test</scope>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.mockito/mockito-inline -->
       <dependency>
         <groupId>org.mockito</groupId>
-        <artifactId>mockito-core</artifactId>
-        <version>5.10.0</version>
+        <artifactId>mockito-inline</artifactId>
+        <version>5.2.0</version>
         <scope>test</scope>
       </dependency>
       <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
@@ -113,8 +130,36 @@
         <artifactId>jbcrypt</artifactId>
         <version>0.4</version>
       </dependency>
+      <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>2.22.1</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>2.22.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>4.5.14</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/fluent-hc -->
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>fluent-hc</artifactId>
+        <version>4.5.14</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.16.1</version>
+      </dependency>
     </dependencies>
-
   </dependencyManagement>
 
   <build>
@@ -182,6 +227,52 @@
               <goals>
                 <goal>report</goal>
               </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <!-- integration tests -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>3.2.5</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>integration-test</goal>
+                <goal>verify</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <testSourceDirectory>${project.basedir}/src/it/java</testSourceDirectory>
+            <skipTests>false</skipTests>
+          </configuration>
+        </plugin>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/build-helper-maven-plugin -->
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>3.5.0</version>
+          <executions>
+            <!--
+            Adding <testSourceDirectory>${project.basedir}/src/it/java</testSourceDirectory>
+            in failsafe plugin config didn't recognize tests in src/it/java. Necessary
+            to include in build-helper-maven-plugin config for execution:
+            <sources>
+              <source>${project.basedir}/src/it/java</source>
+            </sources>
+            -->
+            <execution>
+              <id>add-integration-test-sources</id>
+              <phase>generate-test-sources</phase>
+              <goals>
+                <goal>add-test-source</goal>
+              </goals>
+              <configuration>
+                <sources>
+                  <source>${project.basedir}/src/it/java</source>
+                </sources>
+              </configuration>
             </execution>
           </executions>
         </plugin>
