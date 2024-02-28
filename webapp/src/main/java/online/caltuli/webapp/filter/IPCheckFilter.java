@@ -38,8 +38,8 @@ public class IPCheckFilter implements Filter {
                 UserConnection userConnection = (UserConnection) session.getAttribute("userConnection");
                 Boolean isAllowed = null;
                 if (userConnection != null && ((isAllowed = userConnection.getIsAllowed()) == null || !isAllowed)) {
-                    request.setAttribute("errorMessage", "Your IP is forbidden.");
-                    httpResponse.sendRedirect("error?errorMessage=Your IP is forbidden.");
+                    httpRequest.getSession().setAttribute("errorMessage", "Access Denied: Your IP address has been restricted due to security policies. Please contact support if you believe this is an error.");
+                    httpResponse.sendRedirect("error");
                     return;
                 }
             }

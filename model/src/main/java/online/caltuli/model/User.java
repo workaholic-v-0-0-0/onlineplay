@@ -106,7 +106,7 @@ public class User {
     }
 
     public void setMessage(String message) throws InvalidMessageException {
-        String regex = "^[A-Za-z0-9 .,!?-]{0,254}$";
+        String regex = "^[A-Za-z0-9 .,!?\\-']{0,254}$";
 
         if (message != null && !message.matches(regex)) {
             logger.info("Invalid message format");

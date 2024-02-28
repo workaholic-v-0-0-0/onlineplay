@@ -21,7 +21,7 @@ import org.apache.logging.log4j.Logger;
 
 public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Logger logger = LogManager.getLogger(Home.class);
+	private Logger logger = LogManager.getLogger(Home.class); // to debug
        
     public Home() {
 		super();

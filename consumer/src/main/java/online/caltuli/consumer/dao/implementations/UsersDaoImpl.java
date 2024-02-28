@@ -165,8 +165,6 @@ public class UsersDaoImpl implements UsersDao {
                     );
                     throw e;
                 }
-                // LE PROBLÈME C'EST QUE SI username ET email SONT TOUS LES DEUX INVALIDES
-                // ET NE TRANSMET QUE L'INVALIDITÉ DE username
             }
             return user;
 

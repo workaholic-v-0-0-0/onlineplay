@@ -21,12 +21,14 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class UserManager {
     private static List<User> connectedUserList;
+    private static Logger logger = LogManager.getLogger(UserManager.class);
 
     public static UserConnection
     logUserConnection(
             String ipAddress,
             Timestamp timestamp)
             throws BusinessException {
+
         UserConnectionsDao userConnectionsDao = null;
         int id = 0;
         // add a record in connections table ; get primary key in id

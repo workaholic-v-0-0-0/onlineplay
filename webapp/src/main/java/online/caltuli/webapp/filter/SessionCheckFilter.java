@@ -19,7 +19,23 @@ public class SessionCheckFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        SessionManagement.initialiseSessionIfNot((HttpServletRequest) request, (HttpServletResponse) response);
+
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
+
+        if (!path.equals("/error")) {
+
+            HttpServletResponse httpResponse = (HttpServletResponse) response;
+
+            try {
+                SessionManagement.initialiseSessionIfNot((HttpServletRequest) request, httpResponse);
+            } catch (BusinessException e) {
+                // httpRequest.getSession().setAttribute("errorMessage", e.getMessage()); // to debug
+                httpRequest.getSession(true).setAttribute("errorMessage", "We apologize for the inconvenience. Our database server is currently unavailable. We are actively working to restore access. Please try again later.");
+                httpResponse.sendRedirect("error");
+                return;
+            }
+        }
         chain.doFilter(request, response);
     }
 }

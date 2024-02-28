@@ -12,12 +12,15 @@ import online.caltuli.business.UserManager;
 import online.caltuli.model.UserConnection;
 import online.caltuli.model.User;
 import online.caltuli.model.exceptions.user.UserException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 // to debug
 import java.io.PrintWriter;
 
 public class Authentication extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private Logger logger = LogManager.getLogger(Authentication.class);
 
     public Authentication() {}
 
@@ -26,77 +29,39 @@ public class Authentication extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = null;
+		HttpSession session = request.getSession(false);
 		User user = null;
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 
-		// to debug
-		PrintWriter out = response.getWriter();
-		out.println("ok?");
 		try {
 			user = UserManager.authenticateUser(username, password);
-			request.getSession(false).setAttribute("user", user);
+			session.setAttribute("user", user);
+			if (user == null) {
+				request.setAttribute("authenticationFailed", true);
+			} else {
+				request.setAttribute("hasJustBeenAuthenticated", user.getUsername());
+				((UserConnection) session.getAttribute("userConnection")).setUserId(user.getId());
+				try {
+					UserManager.updateUserConnection(
+							((UserConnection) session.getAttribute("userConnection"))
+					);
+				} catch (BusinessException e) {
+					logger.info("Information related to user "
+							+ user.getId()
+							+ " a.k.a. "
+							+ user.getUsername()
+							+ " can't be updated with the suitable user id.\n"
+							+ "It will stay anonymous");
+				}
+			}
 		} catch (BusinessException e) {
-			out.println(e.getMessage());
+			request.setAttribute("authenticationProblemEncountred", e.getMessage());
 		} catch (UserException e) {
-			// TO DO
-		}
-		if (user == null) {
-			out.println("failed.");
-		} else {
-			out.println("Authentication succeeded.");
+			request.setAttribute("authenticationProblemEncountred", "Your account has been invalidated.");
 		}
 
-
-		// PROBLÈME ICI, ON DIRAIT QUE LE CHAMPS EST SUPPRIMÉ DE LA TABLE
-		// LORS DE LA TENTATIVE DE MISE À JOUR DE LA TABLE connections AVEC
-		// L'IDENTIFIANT DE L'UTILISATEUR
-		if (user == null) {
-			out.println("failed.");
-		} else {
-			session = request.getSession(false);
-			out.println(session.getAttribute("userConnection"));
-			out.println(((UserConnection) session.getAttribute("userConnection")).getUserId());
-			((UserConnection) session.getAttribute("userConnection")).setUserId(user.getId());
-			out.println(((UserConnection) session.getAttribute("userConnection")).getUserId());
-
-			out.println("begin dumpUserConnectionInResponse");
-			dumpUserConnectionInResponse(
-					response,
-					(UserConnection) session.getAttribute("userConnection")
-			);
-			out.println("begin dumpUserConnectionInResponse");
-
-			try {
-				UserManager.updateUserConnection(
-						((UserConnection) session.getAttribute("userConnection"))
-				);
-			} catch (BusinessException e) {
-				out.println(e.getMessage());
-			}
-		}
-		request.getRequestDispatcher("/home").forward(request, response);
+		//request.getRequestDispatcher("/home").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/authentication.jsp").forward(request, response);
 	}
-
-	// to debug
-	private void dumpUserConnectionInResponse(
-			HttpServletResponse response,
-			UserConnection userConnection) {
-		try {
-			PrintWriter out = response.getWriter();
-			out.println("userConnection.getId() -> " + userConnection.getId());
-			out.println("userConnection.getIpAddress() -> " + userConnection.getIpAddress());
-			out.println("userConnection.getTimestamp() -> " + userConnection.getTimestamp());
-			out.println("userConnection.getUserId() -> " + userConnection.getUserId());
-		} catch (Exception e) {
-			try {
-				PrintWriter out = response.getWriter();
-				out.println(e.getMessage());
-			} catch (Exception e2) {
-
-			}
-		}
-	}
-
 }

@@ -20,7 +20,8 @@ public class SessionManagement {
     // fetch information related to connection, record them into connections tables
     // so that the related primary key value is automatically generated ;
     // fetch them from connections table and record them into a userConnection instance
-    public static HttpSession initialiseSessionIfNot(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public static HttpSession initialiseSessionIfNot(HttpServletRequest request, HttpServletResponse response)
+            throws BusinessException, IOException {
 
         HttpSession session = request.getSession(false);
 
@@ -35,9 +36,11 @@ public class SessionManagement {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             try {
                 userConnection = UserManager.logUserConnection(ipAddress, timestamp);
+                logger.info("userConnection.getId() = " + userConnection.getId());
                 session.setAttribute("userConnection", userConnection);
             } catch (BusinessException e) {
                 logger.info("can't register information related to the user connection in database");
+                throw e;
             }
         }
         return session;

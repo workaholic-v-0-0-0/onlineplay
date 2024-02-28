@@ -7,12 +7,16 @@ import online.caltuli.consumer.dao.interfaces.UserConnectionsDao;
 import online.caltuli.consumer.dao.exceptions.DaoException;
 
 import online.caltuli.model.UserConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
 public class UserConnectionsDaoImpl implements UserConnectionsDao {
 
     private final DaoFactory daoFactory;
+
+    private static Logger logger = LogManager.getLogger(UserConnectionsDaoImpl.class); // to debug
 
     public UserConnectionsDaoImpl(DaoFactory daoFactory) {
         this.daoFactory = daoFactory;
