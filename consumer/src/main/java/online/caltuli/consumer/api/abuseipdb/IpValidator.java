@@ -44,6 +44,8 @@ public class IpValidator {
             ///* // to debug (to check the access is denied)
                     ||
                     (ip.equals("127.0.0.1"))
+                    ||
+                    (ip.startsWith("192.168"))
                     //*/
             );
         } catch (JsonParseException e) {

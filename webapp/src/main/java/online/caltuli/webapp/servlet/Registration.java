@@ -9,6 +9,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.inject.Inject;
+
 import online.caltuli.model.exceptions.user.*;
 
 import java.io.IOException;
@@ -17,7 +19,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Registration extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private UserManager userManager;
 
     public Registration() {
         // TODO Auto-generated constructor stub
@@ -36,7 +42,7 @@ public class Registration extends HttpServlet {
 
 		User user = null;
 		try {
-			user = UserManager.registerUser(username, password, email, message);
+			user = userManager.registerUser(username, password, email, message);
 			if (user == null) {
 				request.setAttribute("registrationProblemEncountred", "username " + username + " already used");
 			} else {

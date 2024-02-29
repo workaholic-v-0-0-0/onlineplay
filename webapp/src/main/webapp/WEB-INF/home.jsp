@@ -76,5 +76,16 @@
         </p>
     </c:if>
 
+    <p>
+        Connected users list :
+        <ul>
+            <c:forEach var="entry" items="${connectedUserList}">
+            <li>
+                <c:out value="${entry.value.username}" />
+            </li>
+            </c:forEach>
+        </ul>
+    <p>
+
 </body>
 </html>

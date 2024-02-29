@@ -5,7 +5,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.inject.Inject;
 import java.io.IOException;
+
 
 import online.caltuli.business.exception.BusinessException;
 import online.caltuli.business.UserManager;
@@ -19,7 +21,12 @@ import org.apache.logging.log4j.Logger;
 import java.io.PrintWriter;
 
 public class Authentication extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private UserManager userManager;
+
 	private Logger logger = LogManager.getLogger(Authentication.class);
 
     public Authentication() {}
@@ -35,7 +42,7 @@ public class Authentication extends HttpServlet {
 		String password = request.getParameter("password");
 
 		try {
-			user = UserManager.authenticateUser(username, password);
+			user = userManager.authenticateUser(username, password);
 			session.setAttribute("user", user);
 			if (user == null) {
 				request.setAttribute("authenticationFailed", true);
@@ -43,7 +50,7 @@ public class Authentication extends HttpServlet {
 				request.setAttribute("hasJustBeenAuthenticated", user.getUsername());
 				((UserConnection) session.getAttribute("userConnection")).setUserId(user.getId());
 				try {
-					UserManager.updateUserConnection(
+					userManager.updateUserConnection(
 							((UserConnection) session.getAttribute("userConnection"))
 					);
 				} catch (BusinessException e) {

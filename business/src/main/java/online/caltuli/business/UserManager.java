@@ -1,8 +1,7 @@
 package online.caltuli.business;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import online.caltuli.business.exception.BusinessException;
-import online.caltuli.consumer.api.abuseipdb.IpValidator;
-import online.caltuli.consumer.api.abuseipdb.exception.AbuseIpDbException;
 import online.caltuli.model.*;
 
 import online.caltuli.consumer.dao.DaoFactory;
@@ -12,6 +11,8 @@ import online.caltuli.consumer.dao.exceptions.DaoException;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import online.caltuli.model.exceptions.user.UserException;
 import org.apache.logging.log4j.LogManager;
@@ -19,11 +20,14 @@ import org.apache.logging.log4j.Logger;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+@ApplicationScoped
 public class UserManager {
-    private static List<User> connectedUserList;
-    private static Logger logger = LogManager.getLogger(UserManager.class);
 
-    public static UserConnection
+    private Map<Integer, User> connectedUserList = new ConcurrentHashMap<>();
+
+    private Logger logger = LogManager.getLogger(UserManager.class);
+
+    public UserConnection
     logUserConnection(
             String ipAddress,
             Timestamp timestamp)
@@ -46,7 +50,7 @@ public class UserManager {
             throw new BusinessException("Can't fetch connection in database.");
         }
     }
-    public static void
+    public void
     updateUserConnection(UserConnection userConnection) throws BusinessException {
         UserConnectionsDao userConnectionsDao = null;
         try {
@@ -58,7 +62,7 @@ public class UserManager {
         }
     }
 
-    public static User
+    public User
     registerUser(
             String username,
             String password,
@@ -92,15 +96,24 @@ public class UserManager {
         return user;
     }
 
-    public static User authenticateUser(String username, String password) throws BusinessException, UserException {
+    public User authenticateUser(String username, String password) throws BusinessException, UserException {
         UsersDao usersDao = null;
         try {
             usersDao = DaoFactory.getInstance().getUsersDao();
             User user = usersDao.getUserByUsername(username);
+            connectedUserList.put(user.getId(), user);
             return (BCrypt.checkpw(password, user.getPasswordHash())) ? user : null;
         } catch (DaoException e) {
             throw new BusinessException("Authentication failed");
         }
+    }
+
+    public void disconnectUser(int userId) {
+        connectedUserList.remove(userId);
+    }
+
+    public Map<Integer, User> getConnectedUserList() {
+        return connectedUserList;
     }
 
 }
