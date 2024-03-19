@@ -1,0 +1,10 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+model,online.caltuli.model.exceptions.userconnection,UserConnectionException,4,0,0,0,2,0,1,0,1,0
+model,online.caltuli.model.exceptions.user,InvalidPasswordHashException,0,4,0,0,0,2,0,1,0,1
+model,online.caltuli.model.exceptions.user,InvalidUsernameException,0,4,0,0,0,2,0,1,0,1
+model,online.caltuli.model.exceptions.user,InvalidMailException,0,4,0,0,0,2,0,1,0,1
+model,online.caltuli.model.exceptions.user,UserException,0,4,0,0,0,2,0,1,0,1
+model,online.caltuli.model.exceptions.user,InvalidMessageException,0,4,0,0,0,2,0,1,0,1
+model,online.caltuli.model.exceptions,BeanException,0,4,0,0,0,2,0,1,0,1
+model,online.caltuli.model,UserConnection,63,0,0,0,19,0,13,0,13,0
+model,online.caltuli.model,User,75,93,3,9,27,31,5,14,3,10

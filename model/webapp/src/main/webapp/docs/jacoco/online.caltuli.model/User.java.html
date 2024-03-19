@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">model</a> &gt; <a href="index.source.html" class="el_package">online.caltuli.model</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package online.caltuli.model;
+
+import online.caltuli.model.exceptions.user.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class User {
+    private int id;
+    private String username;
+    private String passwordHash;
+    private String email;
+    private String message;
+
+<span class="fc" id="L17">    private static final Logger logger = LogManager.getLogger(User.class);</span>
+
+<span class="fc" id="L19">    public User() {</span>
+
+<span class="fc" id="L21">    }</span>
+
+<span class="nc" id="L23">    public User(String username, String passwordHash, String email, String message) throws UserException {</span>
+
+<span class="nc" id="L25">        List&lt;String&gt; validationErrors = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L27">        this.setId(-1);  // -1 means id is not yet defined ; done while registration in users table</span>
+
+        try {
+<span class="nc" id="L30">            setUsername(username);</span>
+<span class="nc" id="L31">        } catch (InvalidUsernameException e) {</span>
+<span class="nc" id="L32">            validationErrors.add(&quot;invalid username&quot;);</span>
+<span class="nc" id="L33">        }</span>
+        try {
+<span class="nc" id="L35">            setPasswordHash(passwordHash);</span>
+<span class="nc" id="L36">        } catch (InvalidPasswordHashException e) {</span>
+<span class="nc" id="L37">            validationErrors.add(&quot;invalid password hash&quot;);</span>
+<span class="nc" id="L38">        }</span>
+        try {
+<span class="nc" id="L40">            this.setEmail(email);</span>
+<span class="nc" id="L41">        } catch (InvalidMailException e) {</span>
+<span class="nc" id="L42">            validationErrors.add(&quot;invalid email&quot;);</span>
+<span class="nc" id="L43">        }</span>
+        try {
+<span class="nc" id="L45">            this.setMessage(message);</span>
+<span class="nc" id="L46">        } catch (InvalidMessageException e) {</span>
+<span class="nc" id="L47">            validationErrors.add(&quot;invalid message&quot;);</span>
+<span class="nc" id="L48">        }</span>
+
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (!validationErrors.isEmpty()) {</span>
+<span class="nc" id="L51">            String errorMessage = String.join(&quot;, &quot;, validationErrors);</span>
+<span class="nc" id="L52">            logger.info(&quot;User constructor encountered validation errors: &quot; + errorMessage);</span>
+<span class="nc" id="L53">            throw new UserException(errorMessage);</span>
+        }
+<span class="nc" id="L55">    }</span>
+
+    public int getId() {
+<span class="nc" id="L58">        return id;</span>
+    }
+
+    public void setId(int id) {
+<span class="nc" id="L62">        this.id = id;</span>
+<span class="nc" id="L63">    }</span>
+
+    public String getUsername() {
+<span class="fc" id="L66">        return username;</span>
+    }
+
+    public void setUsername(String username) throws InvalidUsernameException {
+<span class="fc" id="L70">        String regex = &quot;^[A-Za-z0-9._-]{3,20}$&quot;;</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (!username.matches(regex)) {</span>
+<span class="fc" id="L72">            logger.info(&quot;Invalid username&quot;);</span>
+<span class="fc" id="L73">            throw new InvalidUsernameException(&quot;Invalid username: does not meet the criteria.&quot;);</span>
+        }
+<span class="fc" id="L75">        this.username = username;</span>
+<span class="fc" id="L76">    }</span>
+
+    public String getPasswordHash() {
+<span class="fc" id="L79">        return passwordHash;</span>
+    }
+
+    public void setPasswordHash(String passwordHash) throws InvalidPasswordHashException {
+<span class="fc" id="L83">        String regex = &quot;^\\$2[ayb]\\$\\d{2}\\$[./A-Za-z0-9]{53}$&quot;;</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        if (!passwordHash.matches(regex)) {</span>
+<span class="fc" id="L85">            logger.info(&quot;Invalid password hash&quot;);</span>
+<span class="fc" id="L86">            throw new InvalidPasswordHashException(&quot;Invalid password hash: does not meet the BCrypt format.&quot;);</span>
+        }
+<span class="fc" id="L88">        this.passwordHash = passwordHash;</span>
+<span class="fc" id="L89">    }</span>
+
+    public String getEmail() {
+<span class="fc" id="L92">        return email;</span>
+    }
+
+    public void setEmail(String email) throws InvalidMailException {
+<span class="fc" id="L96">        String regex = &quot;^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$&quot;;</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (!email.matches(regex)) {</span>
+<span class="fc" id="L98">            logger.info(&quot;Invalid email format&quot;);</span>
+<span class="fc" id="L99">            throw new InvalidMailException(&quot;Invalid email format: does not meet the criteria.&quot;);</span>
+        }
+<span class="fc" id="L101">        this.email = email;</span>
+<span class="fc" id="L102">    }</span>
+
+    public String getMessage() {
+<span class="fc" id="L105">        return message;</span>
+    }
+
+    public void setMessage(String message) throws InvalidMessageException {
+<span class="fc" id="L109">        String regex = &quot;^[A-Za-z0-9 .,!?\\-']{0,254}$&quot;;</span>
+
+<span class="pc bpc" id="L111" title="1 of 4 branches missed.">        if (message != null &amp;&amp; !message.matches(regex)) {</span>
+<span class="fc" id="L112">            logger.info(&quot;Invalid message format&quot;);</span>
+<span class="fc" id="L113">            throw new InvalidMessageException(&quot;Message contains invalid characters or exceeds the maximum length of 254 characters.&quot;);</span>
+        }
+
+<span class="fc" id="L116">        this.message = message;</span>
+<span class="fc" id="L117">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

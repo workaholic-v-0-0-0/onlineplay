@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbuseIpDbClient.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">consumer</a> &gt; <a href="index.source.html" class="el_package">online.caltuli.consumer.api.abuseipdb</a> &gt; <span class="el_source">AbuseIpDbClient.java</span></div><h1>AbuseIpDbClient.java</h1><pre class="source lang-java linenums">package online.caltuli.consumer.api.abuseipdb;
+
+import online.caltuli.consumer.api.abuseipdb.exception.ConfigurationLoadException;
+
+import org.apache.http.client.fluent.Request;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
+import java.util.Properties;
+import java.io.InputStream;
+import java.util.function.Supplier;
+
+public class AbuseIpDbClient {
+    private final static String PROPERTIES_FILE = &quot;config.abuse-ip-db.properties&quot;;
+<span class="fc" id="L16">    private static Properties properties = new Properties();</span>
+    private static volatile AbuseIpDbClient instance;
+    private String baseUrl;
+    private String apiKey;
+    private Supplier&lt;InputStream&gt; inputStreamSupplier; // make tests easier
+
+<span class="fc" id="L22">    private AbuseIpDbClient() throws ConfigurationLoadException {</span>
+<span class="fc" id="L23">        this.inputStreamSupplier = () -&gt;</span>
+<span class="fc" id="L24">                AbuseIpDbClient.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE);</span>
+<span class="fc" id="L25">        loadProperties(this.inputStreamSupplier);</span>
+<span class="fc" id="L26">        this.baseUrl = properties.getProperty(&quot;abuseipdb.api.url&quot;);</span>
+<span class="fc" id="L27">        this.apiKey = properties.getProperty(&quot;abuseipdb.api.key&quot;);</span>
+<span class="fc" id="L28">    }</span>
+
+    private static void loadProperties(Supplier&lt;InputStream&gt; inputStreamSupplier) throws ConfigurationLoadException {
+<span class="fc" id="L31">        Logger logger = LogManager.getLogger(AbuseIpDbClient.class);</span>
+<span class="fc" id="L32">        try (InputStream inputStream = inputStreamSupplier.get()) {</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">            if (inputStream != null) {</span>
+<span class="fc" id="L34">                properties.load(inputStream);</span>
+            } else {
+<span class="fc" id="L36">                logger.info(&quot;Property file '&quot; + PROPERTIES_FILE + &quot;' not found in the classpath&quot;);</span>
+<span class="fc" id="L37">                throw new ConfigurationLoadException(&quot;Property file '&quot; + PROPERTIES_FILE + &quot;' not found in the classpath&quot;);</span>
+            }
+<span class="fc" id="L39">        } catch (IOException e) {</span>
+<span class="fc" id="L40">            logger.info(&quot;Error loading properties file&quot;);</span>
+<span class="fc" id="L41">            throw new ConfigurationLoadException(&quot;Error loading properties file&quot;);</span>
+<span class="fc" id="L42">        }</span>
+
+        // Afficher les propriétés chargées
+        /*
+        System.out.println(&quot;Properties loaded:&quot;);
+        for (String key : properties.stringPropertyNames()) {
+            String value = properties.getProperty(key);
+            System.out.println(key + &quot;=&quot; + value);
+        }
+        */
+<span class="fc" id="L52">    }</span>
+
+    public static AbuseIpDbClient getInstance() throws ConfigurationLoadException {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (instance == null) {</span>
+<span class="fc" id="L56">            instance = new AbuseIpDbClient();</span>
+        }
+<span class="fc" id="L58">        return instance;</span>
+    }
+
+    /*
+    send HTTP request :
+        GET /api/v2/check?ipAddress=[ip parameter value]&amp;maxAgeInDays=90 HTTP/1.1
+        Host: api.abuseipdb.com
+        Key: [Authentication token from AbuseIpDb company]
+        Accept: application/json
+    return related HTTP response in JSON format
+    */
+    protected String fetchIpDetailsAsJson(String ip) throws IOException {
+<span class="nc" id="L70">        String response =</span>
+<span class="nc" id="L71">                Request.Get(</span>
+                        baseUrl
+                                + &quot;?ipAddress=&quot;
+                                + ip
+                                + &quot;&amp;maxAgeInDays=90&quot;
+                        )
+<span class="nc" id="L77">                .addHeader(&quot;Key&quot;, apiKey)</span>
+<span class="nc" id="L78">                .addHeader(&quot;Accept&quot;, &quot;application/json&quot;)</span>
+<span class="nc" id="L79">                .execute().returnContent().asString();</span>
+<span class="nc" id="L80">        return response;</span>
+    }
+}
+
+/*
+{&quot;data&quot;:{&quot;ipAddress&quot;:&quot;82.65.137.201&quot;,&quot;isPublic&quot;:true,&quot;ipVersion&quot;:4,&quot;isWhitelisted&quot;:null,&quot;abuseConfidenceScore&quot;:0,&quot;countryCode&quot;:&quot;FR&quot;,&quot;usageType&quot;:&quot;Fixed Line ISP&quot;,&quot;isp&quot;:&quot;Free SAS&quot;,&quot;domain&quot;:&quot;free.fr&quot;,&quot;hostnames&quot;:[&quot;82-65-137-201.subs.proxad.net&quot;],&quot;isTor&quot;:false,&quot;totalReports&quot;:0,&quot;numDistinctUsers&quot;:0,&quot;lastReportedAt&quot;:null}}
+ */
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

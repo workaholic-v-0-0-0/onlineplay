@@ -38,7 +38,24 @@ public class SessionManagement {
                 session.getAttribute("userConnection") == null) {
             session = request.getSession(true);
             UserConnection userConnection = null;
-            String ipAddress = request.getRemoteAddr();
+
+            // Due to Nginx acting as a reverse proxy in front of Tomcat, request.getRemoteAddr()
+            // // returns the localhost address. To obtain the actual client IP address, we use
+            // the X-Real-IP and X-Forwarded-For headers set by Nginx
+            HttpServletRequest httpRequest = (HttpServletRequest) request;
+            String ipAddress = httpRequest.getHeader("X-Real-IP");
+            if (ipAddress == null) {
+                String forwarded = httpRequest.getHeader("X-Forwarded-For");
+                if (forwarded != null) {
+                    // Takes the first IP address from the X-Forwarded-For header in case the request
+                    // passed through multiple proxies.
+                    ipAddress = forwarded.split(",")[0];
+                }
+            }
+            if (ipAddress == null) {
+                ipAddress = request.getRemoteAddr();
+            }
+
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             try {
                 userConnection = userManager.logUserConnection(ipAddress, timestamp);

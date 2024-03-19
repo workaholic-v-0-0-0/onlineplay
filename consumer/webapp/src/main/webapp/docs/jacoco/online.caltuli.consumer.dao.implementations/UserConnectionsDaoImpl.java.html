@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserConnectionsDaoImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">consumer</a> &gt; <a href="index.source.html" class="el_package">online.caltuli.consumer.dao.implementations</a> &gt; <span class="el_source">UserConnectionsDaoImpl.java</span></div><h1>UserConnectionsDaoImpl.java</h1><pre class="source lang-java linenums">package online.caltuli.consumer.dao.implementations;
+
+import online.caltuli.consumer.api.abuseipdb.IpValidator;
+import online.caltuli.consumer.api.abuseipdb.exception.AbuseIpDbException;
+import online.caltuli.consumer.dao.DaoFactory;
+import online.caltuli.consumer.dao.interfaces.UserConnectionsDao;
+import online.caltuli.consumer.dao.exceptions.DaoException;
+
+import online.caltuli.model.UserConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.sql.*;
+
+public class UserConnectionsDaoImpl implements UserConnectionsDao {
+
+    private final DaoFactory daoFactory;
+
+<span class="nc" id="L19">    private static Logger logger = LogManager.getLogger(UserConnectionsDaoImpl.class); // to debug</span>
+
+<span class="nc" id="L21">    public UserConnectionsDaoImpl(DaoFactory daoFactory) {</span>
+<span class="nc" id="L22">        this.daoFactory = daoFactory;</span>
+<span class="nc" id="L23">    }</span>
+
+    // add a record in connections table ; return primary key
+    public int addUserConnection(String ipAddress, Timestamp timestamp) throws DaoException {
+<span class="nc" id="L27">        Connection connection = null;</span>
+<span class="nc" id="L28">        PreparedStatement preparedStatement = null;</span>
+<span class="nc" id="L29">        int generatedId = 0;</span>
+        try {
+<span class="nc" id="L31">            connection = daoFactory.getConnection();</span>
+<span class="nc" id="L32">            preparedStatement = connection.prepareStatement(</span>
+                    &quot;INSERT INTO connections (ip_address, timestamp, user_id, is_allowed) VALUES (?, ?, ?, ?);&quot;,
+                    Statement.RETURN_GENERATED_KEYS);
+<span class="nc" id="L35">            preparedStatement.setString(1, ipAddress);</span>
+<span class="nc" id="L36">            preparedStatement.setTimestamp(2, timestamp);</span>
+<span class="nc" id="L37">            preparedStatement.setNull(3, java.sql.Types.INTEGER);</span>
+            try {
+<span class="nc bnc" id="L39" title="All 2 branches missed.">                preparedStatement.setInt(4, IpValidator.isAllowedIp(ipAddress) ? 1 : 0);</span>
+<span class="nc" id="L40">            } catch (AbuseIpDbException e) {</span>
+                // if the check can't be done by AbuseIpDb API, make it allowed
+<span class="nc" id="L42">                preparedStatement.setNull(4, java.sql.Types.INTEGER);</span>
+<span class="nc" id="L43">            }</span>
+
+            // fetch id
+<span class="nc" id="L46">            int affectedRows = preparedStatement.executeUpdate();</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">            if (affectedRows &gt; 0) {</span>
+<span class="nc" id="L48">                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">                    if (generatedKeys.next()) {</span>
+<span class="nc" id="L50">                        generatedId = generatedKeys.getInt(1);</span>
+                    }
+                }
+            }
+
+<span class="nc" id="L55">            connection.commit();</span>
+<span class="nc" id="L56">        } catch (SQLException e) {</span>
+            try {
+<span class="nc bnc" id="L58" title="All 2 branches missed.">                if (connection != null) {</span>
+<span class="nc" id="L59">                    connection.rollback();</span>
+                }
+<span class="nc" id="L61">            } catch (SQLException e2) {</span>
+
+<span class="nc" id="L63">            }</span>
+<span class="nc" id="L64">            throw new DaoException(&quot;Database communication is impossible.&quot;);</span>
+            // Handle or rethrow the exception as needed
+        } finally {
+            try {
+<span class="nc bnc" id="L68" title="All 2 branches missed.">                if (connection != null) {</span>
+<span class="nc" id="L69">                    connection.close();</span>
+                }
+<span class="nc" id="L71">            } catch (SQLException e) {</span>
+<span class="nc" id="L72">                throw new DaoException(&quot;Database communication is impossible.&quot;);</span>
+<span class="nc" id="L73">            }</span>
+        }
+<span class="nc" id="L75">        return generatedId;</span>
+    }
+
+    public UserConnection getUserConnectionByUserId(int id) throws DaoException {
+<span class="nc" id="L79">        UserConnection userConnection = null;</span>
+<span class="nc" id="L80">        String sql = &quot;SELECT id, ip_address, timestamp, user_id, is_allowed FROM connections WHERE id = ?&quot;;</span>
+<span class="nc" id="L81">        int userId = 0;</span>
+<span class="nc" id="L82">        try (Connection connection = daoFactory.getConnection();</span>
+<span class="nc" id="L83">             PreparedStatement statement = connection.prepareStatement(sql)) {</span>
+
+<span class="nc" id="L85">            statement.setInt(1, id);</span>
+<span class="nc" id="L86">            ResultSet resultSet = statement.executeQuery();</span>
+
+<span class="nc bnc" id="L88" title="All 2 branches missed.">            if (resultSet.next()) {</span>
+<span class="nc" id="L89">                userConnection = new UserConnection();</span>
+<span class="nc" id="L90">                userConnection.setId(resultSet.getInt(&quot;id&quot;));</span>
+<span class="nc" id="L91">                userConnection.setIpAddress(resultSet.getString(&quot;ip_address&quot;));</span>
+<span class="nc" id="L92">                userConnection.setTimestamp(resultSet.getTimestamp(&quot;timestamp&quot;));</span>
+                //userConnection.setUserId(resultSet.getInt(&quot;user_id&quot;));
+<span class="nc" id="L94">                userId = resultSet.getInt(&quot;user_id&quot;);</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">                if (resultSet.wasNull()) {</span>
+<span class="nc" id="L96">                    userId = -1;</span>
+                }
+<span class="nc" id="L98">                userConnection.setUserId(userId);</span>
+<span class="nc" id="L99">                Integer isAllowedInt = resultSet.getInt(&quot;is_allowed&quot;);</span>
+<span class="nc bnc" id="L100" title="All 4 branches missed.">                userConnection.setIsAllowed((isAllowedInt == null) ? null : isAllowedInt == 0 ? false : true);</span>
+<span class="nc" id="L101">                return userConnection;</span>
+            } else {
+<span class="nc" id="L103">                throw new DaoException(&quot;No connection found with ID &quot; + id);</span>
+            }
+
+<span class="nc" id="L106">        } catch (SQLException e) {</span>
+<span class="nc" id="L107">            throw new DaoException(&quot;Error fetching connection with ID &quot; + id + &quot;: &quot; + e.getMessage());</span>
+        }
+    }
+
+    public void updateUserConnection(UserConnection userConnection) throws DaoException {
+<span class="nc" id="L112">        String sql = &quot;UPDATE connections SET ip_address = ?, timestamp = ?, user_id = ? WHERE id = ?;&quot;;</span>
+<span class="nc" id="L113">        try (Connection connection = daoFactory.getConnection();</span>
+<span class="nc" id="L114">             PreparedStatement statement = connection.prepareStatement(sql)) {</span>
+<span class="nc" id="L115">            statement.setString(1, userConnection.getIpAddress());</span>
+<span class="nc" id="L116">            statement.setTimestamp(2, userConnection.getTimestamp());</span>
+<span class="nc" id="L117">            statement.setInt(3, userConnection.getUserId());</span>
+<span class="nc" id="L118">            statement.setInt(4, userConnection.getId());</span>
+<span class="nc" id="L119">            statement.executeUpdate();</span>
+<span class="nc" id="L120">            connection.commit();</span>
+<span class="nc" id="L121">        } catch (SQLException e) {</span>
+<span class="nc" id="L122">            throw new DaoException(e.getMessage());</span>
+<span class="nc" id="L123">        }</span>
+            /*
+        } catch (SQLException e) {
+            throw new DaoException(&quot;Not able to update connection &quot; + userConnection.getId());
+        }
+
+             */
+<span class="nc" id="L130">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UsersDaoImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">consumer</a> &gt; <a href="index.source.html" class="el_package">online.caltuli.consumer.dao.implementations</a> &gt; <span class="el_source">UsersDaoImpl.java</span></div><h1>UsersDaoImpl.java</h1><pre class="source lang-java linenums">package online.caltuli.consumer.dao.implementations;
+
+import online.caltuli.consumer.dao.DaoFactory;
+import online.caltuli.consumer.dao.exceptions.UserDataAccessException;
+import online.caltuli.consumer.dao.interfaces.UsersDao;
+import online.caltuli.consumer.dao.exceptions.DaoException;
+
+import online.caltuli.model.User;
+import online.caltuli.model.exceptions.user.*;
+import online.caltuli.model.UserConnection;
+import online.caltuli.model.exceptions.user.UserException;
+
+import java.sql.*;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class UsersDaoImpl implements UsersDao {
+
+    private final DaoFactory daoFactory;
+
+<span class="nc" id="L22">    private Logger logger = LogManager.getLogger(UsersDaoImpl.class);</span>
+
+<span class="nc" id="L24">    public UsersDaoImpl(DaoFactory daoFactory) {</span>
+<span class="nc" id="L25">        this.daoFactory = daoFactory;</span>
+<span class="nc" id="L26">    }</span>
+
+    // add a record in users table ; return primary key
+    public User addUser(String username, String passwordHash, String email, String message) throws DaoException, UserException {
+
+<span class="nc" id="L31">        User user = null;</span>
+
+        try {
+<span class="nc" id="L34">            user = new User(username, passwordHash, email, message);</span>
+<span class="nc" id="L35">        } catch (UserException e) {</span>
+<span class="nc" id="L36">            logger.info(&quot;Failed to create user due to validation rule violation.&quot; + e.getMessage());</span>
+<span class="nc" id="L37">            throw e;</span>
+<span class="nc" id="L38">        }</span>
+
+<span class="nc" id="L40">        Connection connection = null;</span>
+<span class="nc" id="L41">        PreparedStatement preparedStatement = null;</span>
+<span class="nc" id="L42">        int generatedId = -1;</span>
+        try {
+<span class="nc" id="L44">            connection = daoFactory.getConnection();</span>
+<span class="nc" id="L45">            preparedStatement = connection.prepareStatement(</span>
+                    &quot;INSERT INTO users (username, password_hash, email, message) VALUES (?, ?, ?, ?);&quot;,
+                    Statement.RETURN_GENERATED_KEYS
+            );
+<span class="nc" id="L49">            preparedStatement.setString(1, username);</span>
+<span class="nc" id="L50">            preparedStatement.setString(2, passwordHash);</span>
+<span class="nc" id="L51">            preparedStatement.setString(3, email);</span>
+<span class="nc" id="L52">            preparedStatement.setString(4, message);</span>
+
+            // fetch user id
+<span class="nc" id="L55">            int affectedRows = preparedStatement.executeUpdate();</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">            if (affectedRows &gt; 0) {</span>
+<span class="nc" id="L57">                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">                    if (generatedKeys.next()) {</span>
+<span class="nc" id="L59">                        generatedId = generatedKeys.getInt(1);</span>
+                    }
+                }
+            }
+
+<span class="nc" id="L64">            connection.commit();</span>
+<span class="nc" id="L65">        } catch (SQLException e) {</span>
+            try {
+<span class="nc bnc" id="L67" title="All 2 branches missed.">                if (connection != null) {</span>
+<span class="nc" id="L68">                    connection.rollback();</span>
+                }
+<span class="nc" id="L70">            } catch (SQLException e2) {</span>
+                // WARNING : users table might contain a partial registration
+                // users table have to be cleaned ;
+                // this warning has to be logged
+                // TO DO
+<span class="nc" id="L75">            }</span>
+<span class="nc" id="L76">            throw new UserDataAccessException(&quot;Failed to add user due to database error.&quot;);</span>
+
+        } finally {
+            try {
+<span class="nc bnc" id="L80" title="All 2 branches missed.">                if (connection != null) {</span>
+<span class="nc" id="L81">                    connection.close();</span>
+                }
+<span class="nc" id="L83">            } catch (SQLException e) {</span>
+<span class="nc" id="L84">                throw new DaoException(&quot;Failed to close connection with database.&quot;);</span>
+<span class="nc" id="L85">            }</span>
+        }
+<span class="nc" id="L87">        return user;</span>
+    }
+
+    public User getUserById(int id) throws DaoException {
+<span class="nc" id="L91">        UserConnection userConnection = null;</span>
+<span class="nc" id="L92">        String sql = &quot;SELECT id, username, password_hash, email, message FROM users WHERE id = ?&quot;;</span>
+<span class="nc" id="L93">        try (Connection connection = daoFactory.getConnection();</span>
+<span class="nc" id="L94">             PreparedStatement statement = connection.prepareStatement(sql)) {</span>
+
+<span class="nc" id="L96">            statement.setInt(1, id);</span>
+<span class="nc" id="L97">            ResultSet resultSet = statement.executeQuery();</span>
+
+<span class="nc bnc" id="L99" title="All 2 branches missed.">            if (resultSet.next()) {</span>
+<span class="nc" id="L100">                User user = new User();</span>
+                try {
+<span class="nc" id="L102">                    user.setId(resultSet.getInt(&quot;id&quot;));</span>
+<span class="nc" id="L103">                    user.setUsername(resultSet.getString(&quot;username&quot;));</span>
+<span class="nc" id="L104">                    user.setPasswordHash(resultSet.getString(&quot;password_hash&quot;));</span>
+<span class="nc" id="L105">                    user.setEmail(resultSet.getString(&quot;email&quot;));</span>
+<span class="nc" id="L106">                    user.setMessage(resultSet.getString(&quot;message&quot;));</span>
+<span class="nc" id="L107">                } catch (UserException e) {</span>
+
+<span class="nc" id="L109">                }</span>
+<span class="nc" id="L110">                return user;</span>
+            } else {
+<span class="nc" id="L112">                throw new DaoException(&quot;No user found with ID &quot; + id);</span>
+            }
+
+<span class="nc" id="L115">        } catch (SQLException e) {</span>
+<span class="nc" id="L116">            throw new DaoException(&quot;Error fetching user with ID &quot; + id + &quot;: &quot; + e.getMessage());</span>
+        }
+    }
+
+    public void update(User user) throws DaoException {
+<span class="nc" id="L121">        String sql = &quot;UPDATE users SET username = ?, password_hash = ?, email = ?, message = ? WHERE id = ?;&quot;;</span>
+<span class="nc" id="L122">        try (Connection connection = daoFactory.getConnection();</span>
+<span class="nc" id="L123">             PreparedStatement statement = connection.prepareStatement(sql)) {</span>
+<span class="nc" id="L124">            statement.setString(1, user.getUsername());</span>
+<span class="nc" id="L125">            statement.setString(2, user.getPasswordHash());</span>
+<span class="nc" id="L126">            statement.setString(3, user.getEmail());</span>
+<span class="nc" id="L127">            statement.setString(4, user.getMessage());</span>
+<span class="nc" id="L128">            statement.setInt(5, user.getId());</span>
+<span class="nc" id="L129">            statement.executeQuery();</span>
+<span class="nc" id="L130">        } catch (SQLException e) {</span>
+<span class="nc" id="L131">            throw new DaoException(&quot;Not able to update user &quot; + user.getId());</span>
+<span class="nc" id="L132">        }</span>
+<span class="nc" id="L133">    }</span>
+
+    /*
+     * Returns a User instance for the username provided; propagates UserException
+     * thrown by User's constructor if a mutator detects an invalid value for its
+     * attribute. Therefore, it should only throw UserException instances that are
+     * actually instances of InvalidUserNameException, assuming the user information
+     * table in the database only contains valid data. Raises a DaoException if it
+     * catches a SQLException during database communication.
+     */
+    public User getUserByUsername(String username) throws DaoException, UserException {
+<span class="nc" id="L144">        User user = null;</span>
+<span class="nc" id="L145">        String sql = &quot;SELECT * FROM users WHERE username = ?;&quot;;</span>
+<span class="nc" id="L146">        try (Connection connection = daoFactory.getConnection();</span>
+<span class="nc" id="L147">             PreparedStatement statement = connection.prepareStatement(sql)) {</span>
+<span class="nc" id="L148">            statement.setString(1, username);</span>
+<span class="nc" id="L149">            statement.executeQuery();</span>
+<span class="nc" id="L150">            ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">            if (resultSet.next()) {</span>
+<span class="nc" id="L152">                user = new User();</span>
+                try {
+<span class="nc" id="L154">                    user.setId(resultSet.getInt(&quot;id&quot;));</span>
+<span class="nc" id="L155">                    user.setUsername(resultSet.getString(&quot;username&quot;));</span>
+<span class="nc" id="L156">                    user.setPasswordHash(resultSet.getString(&quot;password_hash&quot;));</span>
+<span class="nc" id="L157">                    user.setEmail(resultSet.getString(&quot;email&quot;));</span>
+<span class="nc" id="L158">                    user.setMessage(resultSet.getString(&quot;message&quot;));</span>
+<span class="nc" id="L159">                } catch (UserException e) {</span>
+<span class="nc" id="L160">                    logger.info(</span>
+                            &quot;getUserByUsername(&quot;
+                            + username
+                            + &quot;) handle UserException with message &quot;
+<span class="nc" id="L164">                            + e.getMessage()</span>
+                    );
+<span class="nc" id="L166">                    throw e;</span>
+<span class="nc" id="L167">                }</span>
+            }
+<span class="nc" id="L169">            return user;</span>
+
+<span class="nc" id="L171">        } catch (SQLException e) {</span>
+<span class="nc" id="L172">            logger.info(&quot;Error fetching user with username &quot; + username + &quot;: &quot; + e.getMessage());</span>
+<span class="nc" id="L173">            throw new DaoException(&quot;Error fetching user with username &quot; + username + &quot;: &quot; + e.getMessage());</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

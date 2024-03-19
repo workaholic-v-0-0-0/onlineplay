@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IpValidator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">consumer</a> &gt; <a href="index.source.html" class="el_package">online.caltuli.consumer.api.abuseipdb</a> &gt; <span class="el_source">IpValidator.java</span></div><h1>IpValidator.java</h1><pre class="source lang-java linenums">package online.caltuli.consumer.api.abuseipdb;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import online.caltuli.consumer.api.abuseipdb.exception.AbuseIpDbException;
+import online.caltuli.consumer.api.abuseipdb.exception.ConfigurationLoadException;
+import online.caltuli.consumer.api.abuseipdb.exception.JsonDoesNotDescribeIpDetailsException;
+
+import java.util.Map;
+import java.io.IOException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+// check if an IP is allowed to use the web application using AbuseIpDbClient class
+<span class="nc" id="L18">public class IpValidator {</span>
+
+    /*
+    While constructor-based Dependency Injection could have simplified testing,
+    the decision was made against its use in favor of understanding testing
+    strategies for Singleton patterns and static classes. Consequently,
+    this class lacks a constructor like:
+    public IpValidator(IAbuseIpDbClient abuseIpDbClient) {
+        this.abuseIpDbClient = abuseIpDbClient;
+    }
+    to explore alternative testing methodologies in IpValidatorTest.
+    */
+
+    public static boolean isAllowedIp(String ip) throws AbuseIpDbException {
+<span class="fc" id="L32">        Map&lt;String, Object&gt; ipDetails = null;</span>
+<span class="fc" id="L33">        boolean isAllowedIp = false;</span>
+<span class="fc" id="L34">        Object isWhitelistedObj = null;</span>
+<span class="fc" id="L35">        boolean isWhitelisted = true;</span>
+<span class="fc" id="L36">        Logger logger = LogManager.getLogger(IpValidator.class);</span>
+        try {
+<span class="fc" id="L38">            ipDetails = getIpDetailsFromJson(ip);</span>
+<span class="fc" id="L39">            isWhitelistedObj = ipDetails.get(&quot;isWhitelisted&quot;);</span>
+<span class="pc bpc" id="L40" title="1 of 4 branches missed.">            isWhitelisted = isWhitelistedObj instanceof Boolean &amp;&amp; (Boolean) isWhitelistedObj;</span>
+<span class="pc bpc" id="L41" title="1 of 6 branches missed.">            isAllowedIp = ((((int) ipDetails.get(&quot;abuseConfidenceScore&quot;)) == 0)</span>
+                    &amp;&amp; (isWhitelistedObj == null || isWhitelisted)
+<span class="fc bfc" id="L43" title="All 2 branches covered.">                    &amp;&amp; ((&quot;FR&quot;.equals(ipDetails.get(&quot;countryCode&quot;).toString())))</span>
+            ///* // to debug (to check the access is denied)
+                    ||
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">                    (ip.equals(&quot;127.0.0.1&quot;))</span>
+                    ||
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">                    (ip.startsWith(&quot;192.168&quot;))</span>
+                    //*/
+            );
+<span class="fc" id="L51">        } catch (JsonParseException e) {</span>
+<span class="fc" id="L52">            logger.info(&quot;While analysing &quot; + ip + &quot; - Error parsing JSON response: &quot; + e.getMessage());</span>
+<span class="fc" id="L53">            throw new AbuseIpDbException(&quot;Error parsing JSON response: &quot; + e.getMessage());</span>
+<span class="fc" id="L54">        } catch (JsonProcessingException e) {</span>
+<span class="fc" id="L55">            logger.info(&quot;While analysing &quot; + ip + &quot; - Error processing JSON response: &quot; + e.getMessage());</span>
+<span class="fc" id="L56">            throw new AbuseIpDbException(&quot;Error processing JSON response: &quot; + e.getMessage());</span>
+<span class="fc" id="L57">        } catch (IOException e) {</span>
+<span class="fc" id="L58">            logger.info(&quot;While analysing &quot; + ip + &quot; - Network error while fetching IP details as Json string: &quot; + e.getMessage());</span>
+<span class="fc" id="L59">            throw new AbuseIpDbException(&quot;Network error while fetching IP details as Json string: &quot; + e.getMessage());</span>
+<span class="fc" id="L60">        } catch (JsonDoesNotDescribeIpDetailsException e) {</span>
+<span class="fc" id="L61">            logger.info(&quot;While analysing &quot; + ip + &quot; :&quot; + e.getMessage());</span>
+<span class="fc" id="L62">            throw new AbuseIpDbException(e.getMessage());</span>
+<span class="fc" id="L63">        }</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (!isAllowedIp) {</span>
+<span class="fc" id="L65">            logger.info(&quot;Forbidden IP &quot;</span>
+                    + ip
+                    + &quot; (&quot;
+                    + &quot;abuseConfidenceScore: &quot;
+<span class="fc" id="L69">                    + ipDetails.get(&quot;abuseConfidenceScore&quot;)</span>
+                    + &quot;, &quot;
+                    + &quot;isWhitelisted: &quot;
+<span class="fc" id="L72">                    + ipDetails.get(&quot;isWhitelisted&quot;)</span>
+                    + &quot;, &quot;
+                    + &quot;countryCode: &quot;
+<span class="fc" id="L75">                    + ipDetails.get(&quot;countryCode&quot;)</span>
+                    + &quot;)&quot;
+            );
+        }
+<span class="fc" id="L79">        return isAllowedIp;</span>
+    }
+
+    protected static Map&lt;String, Object&gt; getIpDetailsFromJson(String ip)
+            throws IOException, JsonDoesNotDescribeIpDetailsException, ConfigurationLoadException {
+<span class="fc" id="L84">        Map&lt;String, Object&gt; responseMap = jsonToMap(</span>
+<span class="fc" id="L85">                AbuseIpDbClient.getInstance().fetchIpDetailsAsJson(ip));</span>
+<span class="fc" id="L86">        Object ipDetailsObj = responseMap.get(&quot;data&quot;);</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (!(ipDetailsObj instanceof Map&lt;?, ?&gt;)) {</span>
+<span class="fc" id="L88">            throw new JsonDoesNotDescribeIpDetailsException(</span>
+                    &quot;\&quot;data\&quot; is missing or its value can't be interpreted as map&quot;
+            );
+        }
+<span class="fc" id="L92">        return (Map&lt;String, Object&gt;) ipDetailsObj;</span>
+    }
+
+    protected static Map&lt;String, Object&gt; jsonToMap(String json) throws JsonProcessingException {
+<span class="fc" id="L96">        ObjectMapper mapper = new ObjectMapper();</span>
+<span class="fc" id="L97">        return mapper.readValue(json, new TypeReference&lt;Map&lt;String, Object&gt;&gt;() {});</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
