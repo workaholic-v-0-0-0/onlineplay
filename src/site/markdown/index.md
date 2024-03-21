@@ -1,5 +1,7 @@
 # Présentation générale du projet
 
+## Étude et expérimentation d'un framework pour la réalisation collaborative d'une application web
+
 L'objectif central de ce projet est de fournir une expérience d'apprentissage
 pratique et complète sur les outils et méthodes essentiels dans le développement
 collaboratif d'applications web. Il couvre l'intégralité du cycle de
@@ -19,7 +21,7 @@ concepts, les dotant ainsi de compétences directement transférables et valoris
 dans le milieu professionnel, et renforçant par conséquent leur profil auprès
 des recruteurs.
 
-## Étude et expérimentation d'un framework pour la réalisation collaborative d'une application web
+## Spécification Jakarta EE
 
 Pour ce projet, nous avons choisi de nous appuyer sur la spécification Jakarta
 EE, l'évolution de Java EE, qui représente le pilier des applications
@@ -54,140 +56,167 @@ données MySQL tout en respectant MVC et DAO", nous apprendrons à utiliser la
 spécification Jakarta EE tout en étudiant le cours "Développez des sites web avec
 Java EE" sur openclassrooms.com.
 
-## Spécification Jakarta EE
-
-Pour ce projet, nous avons choisi de nous appuyer sur la spécification Jakarta
-EE, l'évolution de Java EE, qui représente le pilier des applications
-d'entreprise modernes en Java. Une spécification est un ensemble de directives
-et de normes qui définissent comment une technologie doit être utilisée et mise
-en oeuvre, garantissant la standardisation et la compatibilité entre différents
-développements.
-
-Jakarta EE est une spécification riche et étendue, conçue pour fournir un cadre
-robuste pour le développement d'applications d'entreprise. Elle englobe une
-variété de technologies et de composants essentiels pour construire des
-applications web et d'entreprise évolutives et performantes, avec les servlets
-et les JavaServer Pages (JSP) comme éléments centraux.
-
-Dans notre projet, l'adoption de Jakarta EE nous permettra de tirer parti de ses
-nombreuses fonctionnalités pour développer une application web Puissance 4,
-mettant un accent particulier sur la modularité, la sécurité, et la performance.
-
-Nous explorerons l'utilisation de Jakarta EE en étudiant le cours "Développez
-des sites web avec Java EE" sur openclassrooms.com, permettant ainsi d'acquérir
-une compétence valorisée dans le milieu professionnel.
-
 ## Utilisation du logiciel de gestion de développement de projets logiciels Apache Maven
 
-Apache Maven jouera un rôle central dans notre projet, grâce à sa capacité à
-standardiser et gérer des structures de projets complexes. Son approche de la
-gestion des dépendances et de la standardisation des processus de construction
-est hautement appréciée dans le secteur professionnel.
+Apache Maven, un outil essentiel en gestion de projets logiciels, sera au cœur
+de notre projet. Sa portée va bien au-delà de la simple automatisation de la
+construction de logiciels. En effet, Maven est réputé dans de nombreux milieux
+professionnels pour sa capacité à standardiser et gérer des structures de
+projets complexes. Sa compétence dans la gestion des dépendances et la
+standardisation des processus de construction est hautement valorisée par les
+recruteurs, fournissant ainsi aux participants une compétence directement
+transférable dans le monde professionnel.
 
-Maven structure les projets de manière claire et ordonnée, favorisant les bonnes
-pratiques de développement et assurant la cohérence et la maintenabilité du
-code. Il facilite également l'intégration continue et la livraison continue,
-automatisant les tests et le déploiement pour minimiser les erreurs humaines.
+Maven se distingue par sa capacité à structurer un projet de manière claire et
+ordonnée, inculquant les bonnes pratiques de développement. Cette structuration
+naturelle selon des conventions éprouvées est cruciale pour assurer la cohérence
+et la maintenabilité du code, particulièrement dans les grands projets ou les
+environnements collaboratifs.
 
-Une caractéristique notable de Maven est sa capacité à générer un site de
-documentation automatique et des rapports détaillés sur la qualité du code, ce
-qui améliore la compréhension du projet et encourage le maintien d'un code de
-haute qualité.
+En outre, Maven excelle dans la facilitation de l'intégration continue et de la
+livraison continue, essentielles à un développement logiciel moderne et efficace.
+Ces processus automatisent les tests et le déploiement, garantissant une qualité
+constante et minimisant les erreurs humaines lors des cycles de release.
 
-L'utilisation d'Apache Maven équipera les participants d'une compétence prisée
-par les employeurs, tout en fournissant les outils nécessaires pour gérer
-efficacement des projets logiciels. Nous apprendrons à utiliser Maven à travers
-le cours "Organisez et packagez une application Java avec Apache Maven" sur
-openclassrooms.com.
+Une fonctionnalité remarquable de Maven est sa capacité à générer un site de
+documentation automatique pour le projet, ainsi que des rapports détaillés sur la
+qualité du code. Ces rapports peuvent inclure des analyses de couverture de tests,
+des contrôles de style de codage et d'autres indicateurs de qualité, améliorant la
+compréhension du projet et encourageant le maintien d'un code de haute qualité.
+
+L'adoption d'Apache Maven dans ce projet équipe les participants d'une compétence
+prisée, augmentant leur attractivité auprès des employeurs potentiels et leur
+fournissant les outils nécessaires pour gérer efficacement des projets logiciels.
+
+Dans l'annexe C : "Étude du cours 'Organiser et packager une application Java avec
+Apache Maven' de Loïc Guibert sur openclassrooms.com", nous apprendrons à utiliser
+Apache Maven tout en étudiant le cours "Organisez et packagez une application Java
+avec Apache Maven" sur openclassrooms.com.
 
 ## Conception
 
 ### Architecture multi-tiers
 
 L'architecture de notre application sera structurée selon un modèle multi-tiers,
-divisant l'application en trois niveaux d'abstraction distincts : la
-présentation, la logique métier, et la persistance des données. Cette approche
-garantit une séparation nette des responsabilités et facilite la maintenance du
-code.
+divisant l'application en trois niveaux d'abstraction distincts : la présentation,
+la logique métier, et la persistance des données. Chacune de ces couches est
+conçue pour opérer de manière autonome tout en interagissant efficacement avec les
+autres, ce qui garantit une séparation nette des responsabilités et facilite la
+maintenance du code.
 
-Nous utiliserons Maven pour créer cinq modules distincts : batch, webapp,
-business, consumer, et model. Ces modules correspondent aux trois niveaux
-d'abstraction, avec tous les modules partageant le module model, qui gère les
-objets concrets de l'application.
+Pour concrétiser cette architecture, nous utiliserons Maven pour créer cinq
+modules distincts : batch, webapp, business, consumer, et model. Ces modules
+représentent trois niveaux d'abstraction, partageant tous le module model, ce
+dernier module gérant les objets les plus concrets de l'application, dénués
+d'analyse et de logique métier. Ces objets, basiques et essentiels, peuvent être
+manipulés à travers les trois niveaux d'abstraction suivant :
 
-- **Couche de persistance (consumer)**: Cette couche gère le stockage et la
-  récupération des données, permettant d'économiser la mémoire et de sauvegarder
-  les informations importantes.
+- Couche de persistance (consumer) :
+  Contenant le module consumer, cette couche est responsable de l'interaction
+  avec les bases de données, gérant le stockage et la récupération des données
+  essentielles à l'application. Cette gestion de données permet d'économiser la
+  mémoire et de sauvegarder les informations importantes en cas d'arrêt inattendu
+  du serveur.
 
-- **Couche métier (business)**: Chargée de la logique métier de l'application,
-  cette couche utilise les services de la couche de persistance pour déterminer
-  la légalité des coups dans une partie de Puissance 4.
+- Couche métier (business) :
+  Utilisant les services de la couche de persistance, le module business au sein
+  de cette couche est chargé de toute la logique métier de l'application. Par
+  exemple, il détermine la légalité d'un coup dans une partie de Puissance 4.
 
-- **Couche de présentation (batch et webapp)**: Contenant les modules batch et
-  webapp, cette couche offre une interface utilisateur interactive et un
-  simulateur d'utilisateur qui exécute un programme automatisé pour simuler une
-  partie contre l'IA, utilisant l'algorithme min-max.
+- Couche de présentation (batch et webapp) :
+  Cette couche contient les modules batch et webapp, qui exploitent les services
+  de la couche métier. Le module webapp est conçu pour offrir une interface
+  utilisateur interactive et attrayante, facilitant l'engagement des utilisateurs
+  humains avec l'application. En parallèle, le module batch joue un rôle différent
+  : il exécute un programme automatisé qui simule un utilisateur virtuel de
+  l'application web. Ce programme, une fois qu'il termine une partie dans l'arène,
+  en lance immédiatement une nouvelle, restant ainsi constamment actif pour
+  proposer des parties aux utilisateurs réels. Pour prendre ses décisions de jeu,
+  ce simulateur d'utilisateur fait appel au sous-package business.ai, exploitant
+  ainsi l'algorithme d'intelligence artificielle min-max développé dans le cadre
+  d'un autre projet stocké dans le répertoire LegacyMVC_Codebase dont on va
+  ré-utiliser le code source comme expliqué dans la section "Réutilisation de code
+  source". Cette approche offre une expérience interactive continue aux
+  utilisateurs, leur permettant d'affronter une IA sophistiquée à tout moment.
 
-Cette structure modulaire assure une organisation claire du projet, facilitant
-le développement et la maintenance. Chaque module a un rôle défini et interagit
-avec les autres de manière cohérente, reflétant la puissance et la flexibilité
-de l'architecture multi-tiers.
+En adoptant cette structure modulaire avec Maven, nous assurons une organisation
+claire du projet, facilitant à la fois le développement et la maintenance. Chaque
+module a un rôle défini et interagit avec les autres de manière cohérente,
+reflétant la puissance et la flexibilité de l'architecture multi-tiers.
 
-Nous apprendrons à utiliser Apache Maven pour construire un projet multi-module
-respectant cette architecture en étudiant le cours "Organisez et packagez une
-application Java avec Apache Maven" sur openclassrooms.com.
+Dans l'annexe C : "Étude du cours 'Organiser et packager une application Java avec
+Apache Maven' de Loïc Guibert sur openclassrooms.com", nous apprendrons à utiliser
+Apache Maven pour construire un projet multi-module respectant l'architecture
+multi-tiers tout en étudiant le cours "Organisez et packagez une application Java
+avec Apache Maven" sur openclassrooms.com.
+
 
 ### Les patrons de conception DAO et Singleton
 
-Les patrons de conception DAO (Data Access Object) seront utilisés pour
-encapsuler la logique d'accès aux données, offrant une abstraction et une
-isolation vis-à-vis de la source de données. Cela facilite une meilleure
-organisation du code et simplifie les modifications et la maintenance des
-opérations de base de données.
+Les patrons de conception DAO (Data Access Object) seront mis en œuvre
+pour encapsuler la logique d'accès aux données, offrant une abstraction
+et une isolation par rapport à la source de données. Cela permet une
+meilleure organisation du code et facilite les modifications et la
+maintenance des opérations de base de données. Dans le package consumer,
+nous créerons une classe DaoFactory qui suivra le pattern Singleton.
+Cette approche garantira qu'une seule instance de DaoFactory sera créée
+et partagée dans toute l'application. L'objectif est de centraliser la
+création des objets DAO, permettant une gestion cohérente et efficace
+des accès aux données, ainsi qu'une réduction de l'overhead lié à la
+création répétée d'instances DAO.
 
-Dans le package consumer, une classe DaoFactory suivant le patron de conception
-Singleton sera créée. Cette méthode garantira qu'une seule instance de DaoFactory
-soit créée et partagée à travers toute l'application, centralisant ainsi la
-création des objets DAO. Ceci permet une gestion cohérente et efficace des accès
-aux données et réduit l'overhead lié à la création répétée d'instances DAO.
-
-Nous approfondirons l'utilisation de ces deux patrons de conception en étudiant
-le cours "Développez des sites web avec Java EE" de Mathieu Nebra sur
-openclassrooms.com. Ce cours couvre le développement d'une application web qui
-propose des services de lecture et d'écriture dans une table d'une base de
-données MySQL tout en respectant les principes MVC et DAO.
+Dans l'annexe B : "Étude du cours 'Développez des sites web avec Java EE'
+de Mathieu Nebra sur openclassrooms.com pour développer une application
+web proposant les services de lecture et d'écriture dans une table
+d'une base de données MySQL tout en respectant MVC et DAO", nous
+apprendrons en particulier à utiliser ces deux patrons de conception
+tout en étudiant le cours "Développez des sites web avec Java EE" sur
+openclassrooms.com.
 
 ### Diagramme de cas d'utilisations et diagrammes UML
 
-Les diagrammes de cas d'utilisation, entités-associations, et de classes joueront
-un rôle crucial dans la conception et la documentation de notre projet. Ils
-aideront à visualiser et à structurer clairement les différents aspects du
-système.
+Le diagramme de cas d'utilisation, le diagramme entités-associations, le diagramme
+de classe et le diagramme de séquence joueront un rôle essentiel dans la conception
+et la documentation de notre projet.
+
+Nous apprendrons à utiliser le diagramme de cas d'utilisation en étudiant le
+[livre "Use Case Modeling" de Kurt Bittner et Ian Spence](https://dokumen.pub/use-case-modeling-0201709139-9780201709131.html)
+téléchargeable depuis [dokumen.pub/qdownload](https://dokumen.pub/qdownload).
+
+Nous apprendrons à utiliser le diagramme entités-associations et le diagramme de
+classe en étudiant le cours "UML 2 - De l'apprentissage à la pratique" sur
+[laurent-audibert.developpez.com](https://laurent-audibert.developpez.com).
+
+Et nous apprendrons à utiliser le diagramme de séquence en étudiant le cours
+n°5 "Diagramme de séquences sur le langage UML" sur
+[remy-manu.no-ip.biz](http://remy-manu.no-ip.biz).
 
 #### Diagramme de cas d'utilisation
 
-Ce diagramme est essentiel pour comprendre l'interaction des utilisateurs avec
-notre système. Il joue un rôle crucial dans la conception de la couche de
-présentation, en illustrant les interactions possibles avec l'application. Cela
-nous offre une vue d'ensemble des fonctionnalités requises et des flux de
-travail, clarifiant ainsi les besoins et les exigences tant de la couche de
-présentation que de la couche métier.
+Ce diagramme est essentiel pour comprendre comment les utilisateurs interagiront
+avec notre système. Il joue un rôle crucial dans la conception de la couche de
+présentation, illustrant les différentes interactions que les utilisateurs
+peuvent avoir avec l'application. Cela inclut la visualisation des
+fonctionnalités requises et des flux de travail, offrant ainsi une vue d'ensemble
+claire des opérations utilisateur et de l'interface utilisateur. Bien que
+principalement axé sur la couche de présentation, ce diagramme aide également à
+informer les besoins et les exigences de la couche métier, car il met en lumière
+les opérations que cette dernière doit soutenir.
 
 #### Diagramme entités associations
 
-Crucial pour la conception du module model et la structure de la base de données,
-ce diagramme nous aide à organiser la base de données en respectant la théorie de
-la normalisation. Il permet d'éviter les redondances et assure une maintenance
-facile, offrant une compréhension claire de l'organisation et de l'interconnexion
-des données.
+Ce diagramme est crucial pour la conception du module model et la structure de
+la base de données de l'application. Il nous permet de structurer la base de
+données en respectant la théorie de la normalisation, en évitant les redondances
+et en assurant une maintenance aisée. Ce diagramme facilite une compréhension
+claire de la manière dont les données sont organisées et interconnectées.
 
 #### Diagramme de classes
 
-Utilisé pour détailler la structure des classes dans le système, ce diagramme
-montre les relations entre elles ainsi que leurs attributs et méthodes. Il est
-clé pour assurer une conception orientée objet cohérente et facilite
-l'implémentation du code.
-
+Ce diagramme est utilisé pour détailler la structure des classes dans le
+système, montrant les relations entre elles, leurs attributs et méthodes. Il
+joue un rôle clé pour assurer une conception orientée objet cohérente et pour
+faciliter l'implémentation du code.
 
 #### Diagramme de séquence
 
@@ -206,9 +235,9 @@ est essentiel pour la conception des fonctionnalités complexes et pour assurer
 une coordination efficace entre les couches de l'application lors de
 l'implémentation du code.
 
-## Application du framework à la collaboration
+### Application du framework à la collaboration
 
-### Collaboration avec les créateurs du framework
+#### Collaboration avec les créateurs du framework
 
 Dans le monde complexe et interconnecté du développement moderne, la création en
 solo est devenue une notion presque obsolète. Même lorsqu'un projet semble être
@@ -224,7 +253,7 @@ l'importance fondamentale de la collaboration dans le domaine du développement 
 logiciels, soulignant que chaque création est, en quelque sorte, un effort
 collectif.
 
-### Rôle de la conception dans la collaboration
+#### Rôle de la conception dans la collaboration
 
 La phase de conception dans le développement de logiciels joue un rôle crucial en
 matière de collaboration, agissant comme la pierre angulaire pour établir et
@@ -246,20 +275,20 @@ risques de malentendus et d'erreurs pendant le développement.
 
 Ces diagrammes, et en particulier le diagramme de cas d'utilisation, jouent un
 rôle crucial non seulement pour la conception technique, mais aussi pour la
-collaboration étendue avec toutes les parties prenantes du projet. Ils garantissent
-que les développeurs, les représentants des utilisateurs, les investisseurs,
-l'équipe marketing, l'équipe de vente, les spécialistes de la publicité, et même
-les juristes impliqués dans les questions de propriété intellectuelle et de
-conformité légale partagent une vision commune du projet.
+collaboration étendue avec toutes les parties prenantes du projet. Ils
+garantissent que les développeurs, les représentants des utilisateurs, les
+investisseurs, l'équipe marketing, l'équipe de vente, les spécialistes de la
+publicité, et même les juristes impliqués dans les questions de propriété
+intellectuelle et de conformité légale partagent une vision commune du projet.
 
 Comme l'explique en détail le livre "Use Case Modeling" de Kurt Bittner et Ian
-Spence téléchargeable depuis dokumen.pub/qdownload, le diagramme de cas d'utilisation
-est particulièrement utile pour cette collaboration étendue. Il présente une vue
-globale et accessible de l'application, en termes compréhensibles pour tous.
-Cela aide les parties prenantes non techniques, telles que les équipes de vente
-et de marketing, à comprendre le produit et à élaborer des stratégies efficaces
-pour sa promotion et sa vente. De plus, il fournit aux investisseurs et aux
-juristes une vision claire de la portée et des fonctionnalités du projet,
+Spence téléchargeable depuis dokumen.pub/qdownload, le diagramme de cas
+d'utilisation est particulièrement utile pour cette collaboration étendue. Il
+présente une vue globale et accessible de l'application, en termes compréhensibles
+pour tous. Cela aide les parties prenantes non techniques, telles que les équipes
+de vente et de marketing, à comprendre le produit et à élaborer des stratégies
+efficaces pour sa promotion et sa vente. De plus, il fournit aux investisseurs et
+aux juristes une vision claire de la portée et des fonctionnalités du projet,
 facilitant les discussions sur le financement, les droits de propriété
 intellectuelle, et la conformité réglementaire.
 
@@ -268,6 +297,7 @@ Elle assure que tous les aspects, des attentes des utilisateurs aux contraintes
 légales, sont pris en compte dès le début du processus de développement. Cela
 minimise les risques de malentendus, d'ajustements tardifs coûteux et de
 non-conformité.
+
 
 ### Rôle de la spécification dans la collaboration
 
@@ -393,26 +423,56 @@ patrons de conception tels que DAO et Singleton dans notre architecture contribu
 
 ## Utilisation du système de gestion de bases de données relationnelles MySQL
 
-Nous intégrerons MySQL, un système de gestion de base de données relationnelle,
-pour le stockage et la gestion des données de notre application.
+Nous avons choisi MySQL, un système de gestion de bases de données relationnelles,
+pour le stockage et la gestion des données de notre application. Cette technologie
+nous permet de structurer les données de manière efficace, en assurant l'intégrité,
+la pérennité et la sécurité des informations traitées.
 
-## Utilisation des environnements de développement Eclipse et IntelliJ
+Dans la section "Création de la base de donnée", nous détaillons le processus de
+création de la base de données onlineplay, ainsi que l'implémentation de quatre
+tables principales : connections, users, games, et moves. Ces tables sont conçues
+pour stocker respectivement les données concernant les connexions (y compris
+celles non authentifiées), les utilisateurs, les parties de jeu, et les mouvements
+effectués pendant les jeux.
 
-Le développement de notre application s'effectuera en utilisant les IDE Eclipse
-et IntelliJ IDEA, qui offrent des fonctionnalités avancées pour la programmation
-et la gestion de projets.
+Un aspect crucial de la conception de notre base de données est l'engagement à
+respecter les principes de la normalisation. La normalisation est une théorie
+fondamentale dans la conception de bases de données relationnelles, visant à
+réduire la redondance des données et à améliorer l'intégrité des données à travers
+une série de règles normalisées ou formes normales. En suivant ces principes, nous
+avons structuré nos tables de manière à éliminer la duplication des informations,
+faciliter la maintenance de la base de données et garantir la cohérence des données.
 
-## Déploiement pour le travail en développement
+Chaque table a été méticuleusement conçue pour suivre les formes normales, avec
+l'objectif de minimiser les dépendances inutiles, faciliter les requêtes, et
+assurer que les mises à jour de la base de données ne conduisent pas à des
+anomalies. Cette approche de la conception garantit non seulement une performance
+optimale de notre système de gestion de base de données mais contribue également à
+une meilleure expérience utilisateur en fournissant des données précises et à jour.
 
-### Utilisation d'une plateforme de déploiement fournie par le serveur d'application Tomcat
+## Utilisation de l'API AbuseIPDB pour la sécurité Web
 
-Notre projet fera appel à Apache Tomcat, un serveur d'applications web léger et
-open-source, qui servira de plateforme de déploiement pour notre application web.
+Pour renforcer la sécurité de notre application web, nous avons intégré l'API
+AbuseIPDB, un outil en ligne qui aide à identifier les adresses IP associées à des
+comportements malveillants. Cette API nous permet de vérifier si une adresse IP
+tentant d'accéder à notre application a été impliquée dans des activités suspectes
+ou nuisibles.
 
-## Utilisation du système de gestion de bases de données relationnelles MySQL
+Nous avons choisi d'intégrer l'API directement dans notre application au lieu de
+l'utiliser via un proxy inversé autour du serveur Tomcat. Cette décision nous a
+permis de gérer plus directement les réponses de l'API et d'ajouter cette
+fonctionnalité comme une expérience d'apprentissage dans la gestion des API tierces.
+Les interactions avec AbuseIPDB sont gérées par le sous-package
+consumer.api.abuseipdb, qui fait partie du package plus large
+consumer.api, dédié à l'exploitation des services proposés par des
+API externes.
 
-Nous intégrerons MySQL, un système de gestion de base de données relationnelle,
-pour le stockage et la gestion des données de notre application.
+Bien qu'intégrer l'API AbuseIPDB directement dans l'application ait des avantages
+éducatifs, en rétrospective, placer cette fonctionnalité derrière un proxy inversé
+aurait pu offrir une séparation plus claire entre les préoccupations de sécurité et
+les fonctionnalités de l'application. Cela aurait également permis une
+centralisation de la journalisation des incidents de sécurité, séparée des journaux
+standards de l'application web.
 
 ## Utilisation des environnements de développement Eclipse et IntelliJ
 
@@ -428,6 +488,10 @@ Notre projet fera appel à Apache Tomcat, un serveur d'applications web léger e
 open-source, qui servira de plateforme de déploiement pour notre application web.
 
 ## Déploiement pour le travail en production
+
+Le déploiement de l'application web par un serveur Tomcat hébergé sur un droplet
+fournie par le service d'hébergement de machine virtuelle Digital Ocean est décrit
+en détail dans la section "Déploiement sur un droplet de Digital Ocean".
 
 ### Utilisation du service d'hébergement de machine virtuelle DigitalOcean
 
@@ -454,7 +518,59 @@ résoudre rapidement les problèmes et partager les meilleures pratiques.
 
 ### Utilisation du registraire de domaine Namecheap
 
-[TO DO]
+Pour la gestion de notre nom de domaine, nous avons opté pour Namecheap, un
+registraire de domaine réputé pour sa facilité d'utilisation, ses prix compétitifs,
+et son support client de qualité. Namecheap offre une large gamme de services en
+plus de l'enregistrement de domaines, incluant l'hébergement web, la sécurité par
+SSL, et les services de messagerie professionnelle, ce qui en fait une solution
+complète pour les besoins en ligne de notre projet.
+
+Un aspect crucial de l'utilisation de Namecheap est sa facilité de gestion des
+enregistrements DNS, ce qui permet de diriger facilement le trafic de notre nom de
+domaine vers notre application hébergée sur DigitalOcean. C'est l'objet de la
+section "Configuration DNS".
+
+Bien que Namecheap offre également la possibilité de protéger notre domaine avec
+des certificats SSL, essentiels pour sécuriser notre application web et gagner la
+confiance des utilisateurs, nous utiliserons plutôt l'autorité de certification
+*Let's Encrypt* dans la section "Obtention d'un certificat SSL/TLS" pour obtenir une
+clé privée et le certificat correspondant (comprenant notamment la clé publique
+associée) attestant de l'identité de notre entreprise et permettant de sécuriser
+les messages en les chiffrant via le protocole SSL/TLS.
+
+### Utilisation des serveurs DNS
+
+Dans la section "Configuration DNS", nous utilisons les services offerts par le web
+GUI de Digital Ocean pour faire en sorte que les requêtes DNS résolvent le nom de
+domaine `caltuli.online` en l'adresse IP du droplet hébergeant le serveur Tomcat
+déployant l'application web. Nous utilisons ainsi les serveurs DNS du registraire
+de domaine NameCheap qui vont clore le processus récursif de résolution du nom de
+domaine mais aussi tous les autres serveurs DNS correspondant au niveau plus
+élevés, les serveurs DNS TLD (Top Domain Level) pour résoudre le nom de domaine
+`online` et les serveurs DNS Root pour commencer la requête récursive ("pour
+résoudre le domaine racine `.`").
+
+### Utilisation de l'autorité de certification Let's Encrypt
+
+Dans la section "Obtention d'un certificat SSL/TLS", nous utiliserons l'autorité
+de certification *Let's Encrypt* pour générer notamment une clé privée et le
+certificat correspondant (comprenant notamment la clé publique associée) attestant
+de l'identité de notre entreprise.
+
+Ce certificat permet d'une part de fournir une preuve de notre identité auprès des
+clients et, d'autre part, de chiffrer les échanges avec eux afin qu'ils puissent
+par exemple en toute sécurité transmettre des informations sensibles comme leur
+mot de passe puisque transportées dans des trames encapsulant des SDU(7) qui ne
+peuvent être déchiffrés que par le détenteur de la clé privée, notre entreprise.
+
+### Utilisation des filtres servlet de la spécification Jakarta EE
+
+Dans la section "Implémentation de la Redirection HTTPS", nous avons intégré un
+filtre, via la classe HttpsRedirectFilter, qui joue un rôle crucial dans la
+sécurisation des communications entre le client et le serveur. Ce filtre est
+conçu pour intercepter toutes les requêtes HTTP et rediriger automatiquement les
+utilisateurs vers l'URL sécurisée en HTTPS, garantissant ainsi que les données
+échangées sont toujours chiffrées.
 
 
 -   [Outils utilisés](outils-utilises/outils-utilises.md)
