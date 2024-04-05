@@ -9,7 +9,7 @@
 
 <body>
     <p>
-        Minimal version of the web application onlineplay.
+        Sylvain's minimal version of the web application onlineplay.
     </p>
     <!-- begin to debug -->
     <c:if test="${not empty sessionScope.userConnection}">
@@ -90,6 +90,33 @@
             </c:forEach>
         </ul>
     <p>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function fetchUsers() {
+            fetch('user-activities')
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(users) {
+                    const userListUl = document.querySelector('ul');
+                    userListUl.innerHTML = ''; // Effacer les utilisateurs existants
+                    users.forEach(function(user) {
+                        const li = document.createElement('li');
+                        li.textContent = user.username;
+                        userListUl.appendChild(li);
+                    });
+                })
+                .catch(function(error) {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Appeler fetchUsers toutes les 5 secondes
+        setInterval(fetchUsers, 5000);
+    });
+    </script>
+
 
 </body>
 </html>

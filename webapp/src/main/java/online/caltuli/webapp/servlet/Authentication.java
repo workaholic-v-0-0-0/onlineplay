@@ -17,9 +17,6 @@ import online.caltuli.model.exceptions.user.UserException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-// to debug
-import java.io.PrintWriter;
-
 public class Authentication extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

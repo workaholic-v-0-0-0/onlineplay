@@ -9,12 +9,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import online.caltuli.business.UserManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 // Implements a filter to redirect HTTP requests to HTTPS, enhancing security.
 public class HttpsRedirectFilter implements Filter {
+
+    private final Logger logger = LogManager.getLogger(HttpsRedirectFilter.class);
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
+        // logger.info("HERE");
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 

@@ -1,0 +1,38 @@
+<site xmlns="http://maven.apache.org/SITE/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/SITE/4.0.0 https://maven.apache.org/xsd/site-4.0.0.xsd">
+
+  <!-- Display of the date and version on the right in the top banner -->
+  <publishDate position="right"/>
+  <version position="right"/>
+
+  <!-- Use of the Fluido site template -->
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>2.0.0-M8</version>
+  </skin>
+
+  <body>
+
+    <!-- Adding a breadcrumb trail -->
+    <breadcrumbs>
+      <item name="Home" href="index.html"/>
+    </breadcrumbs>
+
+    <!-- ===== Menus ===== -->
+    <!-- Adding a menu for the parent project -->
+    <menu ref="parent" inherit="top"/>
+    <!-- Adding a menu for the different modules of the project -->
+    <menu ref="modules" inherit="top"/>
+    <!-- ===== Menus ===== -->
+    <!-- Adding a menu for documentation -->
+    <menu name="Documentation">
+      <!-- Menu entry for the Architecture page -->
+      <item name="Architecture" href="architecture.html"/>
+      <!-- Menu entry test -->
+      <item name="Class specifications" href="class-specifications.html" />
+    </menu>
+    <!-- Adding a menu for the various reports -->
+    <menu ref="reports" inherit="top"/>
+  </body>
+</site>

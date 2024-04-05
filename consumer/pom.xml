@@ -15,6 +15,29 @@
   <name>consumer</name>
   <url>http://maven.apache.org</url>
 
+  <description>
+    The consumer submodule is designed to handle communications with both the
+    database and third-party services, facilitating data exchange and external
+    interactions crucial for the application's operation. It is organized into
+    two primary subpackages: api.abuseipdb and dao.
+
+    The api.abuseipdb package specializes in interfacing with the AbuseIPDB API,
+    offering functionalities to filter IP addresses and acting as an application-level
+    firewall. This integration allows for enhanced security measures by identifying
+    and blocking malicious traffic based on IP reputation.
+
+    Meanwhile, the dao (Data Access Object) package is responsible for managing
+    interactions with the application's MySQL database. It provides a layer of
+    abstraction for database operations, ensuring efficient and secure access to
+    persistently stored data. This package plays a critical role in data management,
+    supporting the application's core functionalities by enabling CRUD (Create, Read,
+    Update, Delete) operations on the database entities.
+
+    Together, these packages ensure the consumer submodule effectively bridges the
+    communication gap between the application and its external dependencies, bolstering
+    both its security posture and data management capabilities.
+  </description>
+
   <!-- =============================================================== -->
   <!-- Dependency Management -->
   <!-- =============================================================== -->

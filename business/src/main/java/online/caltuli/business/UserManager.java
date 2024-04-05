@@ -10,7 +10,6 @@ import online.caltuli.consumer.dao.interfaces.UsersDao;
 import online.caltuli.consumer.dao.exceptions.DaoException;
 
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -23,9 +22,9 @@ import org.mindrot.jbcrypt.BCrypt;
 @ApplicationScoped
 public class UserManager {
 
-    private Map<Integer, User> connectedUserList = new ConcurrentHashMap<>();
+    private final Map<Integer, User> connectedUserList = new ConcurrentHashMap<>();
 
-    private Logger logger = LogManager.getLogger(UserManager.class);
+    private final Logger logger = LogManager.getLogger(UserManager.class);
 
     public UserConnection
     logUserConnection(

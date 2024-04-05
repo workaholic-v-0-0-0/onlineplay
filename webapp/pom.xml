@@ -16,6 +16,19 @@
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
+  <description>
+    This module houses the core servlets and servlet filters of the application.
+    It encompasses the essential web components responsible for handling requests
+    and responses within the application's web layer. The servlets serve as the
+    primary entry points for the application's web interface, processing incoming
+    requests and generating responses. Concurrently, the servlet filters are utilized
+    to intercept and manipulate both incoming requests and outgoing responses, providing
+    a mechanism for pre-processing and post-processing within the web application's
+    lifecycle. This module is pivotal in orchestrating the flow of data and control,
+    ensuring efficient and secure web operations.
+  </description>
+
+
   <!-- =============================================================== -->
   <!-- Dependency Management -->
   <!-- =============================================================== -->
@@ -81,6 +94,10 @@
     <dependency>
       <groupId>org.jboss.weld.servlet</groupId>
       <artifactId>weld-servlet-shaded</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
     </dependency>
   </dependencies>
 

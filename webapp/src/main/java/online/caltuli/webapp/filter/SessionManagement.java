@@ -1,4 +1,4 @@
-package online.caltuli.webapp;
+package online.caltuli.webapp.filter;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,12 +1,10 @@
 package online.caltuli.webapp.filter;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.inject.Inject;
 import online.caltuli.business.exception.BusinessException;
-import online.caltuli.webapp.SessionManagement;
 import online.caltuli.webapp.servlet.Home;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

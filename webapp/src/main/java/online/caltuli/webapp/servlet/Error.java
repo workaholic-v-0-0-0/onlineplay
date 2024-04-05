@@ -8,13 +8,12 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import online.caltuli.webapp.filter.IPCheckFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Error extends HttpServlet {
 
-    private Logger logger = LogManager.getLogger(Error.class);
+    private final Logger logger = LogManager.getLogger(Error.class);
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
@@ -38,7 +37,6 @@ public class Error extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
         doGet(request, response);
     }
 }

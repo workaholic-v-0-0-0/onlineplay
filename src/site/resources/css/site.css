@@ -1,0 +1,37 @@
+/*
+a little CSS 3 hack to center images ;
+actually, Maven makes parsing error with : <div><img src="...png"></div>
+Maven misinterprets the closing </div> tag, expecting it to match the
+opening <img> tag, leading to: "Error parsing the model: end tag name </div>
+must be the same as start tag <img>...".
+To bypass this, styles are applied to images with an alt attribute ending in
+"><". Adjust the selector as needed.
+- 'display: block;' treats the image as a block-level element.
+- 'max-width: 100%;' makes the image responsive and limits its container width.
+- 'height: auto;' maintains aspect ratio.
+- 'margin: auto;' centers the image.
+- 'float: none!important;' ensures centering by overriding float properties.
+*/
+img[alt$="><"] {
+   display: block;
+   max-width: 100%;
+   height: auto;
+   margin: auto;
+   float: none!important;
+   }
+
+.image-caption {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+img[alt$="big"] {
+   display: block;
+   max-width: 500%;
+   height: auto;
+   margin: auto;
+   float: none!important;
+   height: auto;
+}

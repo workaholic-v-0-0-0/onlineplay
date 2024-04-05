@@ -25,6 +25,10 @@
     <servlet-name>Error</servlet-name>
     <servlet-class>online.caltuli.webapp.servlet.Error</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AjaxUserActivities</servlet-name>
+    <servlet-class>online.caltuli.webapp.servlet.AjaxUserActivities</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>Home</servlet-name>
@@ -45,6 +49,10 @@
   <servlet-mapping>
     <servlet-name>Error</servlet-name>
     <url-pattern>/error</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AjaxUserActivities</servlet-name>
+    <url-pattern>/user-activities</url-pattern>
   </servlet-mapping>
 
   <filter>

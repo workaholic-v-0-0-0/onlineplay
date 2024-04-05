@@ -1759,7 +1759,7 @@ bg=blue</panel_attributes>
       <h>60</h>
     </coordinates>
     <panel_attributes>&lt;&lt;servlet&gt;&gt;
-online.caltuli.webapp.SessionManagement
+online.caltuli.webapp.filter.SessionManagement
 --
 -&lt;&lt;static final&gt;&gt; logger: Logger
 --

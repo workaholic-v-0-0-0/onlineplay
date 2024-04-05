@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
 // if it's forbidden, redirect to error page with suitable message
 public class IPCheckFilter implements Filter {
 
-    private Logger logger = LogManager.getLogger(IPCheckFilter.class);
+    private final Logger logger = LogManager.getLogger(IPCheckFilter.class);
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

@@ -13,6 +13,20 @@
   <name>business</name>
   <url>http://maven.apache.org</url>
 
+  <description>
+    The business module serves as the core layer for handling business logic
+    and operations in the application. It encompasses the management of user
+    data, authentication processes, user connections, and any other critical
+    business functions necessary for the application's operation. This module
+    interacts with the data access layer to retrieve, update, and persist data,
+    ensuring that business rules and validations are applied accordingly.
+    It's designed to encapsulate the application's business rules, making it
+    easier to manage, test, and modify business processes independently from
+    other parts of the system. By centralizing business logic within this
+    module, the application maintains a clean separation of concerns, promoting
+    reusability, scalability, and maintainability.
+  </description>
+
   <!-- =============================================================== -->
   <!-- Dependency Management -->
   <!-- =============================================================== -->

@@ -13,6 +13,7 @@
   </skin>
 
   <body>
+
     <!-- Adding a breadcrumb trail -->
     <breadcrumbs>
       <item name="Home" href="index.html"/>

@@ -12,6 +12,19 @@
   <version>1.0-SNAPSHOT</version>
   <name>model</name>
   <url>http://maven.apache.org</url>
+
+  <description>
+    The model module constitutes the foundational layer of the application,
+    defining the data structure and the domain objects such as User, UserConnection,
+    and any other entities relevant to the application's business logic. This module
+    is pivotal for representing the application's data model, encapsulating the properties
+    and behaviors of the data entities. It serves as a bridge between the business logic
+    layer and the data access layer, facilitating the transfer and processing of data
+    throughout the application. The model module ensures that the data is accurately
+    represented and manipulated according to the business requirements, providing a clear
+    and structured approach to handling the application's core data.
+  </description>
+
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>

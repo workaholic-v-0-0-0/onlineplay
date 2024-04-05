@@ -573,4 +573,33 @@ utilisateurs vers l'URL sécurisée en HTTPS, garantissant ainsi que les donnée
 échangées sont toujours chiffrées.
 
 
--   [Outils utilisés](outils-utilises/outils-utilises.md)
+-   [Accès et ressources du projet](acces-ressources-projet.md)
+-   [Inventaire des outils et technologies utilisés](inventaire-outils-technologies-utilises.md)
+-   [Construction de l'environnement de développement](construction-environnement-developpement.md)
+
+-   [Création de la base de données](creation-base-de-donnees.md)
+-   [Initialisation du projet Maven et référencement du premier commit Git](initialisation-projet-maven-et-referencement-premier-commit-git.md)
+-   [Téléversement du projet Git dans un dépôt de GitHub](televersement-projet-git-dans-depot-github.md)
+-   [Déploiement sur un droplet de Digital Ocean](deploiement-sur-droplet-de-digitalocean.md)
+
+-   [Annexe A : Liens étudiés](annexe-a-liens-etudies.md)
+-   [Annexe B : Étude du cours "Développez des sites web avec Java EE" de Mathieu
+    Nebra sur openclassrooms.com pour développer une application web pro-
+    posant les services de lecture et d’écriture dans une table d’une base de
+    données MySQL tout en respectant MVC et DAO](annexe-b-etude-cours-nebra.md)
+-   [Annexe C : Étude du cours "Organiser et packager une application Java avec 
+Apache Maven" de Loïc Guibert sur openclassrooms.com](annexe-c-etude-cours-loic-guibert.md)
+
+## Utilisation du mécanisme CDI (Context and Dependency Injection)
+
+TO DO
+
+## Utilisation des websockets
+
+TO DO
+
+## Utilisation de React
+
+TO DO
+
+

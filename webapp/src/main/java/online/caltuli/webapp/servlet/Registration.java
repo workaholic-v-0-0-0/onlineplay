@@ -15,9 +15,6 @@ import online.caltuli.model.exceptions.user.*;
 
 import java.io.IOException;
 
-// \begin{todebug}
-import java.io.PrintWriter;
-
 public class Registration extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -26,7 +23,6 @@ public class Registration extends HttpServlet {
 	private UserManager userManager;
 
     public Registration() {
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
