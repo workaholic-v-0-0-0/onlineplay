@@ -1,4 +1,4 @@
-package online.caltuli.webapp.servlet;
+package online.caltuli.webapp.servlet.api;
 
 import jakarta.inject.Inject;
 import online.caltuli.business.UserManager;
@@ -19,12 +19,12 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 
-public class AjaxUserActivities extends HttpServlet {
+public class UserActivities extends HttpServlet {
 
     @Inject
     private UserManager userManager;
 
-    private static final Logger logger = LogManager.getLogger(AjaxUserActivities.class);
+    private static final Logger logger = LogManager.getLogger(UserActivities.class);
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");

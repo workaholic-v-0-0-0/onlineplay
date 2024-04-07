@@ -70,7 +70,7 @@ Dans le fichier `web.xml`, ajoutez la configuration suivante pour enregistrer la
 
     <servlet>
         <servlet-name>Authentication</servlet-name>
-        <servlet-class>online.caltuli.webapp.servlet.Authentication</servlet-class>
+        <servlet-class>online.caltuli.webapp.servlet.gui.Authentication</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>

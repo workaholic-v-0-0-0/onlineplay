@@ -33,6 +33,13 @@
   <!-- Dependency Management -->
   <!-- =============================================================== -->
   <dependencies>
+    <!-- ===== sub-package of module batch ===== -->
+    <!--
+    <dependency>
+      <groupId>online.caltuli</groupId>
+      <artifactId>batch.userInteractionSimulation</artifactId>
+    </dependency>
+    -->
     <!-- ===== Modules ===== -->
     <dependency>
       <groupId>online.caltuli</groupId>
@@ -98,6 +105,16 @@
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
+    <dependency>
+      <groupId>org.quartz-scheduler</groupId>
+      <artifactId>quartz</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz-jobs -->
+    <dependency>
+      <groupId>org.quartz-scheduler</groupId>
+      <artifactId>quartz-jobs</artifactId>
     </dependency>
   </dependencies>
 

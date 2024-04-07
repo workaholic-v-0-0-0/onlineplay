@@ -1,4 +1,4 @@
-package online.caltuli.webapp.servlet;
+package online.caltuli.webapp.servlet.gui;
 
 import online.caltuli.business.exception.BusinessException;
 import online.caltuli.business.UserManager;

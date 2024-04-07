@@ -7,27 +7,27 @@
 
   <servlet>
     <servlet-name>Home</servlet-name>
-    <servlet-class>online.caltuli.webapp.servlet.Home</servlet-class>
+    <servlet-class>online.caltuli.webapp.servlet.gui.Home</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>Registration</servlet-name>
-    <servlet-class>online.caltuli.webapp.servlet.Registration</servlet-class>
+    <servlet-class>online.caltuli.webapp.servlet.gui.Registration</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>Authentication</servlet-name>
-    <servlet-class>online.caltuli.webapp.servlet.Authentication</servlet-class>
+    <servlet-class>online.caltuli.webapp.servlet.gui.Authentication</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>Logout</servlet-name>
-    <servlet-class>online.caltuli.webapp.servlet.Logout</servlet-class>
+    <servlet-class>online.caltuli.webapp.servlet.gui.Logout</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>Error</servlet-name>
-    <servlet-class>online.caltuli.webapp.servlet.Error</servlet-class>
+    <servlet-class>online.caltuli.webapp.servlet.gui.Error</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>AjaxUserActivities</servlet-name>
-    <servlet-class>online.caltuli.webapp.servlet.AjaxUserActivities</servlet-class>
+    <servlet-class>online.caltuli.webapp.servlet.api.UserActivities</servlet-class>
   </servlet>
 
   <servlet-mapping>

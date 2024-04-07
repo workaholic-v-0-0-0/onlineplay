@@ -80,16 +80,18 @@
         </p>
     </c:if>
 
-    <p>
-        Connected users list :
-        <ul>
-            <c:forEach var="entry" items="${connectedUserList}">
-            <li>
-                <c:out value="${entry.value.username}" />
-            </li>
-            </c:forEach>
-        </ul>
-    <p>
+    <div id="authenticatedUsersList">
+        <p>
+            Authenticated users list :
+            <ul>
+                <c:forEach var="entry" items="${connectedUserList}">
+                <li>
+                    <c:out value="${entry.value.username}" />
+                </li>
+                </c:forEach>
+            </ul>
+        </p>
+    </div>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -99,8 +101,8 @@
                     return response.json();
                 })
                 .then(function(users) {
-                    const userListUl = document.querySelector('ul');
-                    userListUl.innerHTML = ''; // Effacer les utilisateurs existants
+                    const userListUl = document.querySelector('#authenticatedUsersList ul');
+                    userListUl.innerHTML = '';
                     users.forEach(function(user) {
                         const li = document.createElement('li');
                         li.textContent = user.username;
@@ -112,7 +114,7 @@
                 });
         }
 
-        // Appeler fetchUsers toutes les 5 secondes
+        // refresh authenticated user list every 5 seconds
         setInterval(fetchUsers, 5000);
     });
     </script>

@@ -98,7 +98,7 @@ Dans le fichier `web.xml`, ajoutez la configuration suivante pour enregistrer la
 
     <servlet>
         <servlet-name>Home</servlet-name>
-        <servlet-class>online.caltuli.webapp.servlet.Home</servlet-class>
+        <servlet-class>online.caltuli.webapp.servlet.gui.Home</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>

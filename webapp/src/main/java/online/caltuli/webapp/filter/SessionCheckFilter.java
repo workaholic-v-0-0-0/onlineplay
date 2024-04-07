@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.inject.Inject;
 import online.caltuli.business.exception.BusinessException;
-import online.caltuli.webapp.servlet.Home;
+import online.caltuli.webapp.servlet.gui.Home;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

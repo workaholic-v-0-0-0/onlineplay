@@ -1,4 +1,4 @@
-package online.caltuli.webapp.servlet;
+package online.caltuli.webapp.servlet.gui;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

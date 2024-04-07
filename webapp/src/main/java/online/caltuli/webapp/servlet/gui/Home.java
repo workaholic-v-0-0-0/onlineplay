@@ -1,22 +1,16 @@
-package online.caltuli.webapp.servlet;
+package online.caltuli.webapp.servlet.gui;
 
 import jakarta.inject.Inject;
-import online.caltuli.business.exception.BusinessException;
 import online.caltuli.business.UserManager;
-import online.caltuli.model.UserConnection;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Timestamp;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Home extends HttpServlet {
@@ -33,6 +27,7 @@ public class Home extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.info("HERE");
 		request.setAttribute("connectedUserList", userManager.getConnectedUserList());
 		this.getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
 	}

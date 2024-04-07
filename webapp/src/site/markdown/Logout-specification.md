@@ -33,7 +33,7 @@ La servlet `Logout` peut être déployée via `web.xml` ou par annotations pour 
 #### Via `web.xml`
     <servlet>
         <servlet-name>Logout</servlet-name>
-        <servlet-class>online.caltuli.webapp.servlet.Logout</servlet-class>
+        <servlet-class>online.caltuli.webapp.servlet.gui.Logout</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>

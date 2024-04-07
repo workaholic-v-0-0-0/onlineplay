@@ -1,8 +1,12 @@
 # Quelques diagrammes
 
-## Un premier diagramme des classes
+## Diagramme des classes
 
 ![image alt big](./images/class_diagram_presentation.drawio.png)
+
+![image alt big](./images/class_diagram_presentation_batch.drawio.png)
+
+
 
 ## Diagramme entité-association
 

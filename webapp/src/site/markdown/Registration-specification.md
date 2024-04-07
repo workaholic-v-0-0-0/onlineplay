@@ -95,7 +95,7 @@ Pour enregistrer la servlet `Registration`, ajoutez cette configuration dans
 
     <servlet>
         <servlet-name>Registration</servlet-name>
-        <servlet-class>online.caltuli.webapp.servlet.Registration</servlet-class>
+        <servlet-class>online.caltuli.webapp.servlet.gui.Registration</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>

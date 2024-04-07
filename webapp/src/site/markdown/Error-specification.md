@@ -45,13 +45,14 @@ Gère l'affichage des messages d'erreur personnalisés en récupérant un messag
 #### Via `web.xml`
 
 ```xml
+
 <servlet>
     <servlet-name>Error</servlet-name>
-    <servlet-class>online.caltuli.webapp.servlet.Error</servlet-class>
+    <servlet-class>online.caltuli.webapp.servlet.gui.Erroronline.caltuli.webapp.servlet.gui.Error</servlet-class>
 </servlet>
 <servlet-mapping>
-    <servlet-name>Error</servlet-name>
-    <url-pattern>/error</url-pattern>
+<servlet-name>Error</servlet-name>
+<url-pattern>/error</url-pattern>
 </servlet-mapping>
 ```
 

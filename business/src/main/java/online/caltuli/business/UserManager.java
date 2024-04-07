@@ -1,6 +1,7 @@
 package online.caltuli.business;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import online.caltuli.business.exception.BusinessException;
 import online.caltuli.model.*;
 
@@ -22,7 +23,8 @@ import org.mindrot.jbcrypt.BCrypt;
 @ApplicationScoped
 public class UserManager {
 
-    private final Map<Integer, User> connectedUserList = new ConcurrentHashMap<>();
+    @Inject
+    private CurrentModel currentModel;// = new CurrentModel();
 
     private final Logger logger = LogManager.getLogger(UserManager.class);
 
@@ -100,7 +102,7 @@ public class UserManager {
         try {
             usersDao = DaoFactory.getInstance().getUsersDao();
             User user = usersDao.getUserByUsername(username);
-            connectedUserList.put(user.getId(), user);
+            currentModel.getAuthenticatedUsers().put(user.getId(), user);
             return (BCrypt.checkpw(password, user.getPasswordHash())) ? user : null;
         } catch (DaoException e) {
             throw new BusinessException("Authentication failed");
@@ -108,11 +110,12 @@ public class UserManager {
     }
 
     public void disconnectUser(int userId) {
-        connectedUserList.remove(userId);
+        currentModel.getAuthenticatedUsers().remove(userId);
     }
 
     public Map<Integer, User> getConnectedUserList() {
-        return connectedUserList;
+        return currentModel.getAuthenticatedUsers();
+        // return connectedUserList;
     }
 
 }
