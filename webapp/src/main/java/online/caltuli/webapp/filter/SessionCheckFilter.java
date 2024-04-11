@@ -6,26 +6,26 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.inject.Inject;
 import online.caltuli.business.exception.BusinessException;
 import online.caltuli.webapp.servlet.gui.Home;
+import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.IOException;
 
 // if no session define it and initialize its 'userConnection' attribute
 public class SessionCheckFilter implements Filter {
     @Inject
     SessionManagement sessionManagement;
 
-    private final Logger logger = LogManager.getLogger(Home.class);
+    private final Logger logger = LogManager.getLogger(SessionCheckFilter.class);
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
-        logger.info("sessionManagement = " + sessionManagement);
-
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
+
+        logger.info("Requête reçue: méthode = {}, URI = {}", httpRequest.getMethod(), path);
 
         if (!path.equals("/error")) {
 

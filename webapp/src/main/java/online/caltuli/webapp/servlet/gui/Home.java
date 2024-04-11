@@ -28,7 +28,7 @@ public class Home extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("HERE");
-		request.setAttribute("connectedUserList", userManager.getConnectedUserList());
+		request.setAttribute("authenticatedUsers", userManager.getAuthenticatedUsers());
 		this.getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
 	}
 

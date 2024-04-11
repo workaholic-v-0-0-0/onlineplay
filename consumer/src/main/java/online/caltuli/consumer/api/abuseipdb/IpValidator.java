@@ -41,6 +41,9 @@ public class IpValidator {
             isAllowedIp = ((((int) ipDetails.get("abuseConfidenceScore")) == 0)
                     && (isWhitelistedObj == null || isWhitelisted)
                     && (("FR".equals(ipDetails.get("countryCode").toString())))
+                    ||
+                    // to allow functionnal tests from batch.userInteractionSimulation
+                    (ip.equals("64.23.187.50"))
             ///* // to debug (to check the access is denied)
                     ||
                     (ip.equals("127.0.0.1"))

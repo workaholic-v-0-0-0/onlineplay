@@ -32,9 +32,9 @@ public class UserActivities extends HttpServlet {
 
         logger.info("here");
 
-        List<User> connectedUsers = new ArrayList<>(userManager.getConnectedUserList().values());
+        List<User> authenticatedUsers = new ArrayList<>(userManager.getAuthenticatedUsers().values());
 
-        String json = new Gson().toJson(connectedUsers);
+        String json = new Gson().toJson(authenticatedUsers);
 
         PrintWriter out = response.getWriter();
         out.print(json);

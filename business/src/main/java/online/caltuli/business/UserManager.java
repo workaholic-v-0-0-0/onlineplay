@@ -113,9 +113,8 @@ public class UserManager {
         currentModel.getAuthenticatedUsers().remove(userId);
     }
 
-    public Map<Integer, User> getConnectedUserList() {
+    public Map<Integer, User> getAuthenticatedUsers() {
         return currentModel.getAuthenticatedUsers();
-        // return connectedUserList;
     }
 
 }

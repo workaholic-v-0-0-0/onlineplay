@@ -1,6 +1,6 @@
 # Quelques diagrammes
 
-## Diagramme des classes
+## Diagrammes des classes
 
 ![image alt big](./images/class_diagram_presentation.drawio.png)
 
@@ -256,6 +256,8 @@ Dans `onlineplay/batch/pom.xml` :
 Dans `onlineplay/batch/batch.ai/pom.xml` : ...
 
 ... je cherche encore, après je travaille sur les interfaces UserManagerInterface et PlayerManagerInterface, puis je reviens sur l'implémentation de batch.userInteractionSimulation afin de simuler des utilisateurs virtuels pour construire des tests fonctionnels.
+
+![image alt big](./images/class_diagram_for_collaboration.drawio.png)
 
 ## Diagramme entité-association
 
