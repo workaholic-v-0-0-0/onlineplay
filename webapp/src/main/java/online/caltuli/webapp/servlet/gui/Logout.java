@@ -17,7 +17,7 @@ public class Logout extends HttpServlet {
     private static final long serialVersionUID = 1L;
     @Inject
     private UserManager userManager;
-    private Logger logger = LogManager.getLogger(Home.class); // to debug
+    private Logger logger = LogManager.getLogger(Home.class);
 
     public Logout() {
         super();
