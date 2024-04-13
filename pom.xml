@@ -344,6 +344,15 @@
             <locales>default</locales>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>com.github.eirslett</groupId>
+          <artifactId>frontend-maven-plugin</artifactId>
+          <version>1.15.0</version>
+          <configuration>
+            <nodeVersion>v20.12.2</nodeVersion>
+            <npmVersion>10.5.0</npmVersion>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>

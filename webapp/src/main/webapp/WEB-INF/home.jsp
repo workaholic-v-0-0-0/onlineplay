@@ -5,6 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Onlineplay homepage</title>
+
+    <!-- For React -->
+    <link rel="stylesheet" href="static/css/main.f855e6bc.css">
+
 </head>
 
 <body>
@@ -122,24 +126,31 @@
     </script>
 
     <script>
-    document.getElementById('sendDummyUser').addEventListener('click', function() {
-        fetch('http://localhost:8000/dummyUser_01', {
-            method: 'GET',
-        })
-        .then(response => {
-            if(response.ok) {
-                return response.text();
-            }
-            throw new Error('The request failed.');
-        })
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => {
-            console.error(error);
+        document.getElementById('sendDummyUser').addEventListener('click', function() {
+            fetch('http://localhost:8000/dummyUser_01', {
+                method: 'GET',
+            })
+            .then(response => {
+                if(response.ok) {
+                    return response.text();
+                }
+                throw new Error('The request failed.');
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
         });
-    });
     </script>
+
+    <!-- For React -->
+        <div id="root"></div>
+
+        <!-- React scripts -->
+        <script src="static/js/453.b110759a.chunk.js"></script>
+        <script src="static/js/main.9e3e678c.js"></script>
 
 </body>
 </html>

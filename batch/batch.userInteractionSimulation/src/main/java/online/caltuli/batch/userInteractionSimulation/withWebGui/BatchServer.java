@@ -75,6 +75,14 @@ public class BatchServer {
                 )
         );
 
+        server.createContext(
+                "/dummyUser_local",
+                new DummyUser_01(
+                        "https://localhost:8443/webapp/",
+                        "fake-local-user"
+                )
+        );
+
         server.setExecutor(null);
         server.start();
     }
