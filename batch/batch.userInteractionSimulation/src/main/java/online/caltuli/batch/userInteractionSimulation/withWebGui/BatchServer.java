@@ -6,7 +6,6 @@ import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.util.concurrent.Executors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,7 +54,7 @@ public class BatchServer {
                 "/dummyUser_01",
                 new DummyUser_01(
                         "https://caltuli.online/webapp_version_sylvain/",
-                        "fake-user"
+                        "fake-user_01"
                 )
         );
 
@@ -76,10 +75,10 @@ public class BatchServer {
         );
 
         server.createContext(
-                "/dummyUser_local",
+                "/dummyUser_local_01",
                 new DummyUserWithTrust_01(
                         "https://localhost:8443/webapp/",
-                        "fake-local-user"
+                        "fake-local-user-01"
                 )
         );
 
@@ -100,32 +99,8 @@ public class BatchServer {
         );
 
         server.createContext(
-                "/dummyUser_local_04",
-                new DummyUserWithTrust_02(
-                        "https://localhost:8443/webapp/",
-                        "fake-local-user-04"
-                )
-        );
-
-        server.createContext(
-                "/dummyUser_local_05",
-                new DummyUserWithTrust_02(
-                        "https://localhost:8443/webapp/",
-                        "fake-local-user-05"
-                )
-        );
-
-        server.createContext(
-                "/dummyUser_local_06",
-                new DummyUserWithTrust_02(
-                        "https://localhost:8443/webapp/",
-                        "fake-local-user-06"
-                )
-        );
-
-        server.createContext(
                 "/dummyUser_local_07",
-                new DummyUserWithTrust_02(
+                new DummyUserWithTrust_01(
                         "https://localhost:8443/webapp/",
                         "fake-local-user-07"
                 )
