@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
     simulation tasks. This server is designed to facilitate testing and automation by
     providing endpoints for triggering predefined actions, such as user behavior simulation
     through the DummyUser_01 handler and basic server responsiveness checks. It serves as a
-        versatile tool for developers to interact with and test web applications in a controlled
+    versatile tool for developers to interact with and test web applications in a controlled
     environment.
 */
 public class BatchServer {
@@ -77,80 +77,61 @@ public class BatchServer {
 
         server.createContext(
                 "/dummyUser_local",
-                new DummyUser_01(
+                new DummyUserWithTrust_01(
                         "https://localhost:8443/webapp/",
                         "fake-local-user"
+                )
+        );
+
+        server.createContext(
+                "/dummyUser_local_02",
+                new DummyUserWithTrust_01(
+                        "https://localhost:8443/webapp/",
+                        "fake-local-user-02"
+                )
+        );
+
+        server.createContext(
+                "/dummyUser_local_03",
+                new DummyUserWithTrust_01(
+                        "https://localhost:8443/webapp/",
+                        "fake-local-user-03"
+                )
+        );
+
+        server.createContext(
+                "/dummyUser_local_04",
+                new DummyUserWithTrust_02(
+                        "https://localhost:8443/webapp/",
+                        "fake-local-user-04"
+                )
+        );
+
+        server.createContext(
+                "/dummyUser_local_05",
+                new DummyUserWithTrust_02(
+                        "https://localhost:8443/webapp/",
+                        "fake-local-user-05"
+                )
+        );
+
+        server.createContext(
+                "/dummyUser_local_06",
+                new DummyUserWithTrust_02(
+                        "https://localhost:8443/webapp/",
+                        "fake-local-user-06"
+                )
+        );
+
+        server.createContext(
+                "/dummyUser_local_07",
+                new DummyUserWithTrust_02(
+                        "https://localhost:8443/webapp/",
+                        "fake-local-user-07"
                 )
         );
 
         server.setExecutor(null);
         server.start();
     }
-
 }
-
-
-/*
-    public static void main(String[] args) throws IOException {
-        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-
-        // Configure le serveur pour utiliser un pool de threads pour les requêtes entrantes
-        server.setExecutor(Executors.newCachedThreadPool()); // Utilise un pool de threads dynamique
-
-
-            Root context configuration. This handler responds to requests at the root ("/")
-            with a message indicating that the server is active. Useful for quickly verifying
-            that the server is operational and listening on the designated port.
-
-        server.createContext("/", new HttpHandler() {
-@Override
-public void handle(HttpExchange exchange) throws IOException {
-        String response = "Server active! Use specific urls to trigger tasks.";
-        exchange.sendResponseHeaders(200, response.getBytes().length);
-        try (OutputStream os = exchange.getResponseBody()) {
-        os.write(response.getBytes());
-        }
-        }
-        });
-
-
-        Context configuration for simulating a mock user. This handler utilizes the
-        DummyUser_01 class to simulate specific user actions, such as registration and
-        authentication, on a specific version of the web application. This allows for
-        the automatic testing of certain application features.
-
-        server.createContext(
-        "/dummyUser_01",
-        new DummyUser_01(
-        "https://caltuli.online/webapp_version_sylvain/",
-        "fake-user"
-        )
-        );
-
-        // tests
-        server.createContext(
-        "/dummyUser_02",
-        new DummyUser_01(
-        "https://caltuli.online/webapp_version_damien/",
-        "fake-user"
-        )
-        );
-        server.createContext(
-        "/dummyUser_03",
-        new DummyUser_01(
-        "https://caltuli.online/webapp_version_samya/",
-        "fake-user"
-        )
-        );
-        server.createContext(
-        "/dummyUser_007",
-        new DummyUser_01(
-        "https://caltuli.online/webapp_version_sylvain/",
-        "fake-user-007"
-        )
-        );
-
-        server.start();
-        System.out.println("Server is listening on port 8000. Access via http://localhost:8000/");
-        }
- */

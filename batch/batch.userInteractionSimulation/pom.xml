@@ -16,6 +16,15 @@
   <name>batch.userInteractionSimulation</name>
   <url>http://maven.apache.org</url>
 
+  <!-- =============================================================== -->
+  <!-- Properties -->
+  <!-- =============================================================== -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+  </properties>
+
   <dependencies>
     <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
     <dependency>

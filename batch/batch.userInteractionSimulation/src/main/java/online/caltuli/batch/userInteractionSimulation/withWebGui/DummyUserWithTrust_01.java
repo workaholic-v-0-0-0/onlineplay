@@ -1,30 +1,37 @@
 package online.caltuli.batch.userInteractionSimulation.withWebGui;
 
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
-
-import java.io.*;
-import java.net.*;
-
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.X509TrustManager;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.TrustManager;
+import com.sun.net.httpserver.HttpHandler;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import java.io.*;
+import java.net.*;
+import java.net.http.HttpClient;
+
 /*
-The DummyUser_01 class is a straightforward HTTP client designed for testing
-purposes. It simulates the following user actions on the web application by
-making HTTP GET and POST requests:
-- Sends GET requests to access the home and registration pages.
-- Submits a POST request for registration using URL-encoded parameters, including a username, password, and other formal information.
-- Performs authentication via a POST request with the username and password.
-- Pauses execution for a while to simulate waiting or manual user interaction.
-- Initiates a GET request to log out of the application.
-*/
-public class DummyUser_01 implements HttpHandler {
+ * Sends an HTTP GET request while trusting all SSL certificates. This method is specifically
+ * designed for local testing environments where the application may be using self-signed
+ * certificates. In such development setups, self-signed certificates are common and not
+ * validated by standard certificate authorities, typically leading to SSL validation errors.
+ * By setting up an SSLContext that trusts all certificates, we bypass SSL certificate
+ * verification to prevent these errors during local tests. This approach mirrors the behavior
+ * of using the '-k' or '--insecure' flag in curl, allowing HTTPS connections without
+ * verifying the trust chain.
+ *
+ * Note: This method should only be used for testing purposes in a local development environment
+ * and never in production, as it removes the security assurances that SSL/TLS is supposed to provide.
+ *
+ * @param urlString The URL to which the GET request will be sent.
+ * @return The server's response as a string, or an error message if the request fails.
+ * @throws Exception If there is any issue in setting up the SSL context or during the connection.
+ */
+public class DummyUserWithTrust_01 implements HttpHandler {
 
     private final Logger logger = LogManager.getLogger(DummyUser_01.class);
 
@@ -38,12 +45,12 @@ public class DummyUser_01 implements HttpHandler {
     private String urlPrefix;
     String user;
 
-    DummyUser_01() {
+    DummyUserWithTrust_01() {
         String urlPrefix = DEFAULT_URL_PREFIX;
         String user = "fake-user";
     }
 
-    DummyUser_01(String urlPrefix, String user) {
+    DummyUserWithTrust_01(String urlPrefix, String user) {
         this.urlPrefix = urlPrefix;
         this.user = user;
     }
@@ -96,32 +103,6 @@ public class DummyUser_01 implements HttpHandler {
         }).start();
     }
 
-    private String sendGetRequest(String urlString) throws IOException {
-        URL url = new URL(urlString);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("User-Agent", USER_AGENT);
-
-        int responseCode = connection.getResponseCode();
-        System.out.println("GET Response Code :: " + responseCode);
-        if (responseCode == HttpURLConnection.HTTP_OK) { // success
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                System.out.println(response.toString());
-                return response.toString();
-            }
-        } else {
-            System.out.println("GET request not worked");
-            return "GET request not worked. Response Code: " + responseCode;
-        }
-    }
-
     private String sendTrustedGetRequest(String urlString) throws Exception {
         // Créer un gestionnaire de confiance qui ne valide pas les chaînes de certificats
         TrustManager[] trustAllCerts = new TrustManager[]{
@@ -138,7 +119,6 @@ public class DummyUser_01 implements HttpHandler {
                 }
         };
 
-        // Installer le gestionnaire de confiance tout-en-accordant
         SSLContext sc = SSLContext.getInstance("SSL");
         sc.init(null, trustAllCerts, new java.security.SecureRandom());
 
@@ -166,40 +146,6 @@ public class DummyUser_01 implements HttpHandler {
         } else {
             System.out.println("GET request not worked");
             return "GET request not worked. Response Code: " + responseCode;
-        }
-    }
-
-
-    private String sendPostRequest(String urlString, String postParams) throws IOException {
-        URL url = new URL(urlString);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("User-Agent", USER_AGENT);
-        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-        connection.setDoOutput(true);
-        try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
-            wr.writeBytes(postParams);
-            wr.flush();
-        }
-
-        int responseCode = connection.getResponseCode();
-        System.out.println("POST Response Code :: " + responseCode);
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                System.out.println(response.toString());
-                return response.toString();
-            }
-        } else {
-            System.out.println("POST request not worked");
-            return "POST request not worked. Response Code: " + responseCode;
         }
     }
 
@@ -257,6 +203,5 @@ public class DummyUser_01 implements HttpHandler {
             return "POST request not worked. Response Code: " + responseCode;
         }
     }
-
 }
 

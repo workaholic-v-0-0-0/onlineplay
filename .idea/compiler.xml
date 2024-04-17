@@ -14,9 +14,6 @@
         <module name="batch.userInteractionSimulation" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ai" target="1.8" />
-      <module name="userInteractionSimulation" target="1.8" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="21" />
   </component>
 </project>

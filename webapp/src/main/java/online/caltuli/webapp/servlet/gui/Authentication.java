@@ -8,12 +8,12 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.inject.Inject;
 import java.io.IOException;
 
-
 import online.caltuli.business.exception.BusinessException;
 import online.caltuli.business.UserManager;
 import online.caltuli.model.UserConnection;
 import online.caltuli.model.User;
 import online.caltuli.model.exceptions.user.UserException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,7 +24,7 @@ public class Authentication extends HttpServlet {
 	@Inject
 	private UserManager userManager;
 
-	private Logger logger = LogManager.getLogger(Authentication.class);
+	private final Logger logger = LogManager.getLogger(Authentication.class);
 
     public Authentication() {}
 
@@ -37,6 +37,7 @@ public class Authentication extends HttpServlet {
 		User user = null;
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		logger.info("username : " + username + " ; password : " + password);
 
 		try {
 			user = userManager.authenticateUser(username, password);
