@@ -41,7 +41,7 @@ import java.util.Optional;
  */
 public class DummyUserWithTrust_01 implements HttpHandler {
 
-    private final Logger logger = LogManager.getLogger(DummyUser_01.class);
+    private final Logger logger = LogManager.getLogger(DummyUserWithTrust_01.class);
 
     private static final String DEFAULT_URL_PREFIX = "https://localhost:8443/webapp/";
     private static final String ALTERNATE_URL_PREFIX = "https://caltuli.online/webapp/";
@@ -65,6 +65,7 @@ public class DummyUserWithTrust_01 implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+
         new Thread(() -> {
             try {
                 HttpClient client = createTrustedClient();

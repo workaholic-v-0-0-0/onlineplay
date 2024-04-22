@@ -24,9 +24,9 @@ import org.mindrot.jbcrypt.BCrypt;
 public class UserManager {
 
     @Inject
-    private CurrentModel currentModel;// = new CurrentModel();
+    protected CurrentModel currentModel;
 
-    private final Logger logger = LogManager.getLogger(UserManager.class);
+    protected final Logger logger = LogManager.getLogger(UserManager.class);
 
     public UserConnection
     logUserConnection(
@@ -51,6 +51,7 @@ public class UserManager {
             throw new BusinessException("Can't fetch connection in database.");
         }
     }
+
     public void
     updateUserConnection(UserConnection userConnection) throws BusinessException {
         UserConnectionsDao userConnectionsDao = null;

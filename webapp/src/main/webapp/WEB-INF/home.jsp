@@ -16,6 +16,7 @@
         Sylvain's minimal version of the web application onlineplay.
     </p>
     <!-- begin to debug -->
+    <!--
     <c:if test="${not empty sessionScope.userConnection}">
         <p>
             sessionScope.userConnection is defined :
@@ -60,6 +61,7 @@
             </ul>
         </p>
     </c:if>
+    -->
     <!-- end to debug -->
 
     <p>
@@ -89,44 +91,151 @@
     </c:if>
 
     <div id="authenticatedUsersList">
-        <p>
-            Authenticated users list :
-            <ul>
-                <c:forEach var="entry" items="${authenticatedUsers}">
+        <p>Authenticated users list:</p>
+        <ul>
+            <!-- Quand la page est chargée, les noms des utilisateurs authentifiés
+            sont récupérés dans le paramètre JSP authenticatedUsers -->
+            <c:forEach var="entry" items="${authenticatedUsers}">
                 <li>
                     <c:out value="${entry.value.username}" />
                 </li>
-                </c:forEach>
-            </ul>
-        </p>
+            </c:forEach>
+            <!-- Ensuite, les noms des utilisateurs authentifiés seront ajoutés
+            ici par JavaScript -->
+        </ul>
+    </div>
+    <div id="waitingToPlayUsersList">
+        <p>Users who want to play a game:</p>
+        <ul>
+            <!-- Quand la page est chargée, les noms des utilisateurs qui souhaitent
+            jouer une partie sont récupérés dans le paramètre JSP waitingToPlayUsers -->
+            <c:forEach var="entry" items="${waitingToPlayUsers}">
+                <li>
+                    <c:out value="${entry.value.username}" />
+                    <c:out value="${entry.value.message}" />
+                </li>
+            </c:forEach>
+            <!-- Ensuite, les nom des utilisateurs qui souhaitent jouer une
+            partie seront ajoutés ici par JavaScript -->
+        </ul>
+    </div>
+    <div id="gamesList">
+        <p>Games in progress:</p>
+        <ul>
+            <!-- Quand la page est chargée, les résumés des parties en cours sont
+            récupérés dans le paramètre JSP games -->
+            <c:forEach var="entry" items="${games}">
+                <li>
+                    <c:out value="${entry.value.firstPlayerUsername}" />
+                    <c:choose>
+                        <c:when test="${not empty entry.value.secondPlayerUsername}">
+                            <c:out value=" is waiting for an opponent." />
+                        </c:when>
+                        <c:otherwise>
+                            <c:out value=" vs ${entry.value.secondPlayerUsername}" />
+                        </c:otherwise>
+                    </c:choose>
+
+                </li>
+            </c:forEach>
+            <!-- Ensuite, les résumés des parties en cours seront ajoutés ici
+            par JavaScript -->
+        </ul>
     </div>
 
+    <!-- Mise à jour de l'affichage des trois listes -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        function fetchUsers() {
+        function fetchData() {
             fetch('user-activities')
                 .then(function(response) {
                     return response.json();
                 })
-                .then(function(users) {
-                    const userListUl = document.querySelector('#authenticatedUsersList ul');
-                    userListUl.innerHTML = '';
-                    users.forEach(function(user) {
-                        const li = document.createElement('li');
-                        li.textContent = user.username;
-                        userListUl.appendChild(li);
-                    });
+                .then(function(data) {
+                    updatePlayersList(data.authenticatedUsers, '#authenticatedUsersList ul');
+                    updatePlayersList(data.waitingToPlayUsers, '#waitingToPlayUsersList ul');
+                    updateGamesList(data.games, '#gamesList ul');
                 })
                 .catch(function(error) {
                     console.error('Error:', error);
                 });
         }
 
-        // refresh authenticated user list every 5 seconds
-        setInterval(fetchUsers, 5000);
+        function updatePlayersList(players, selector) {
+            const playerListUl = document.querySelector(selector);
+            if (!playerListUl) {
+                console.error("Failed to find the element with selector:", selector);
+                return;
+            }
+
+            // Créer un map des usernames existants pour vérification rapide
+            const existingPlayers = Array.from(playerListUl.children).reduce((acc, li) => {
+                acc[li.dataset.username] = li;
+                return acc;
+            }, {});
+
+            // Ajouter ou mettre à jour les joueurs
+            players.forEach(player => {
+                let li = existingPlayers[player.username];
+                if (!li) {
+                    li = document.createElement('li');
+                    li.dataset.username = player.username;
+                    li.textContent = player.username;
+                    playerListUl.appendChild(li);
+                }
+            });
+
+            // Supprimer les éléments qui ne sont plus dans la liste
+            Object.keys(existingPlayers).forEach(username => {
+                if (!players.some(p => p.username === username)) {
+                    playerListUl.removeChild(existingPlayers[username]);
+                }
+            });
+        }
+
+        function updateGamesList(games, selector) {
+            const gameListUl = document.querySelector(selector);
+            if (!gameListUl) {
+                console.error("Failed to find the element with selector:", selector);
+                return;
+            }
+
+            // Créer un map des IDs de jeu existants pour vérification rapide
+            const existingGames = Array.from(gameListUl.children).reduce((acc, li) => {
+                acc[li.dataset.gameId] = li;
+                return acc;
+            }, {});
+
+            // Ajouter ou mettre à jour les jeux
+            games.forEach(game => {
+                let li = existingGames[game.id];
+                if (!li) {
+                    // Si le jeu n'existe pas, on crée un nouvel élément
+                    li = document.createElement('li');
+                    li.dataset.gameId = game.id;
+                    gameListUl.appendChild(li);
+                }
+                // Mettre à jour le texte de l'élément avec les informations actuelles du jeu
+                li.textContent = `${game.id}: ${game.firstPlayer} vs ${game.secondPlayer || 'Waiting...'}`;
+            });
+
+            // Supprimer les éléments de jeux qui ne sont plus dans la liste
+            Object.keys(existingGames).forEach(gameId => {
+                if (!games.some(g => g.id.toString() === gameId)) {
+                    gameListUl.removeChild(existingGames[gameId]);
+                }
+            });
+        }
+
+        // Refresh the data every 5 seconds
+        setInterval(fetchData, 5000);
     });
     </script>
 
+    <!-- user interaction simulations management -->
+
+    <!-- if local -->
+    <!--
     <script>
         document.getElementById('sendDummyUser01').addEventListener('click', function() {
             fetch('http://localhost:8000/dummyUser_local_01', {
@@ -180,6 +289,69 @@
                     });
                 });
     </script>
+    -->
+
+    <!-- if not local -->
+
+    <script>
+        document.getElementById('sendDummyUser01').addEventListener('click', function() {
+            fetch('http://localhost:8000/dummyUser_01', {
+                method: 'GET',
+            })
+            .then(response => {
+                if(response.ok) {
+                    return response.text();
+                }
+                throw new Error('The request failed.');
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        });
+        document.getElementById('sendDummyUser02').addEventListener('click', function() {
+                    fetch('http://localhost:8000/dummyUser_02', {
+                        method: 'GET',
+                    })
+                    .then(response => {
+                        if(response.ok) {
+                            return response.text();
+                        }
+                        throw new Error('The request failed.');
+                    })
+                    .then(data => {
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+                });
+        document.getElementById('sendDummyUser03').addEventListener('click', function() {
+                    fetch('http://localhost:8000/dummyUser_03', {
+                        method: 'GET',
+                    })
+                    .then(response => {
+                        if(response.ok) {
+                            return response.text();
+                        }
+                        throw new Error('The request failed.');
+                    })
+                    .then(data => {
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+                });
+    </script>
+
+    <!-- To make the client able to propose a new game -->
+    <form action="home" method="post">
+        <input type="hidden" name="action" value="new_game">
+        <input type="submit" value="New game"/>
+    </form>
 
     <!-- For React -->
         <div id="root"></div>

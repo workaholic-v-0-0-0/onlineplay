@@ -22,7 +22,7 @@ import org.apache.logging.log4j.Logger;
 */
 public class BatchServer {
 
-    private final Logger logger = LogManager.getLogger(DummyUser_01.class);
+    private static final Logger logger = LogManager.getLogger(BatchServer.class);
 
     public static void main(String[] args) throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
@@ -30,7 +30,6 @@ public class BatchServer {
         server.createContext("/", new HttpHandler() {
             @Override
             public void handle(final HttpExchange exchange) {
-                // Crée un nouveau thread pour traiter chaque requête
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -41,12 +40,12 @@ public class BatchServer {
                                 os.write(response.getBytes());
                             }
                         } catch (IOException e) {
-                            e.printStackTrace(); // Gérer l'exception comme il se doit
+                            e.printStackTrace();
                         } finally {
                             exchange.close();
                         }
                     }
-                }).start(); // N'oubliez pas de démarrer le thread
+                }).start();
             }
         });
 
@@ -54,7 +53,7 @@ public class BatchServer {
                 "/dummyUser_01",
                 new DummyUser_01(
                         "https://caltuli.online/webapp_version_sylvain/",
-                        "fake-user_01"
+                        "fake-user-01"
                 )
         );
 
@@ -95,14 +94,6 @@ public class BatchServer {
                 new DummyUserWithTrust_01(
                         "https://localhost:8443/webapp/",
                         "fake-local-user-03"
-                )
-        );
-
-        server.createContext(
-                "/dummyUser_local_07",
-                new DummyUserWithTrust_01(
-                        "https://localhost:8443/webapp/",
-                        "fake-local-user-07"
                 )
         );
 

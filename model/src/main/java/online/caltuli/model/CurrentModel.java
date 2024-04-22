@@ -8,30 +8,34 @@ import java.util.concurrent.ConcurrentHashMap;
 @ApplicationScoped
 public class CurrentModel {
 
-
     private Map<Integer, User> authenticatedUsers = new ConcurrentHashMap<>();
-    private Map<Integer, User> waitingToPlayUser = new ConcurrentHashMap<>();
+    private Map<Integer, User> waitingToPlayUsers = new ConcurrentHashMap<>();
     private Map<Integer, Game> games = new ConcurrentHashMap<>();
 
-    /*
-    private final Map<Integer, User> authenticatedUsers;
-    private final Map<Integer, User> waitingToPlayUser;
-    private final Map<Integer, Game> games;
-
-     */
 
     public Map<Integer, User> getAuthenticatedUsers() {
         return authenticatedUsers;
     }
 
     public Map<Integer, User> getWaitingToPlayUser() {
-        return waitingToPlayUser;
+        return waitingToPlayUsers;
     }
 
     public Map<Integer, Game> getGames() {
         return games;
     }
 
+    public void addAuthenticatedUser(User user) {
+        this.authenticatedUsers.put(user.getId(), user);
+    }
+
+    public void addWaitingToPlayUser(User user) {
+        this.waitingToPlayUsers.put(user.getId(), user);
+    }
+
+    public void addGames(Game game) {
+        this.games.put(game.getId(), game);
+    }
     /*
     public CurrentModel() {
         authenticatedUsers = new ConcurrentHashMap<>();

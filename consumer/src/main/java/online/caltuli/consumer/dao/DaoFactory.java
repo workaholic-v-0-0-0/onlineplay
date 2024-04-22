@@ -1,6 +1,8 @@
 package online.caltuli.consumer.dao;
 
 import online.caltuli.consumer.dao.exceptions.DatabaseConnectionException;
+import online.caltuli.consumer.dao.implementations.GamesDaoImpl;
+import online.caltuli.consumer.dao.interfaces.GamesDao;
 import online.caltuli.consumer.dao.interfaces.UsersDao;
 import online.caltuli.consumer.dao.interfaces.UserConnectionsDao;
 import online.caltuli.consumer.dao.implementations.UsersDaoImpl;
@@ -43,9 +45,15 @@ public class DaoFactory {
         return connection;
     }
 
-    public UsersDao getUsersDao() {return new UsersDaoImpl(this);}
+    public UsersDao getUsersDao() {
+        return new UsersDaoImpl(this);
+    }
 
     public UserConnectionsDao getUserConnectionsDao() {
         return new UserConnectionsDaoImpl(this);
+    }
+
+    public GamesDao getGamesDao() {
+        return new GamesDaoImpl(this);
     }
 }

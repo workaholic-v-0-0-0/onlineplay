@@ -1,16 +1,20 @@
 package online.caltuli.consumer.dao.implementations;
 
+import jakarta.inject.Inject;
 import online.caltuli.consumer.dao.DaoFactory;
 import online.caltuli.consumer.dao.exceptions.UserDataAccessException;
 import online.caltuli.consumer.dao.interfaces.UsersDao;
 import online.caltuli.consumer.dao.exceptions.DaoException;
 
+import online.caltuli.model.CurrentModel;
+import online.caltuli.model.Game;
 import online.caltuli.model.User;
 import online.caltuli.model.exceptions.user.*;
 import online.caltuli.model.UserConnection;
 import online.caltuli.model.exceptions.user.UserException;
 
 import java.sql.*;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +22,9 @@ import org.apache.logging.log4j.Logger;
 public class UsersDaoImpl implements UsersDao {
 
     private final DaoFactory daoFactory;
+
+    @Inject
+    CurrentModel currentModel;
 
     private Logger logger = LogManager.getLogger(UsersDaoImpl.class);
 
@@ -57,11 +64,13 @@ public class UsersDaoImpl implements UsersDao {
                 try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         generatedId = generatedKeys.getInt(1);
+                        user.setId(generatedId);
                     }
                 }
             }
 
             connection.commit();
+
         } catch (SQLException e) {
             try {
                 if (connection != null) {
@@ -88,7 +97,15 @@ public class UsersDaoImpl implements UsersDao {
     }
 
     public User getUserById(int id) throws DaoException {
-        UserConnection userConnection = null;
+
+        // try to find the User instance in the CurrentModel @ApplicationScoped bean ;
+        // return it if it is found
+        User user = ((Map<Integer, User>) currentModel.getAuthenticatedUsers()).get(id);
+        if (user != null) {
+            return user;
+        }
+
+        // try to construct the User instance with respect to information in the users table
         String sql = "SELECT id, username, password_hash, email, message FROM users WHERE id = ?";
         try (Connection connection = daoFactory.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -97,7 +114,7 @@ public class UsersDaoImpl implements UsersDao {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                User user = new User();
+                user = new User();
                 try {
                     user.setId(resultSet.getInt("id"));
                     user.setUsername(resultSet.getString("username"));
