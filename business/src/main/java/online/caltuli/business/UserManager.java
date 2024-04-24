@@ -76,7 +76,7 @@ public class UserManager {
         UsersDao usersDao = null;
         // add a record in users table ; get primary key in id
         try {
-            usersDao = DaoFactory.getInstance().getUsersDao();
+            usersDao = DaoFactory.getInstance().getUsersDao(currentModel);
             // generate a Salt and hash the password
             String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
             // check if username is already used
@@ -101,7 +101,7 @@ public class UserManager {
     public User authenticateUser(String username, String password) throws BusinessException, UserException {
         UsersDao usersDao = null;
         try {
-            usersDao = DaoFactory.getInstance().getUsersDao();
+            usersDao = DaoFactory.getInstance().getUsersDao(currentModel);
             User user = usersDao.getUserByUsername(username);
             currentModel.getAuthenticatedUsers().put(user.getId(), user);
             return (BCrypt.checkpw(password, user.getPasswordHash())) ? user : null;
@@ -111,7 +111,17 @@ public class UserManager {
     }
 
     public void disconnectUser(int userId) {
+        logger.info("user " + userId + " wants to disconnect.");
         currentModel.getAuthenticatedUsers().remove(userId);
+        currentModel.getWaitingToPlayUser().remove(userId);
+        for (Game game : currentModel.getGames().values()) {
+            if ((game.getFirstPlayer() != null) && (game.getFirstPlayer().getId() == userId)) {
+                game.setFirstPlayer(null);
+            }
+            if ((game.getSecondPlayer() != null) && (game.getSecondPlayer().getId() == userId)) {
+                game.setSecondPlayer(null);
+            }
+        }
     }
 
     public Map<Integer, User> getAuthenticatedUsers() {

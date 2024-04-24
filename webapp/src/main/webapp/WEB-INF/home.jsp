@@ -97,7 +97,8 @@
             sont récupérés dans le paramètre JSP authenticatedUsers -->
             <c:forEach var="entry" items="${authenticatedUsers}">
                 <li>
-                    <c:out value="${entry.value.username}" />
+                    <c:out value="${entry.value.username} says ${entry.value.message}" />
+                    <!--<c:out value="${entry.value.message}" />-->
                 </li>
             </c:forEach>
             <!-- Ensuite, les noms des utilisateurs authentifiés seront ajoutés
@@ -109,12 +110,7 @@
         <ul>
             <!-- Quand la page est chargée, les noms des utilisateurs qui souhaitent
             jouer une partie sont récupérés dans le paramètre JSP waitingToPlayUsers -->
-            <c:forEach var="entry" items="${waitingToPlayUsers}">
-                <li>
-                    <c:out value="${entry.value.username}" />
-                    <c:out value="${entry.value.message}" />
-                </li>
-            </c:forEach>
+
             <!-- Ensuite, les nom des utilisateurs qui souhaitent jouer une
             partie seront ajoutés ici par JavaScript -->
         </ul>
@@ -153,7 +149,7 @@
                 })
                 .then(function(data) {
                     updatePlayersList(data.authenticatedUsers, '#authenticatedUsersList ul');
-                    updatePlayersList(data.waitingToPlayUsers, '#waitingToPlayUsersList ul');
+                    updateWaitingToPlayUsers(data.waitingToPlayUsers);
                     updateGamesList(data.games, '#gamesList ul');
                 })
                 .catch(function(error) {
@@ -189,6 +185,77 @@
             Object.keys(existingPlayers).forEach(username => {
                 if (!players.some(p => p.username === username)) {
                     playerListUl.removeChild(existingPlayers[username]);
+                }
+            });
+        }
+
+        function updateWaitingToPlayUsers(waitingToPlayUsers) {
+
+            const waitingToPlayUsersUl = document.querySelector('#waitingToPlayUsersList ul');
+            if (!waitingToPlayUsersUl) {
+                console.error("Failed to find the element with selector: #waitingToPlayUsersList ul");
+                return;
+            }
+
+            // Créer un map des id existants pour vérification rapide
+            const existingWaitingToPlayUsers =
+                Array
+                    .from(waitingToPlayUsersUl.children)
+                    .reduce((acc, li) => {
+                        const userId = li.dataset.userId;
+                        if (userId) {
+                            acc[userId] = li;
+                        }
+                        return acc;
+                    }, {});
+
+            // Ajouter ou mettre à jour les joueurs
+            waitingToPlayUsers.forEach(
+                waitingToPlayUser => {
+                    let li = existingWaitingToPlayUsers[waitingToPlayUser.id];
+                    if (!li) {
+                        li = document.createElement('li');
+
+                        li.dataset.userId = waitingToPlayUser.id;
+
+                        // Créer le formulaire et ses composants
+                        const form = document.createElement('form');
+                        form.action = "home";
+                        form.method = "post";
+
+                        // Champ caché pour l'action de jouer avec un autre utilisateur
+                        const inputAction = document.createElement('input');
+                        inputAction.type = "hidden";
+                        inputAction.name = "action";
+                        inputAction.value = "play_with";
+
+                        // Champ caché pour l'ID de l'utilisateur contre qui jouer
+                        const inputUserId = document.createElement('input');
+                        inputUserId.type = "hidden";
+                        inputUserId.name = "user_id";
+                        inputUserId.value = waitingToPlayUser.id;
+
+                        const inputSubmit = document.createElement('input');
+                        inputSubmit.type = "submit";
+                        inputSubmit.value = "Play with " + waitingToPlayUser.username;
+
+                        // Assembler le formulaire
+                        form.appendChild(inputAction);
+                        form.appendChild(inputUserId);
+                        form.appendChild(inputSubmit);
+
+                        // Ajouter le formulaire à l'élément li
+                        li.appendChild(form);
+
+                        waitingToPlayUsersUl.appendChild(li);
+                    }
+                }
+            );
+
+            // Supprimer les éléments qui ne sont plus dans la liste
+            Object.keys(existingWaitingToPlayUsers).forEach(userId => {
+                if (!waitingToPlayUsers.some(user => user.id.toString() === userId)) {
+                    waitingToPlayUsersUl.removeChild(existingWaitingToPlayUsers[userId]);
                 }
             });
         }

@@ -1,5 +1,6 @@
 package online.caltuli.consumer.dao.implementations;
 
+import jakarta.enterprise.inject.spi.CDI;
 import jakarta.inject.Inject;
 import online.caltuli.consumer.dao.DaoFactory;
 import online.caltuli.consumer.dao.exceptions.UserDataAccessException;
@@ -21,15 +22,16 @@ import org.apache.logging.log4j.Logger;
 
 public class UsersDaoImpl implements UsersDao {
 
+    protected CurrentModel currentModel;
+
     private final DaoFactory daoFactory;
 
+    private final Logger logger = LogManager.getLogger(UsersDaoImpl.class);
+
     @Inject
-    CurrentModel currentModel;
-
-    private Logger logger = LogManager.getLogger(UsersDaoImpl.class);
-
-    public UsersDaoImpl(DaoFactory daoFactory) {
+    public UsersDaoImpl(DaoFactory daoFactory, CurrentModel currentModel) {
         this.daoFactory = daoFactory;
+        this.currentModel = currentModel;
     }
 
     // add a record in users table ; return primary key
@@ -100,6 +102,7 @@ public class UsersDaoImpl implements UsersDao {
 
         // try to find the User instance in the CurrentModel @ApplicationScoped bean ;
         // return it if it is found
+        logger.info("currentModel: " + currentModel);
         User user = ((Map<Integer, User>) currentModel.getAuthenticatedUsers()).get(id);
         if (user != null) {
             return user;

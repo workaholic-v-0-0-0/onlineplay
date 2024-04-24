@@ -23,7 +23,6 @@ public class GamesDaoImpl implements GamesDao {
 
     private final DaoFactory daoFactory;
 
-    @Inject
     private CurrentModel currentModel;
 
     private final Logger logger = LogManager.getLogger(GamesDaoImpl.class);
@@ -31,8 +30,9 @@ public class GamesDaoImpl implements GamesDao {
     /**
      * CONSTRUCTOR
      */
-    public GamesDaoImpl(DaoFactory daoFactory) {
+    public GamesDaoImpl(DaoFactory daoFactory, CurrentModel currentModel) {
         this.daoFactory = daoFactory;
+        this.currentModel = currentModel;
     }
 
     /**
@@ -134,7 +134,7 @@ public class GamesDaoImpl implements GamesDao {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                UsersDao usersDao = DaoFactory.getInstance().getUsersDao();
+                UsersDao usersDao = DaoFactory.getInstance().getUsersDao(currentModel);
                 User firstPlayer = usersDao.getUserById(resultSet.getInt("first_player_id"));
                 User secondPlayer = usersDao.getUserById(resultSet.getInt("second_player_id"));
 
@@ -203,4 +203,12 @@ public class GamesDaoImpl implements GamesDao {
 
              */
     }
+
+    /* useless ?
+    public Game getGameByFirstPlayerId(int firstPlayerId) throws DaoException {
+        Game game = null;
+
+        return game;
+    }
+     */
 }

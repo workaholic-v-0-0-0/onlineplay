@@ -19,6 +19,16 @@
   <description>
   </description>
 
+  <!-- =============================================================== -->
+  <!-- Dependency Management -->
+  <!-- =============================================================== -->
+  <dependencies>
+    <dependency>
+      <groupId>online.caltuli</groupId>
+      <artifactId>model</artifactId>
+  </dependency>
+  </dependencies>
+
   <modules>
     <module>batch.userInteractionSimulation</module>
     <module>batch.ai</module>

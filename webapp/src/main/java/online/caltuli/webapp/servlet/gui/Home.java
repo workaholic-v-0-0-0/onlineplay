@@ -10,9 +10,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import online.caltuli.business.exception.BusinessException;
 import online.caltuli.model.User;
+import online.caltuli.model.UserConnection;
 import org.apache.logging.log4j.LogManager;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Enumeration;
 
 import org.apache.logging.log4j.Logger;
 
@@ -30,6 +33,9 @@ public class Home extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		logger.info("This is a GET request.");
+
 		// pour des raisons de sécurité, il faut convertir les éléments des listes
 		// en Player et en GameSummary afin de ne pas exposer les hashes des
 		// utilisateurs
@@ -59,6 +65,26 @@ public class Home extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		// monitoring des paramètres POST
+		Enumeration<String> parameterNames = request.getParameterNames();
+		StringBuilder paramsLog = new StringBuilder("Received POST parameters: ");
+		while (parameterNames.hasMoreElements()) {
+			String paramName = parameterNames.nextElement();
+			String[] paramValues = request.getParameterValues(paramName);  // Utilisez getParameterValues pour gérer les paramètres multiples
+			paramsLog.append(paramName).append("=");
+
+			if (paramValues.length > 1) {
+				paramsLog.append(Arrays.toString(paramValues));
+			} else {
+				paramsLog.append(paramValues[0]);
+			}
+			if (parameterNames.hasMoreElements()) {
+				paramsLog.append(", ");
+			}
+		}
+		logger.info(paramsLog.toString());
+		// fin monitoring
+
 		// C'est qui ?
 		HttpSession session = request.getSession(false);
 		User user = (User) session.getAttribute("user");
@@ -69,13 +95,57 @@ public class Home extends HttpServlet {
 
 		// Qu'est-ce qu'il veut ?
 		String action = request.getParameter("action");
-		if ("new_game".equals(action)) { // il veut faire une partie
+
+		// il veut proposer une partie et attendre un adversaire
+		if ("new_game".equals(action)) {
 			try {
 				playerManager.makeUserProposeGame(user);
 			} catch (BusinessException e) {
 				logger.info("User " + user.getId() + " had not been able to propose a game.");
 			}
 		}
+
+		// il veut jouer contre un utilisateur qui s'est déjà proposé
+		if ("play_with".equals(action)) {
+			// on récupère id du joueur contre qui il veut jouer dans userId
+			String userIdString = request.getParameter("user_id");
+			int userId = 0;
+			if (userIdString == null || userIdString.isEmpty()) {
+				// ???
+			}
+			try {
+				userId = Integer.parseInt(userIdString);
+			} catch (NumberFormatException e) {
+				logger.info("blabla");
+			}
+
+			// début to debug
+			logger.info("This is a POST request.");
+			if (user == null) {
+				logger.info(
+						"user is null and userConnection.id: " +
+						((UserConnection) session.getAttribute("userConnection")).getId());
+			} else {
+				logger.info(
+						"user is not null and userConnection.id: " +
+								((UserConnection) session.getAttribute("userConnection")).getId());
+			}
+			logger.info("id " + userId + " wants to play against id " + user.getId());
+			// fin to debug
+
+
+			try {
+				playerManager.makeUserPlayWithUser(
+						userId,
+						user
+				);
+			} catch (BusinessException e) {
+				logger.info("???");
+			}
+
+		}
+
+
 
 		// pour repasser les paramètres pour afficher tout de suite les trois
 		// listes

@@ -29,6 +29,10 @@
     <servlet-name>AjaxUserActivities</servlet-name>
     <servlet-class>online.caltuli.webapp.servlet.api.UserActivities</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>WhoAmI</servlet-name>
+    <servlet-class>online.caltuli.webapp.servlet.api.WhoAmI</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>Home</servlet-name>
@@ -53,6 +57,10 @@
   <servlet-mapping>
     <servlet-name>AjaxUserActivities</servlet-name>
     <url-pattern>/user-activities</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>WhoAmI</servlet-name>
+    <url-pattern>/who-am-i</url-pattern>
   </servlet-mapping>
 
   <filter>

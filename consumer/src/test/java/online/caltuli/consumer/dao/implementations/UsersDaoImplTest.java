@@ -4,6 +4,7 @@ import online.caltuli.consumer.dao.exceptions.DaoException;
 import online.caltuli.consumer.dao.DaoFactory;
 import online.caltuli.consumer.dao.LoggingExtension;
 
+import online.caltuli.model.CurrentModel;
 import online.caltuli.model.User;
 
 import online.caltuli.model.exceptions.user.UserException;
@@ -39,6 +40,8 @@ public class UsersDaoImplTest {
     @Mock
     private DaoFactory daoFactory;
     @Mock
+    private CurrentModel currentModel;
+    @Mock
     private Connection connection;
     @InjectMocks
      private UsersDaoImpl usersDaoImpl;
@@ -56,7 +59,7 @@ public class UsersDaoImplTest {
 
         @BeforeEach
         void nestedSetUp() {
-            usersDaoImpl = new UsersDaoImpl(daoFactory);
+            usersDaoImpl = new UsersDaoImpl(daoFactory, currentModel);
         }
 
         /* draft

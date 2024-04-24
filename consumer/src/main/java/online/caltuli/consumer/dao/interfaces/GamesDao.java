@@ -69,4 +69,8 @@ public interface GamesDao {
      *                      indicating that the game ID may not exist.
      */
     public void updateGame(Game game) throws DaoException;
+
+    /* useless ?
+    public Game getGameByFirstPlayerId(int firstPlayerId) throws DaoException;
+     */
 }

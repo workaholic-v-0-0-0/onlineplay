@@ -33,19 +33,6 @@ public class UserActivities extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger(UserActivities.class);
 
-    /*
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        List<User> authenticatedUsers = new ArrayList<>(playerManager.getAuthenticatedUsers().values());
-        String json = new Gson().toJson(authenticatedUsers);
-        PrintWriter out = response.getWriter();
-        out.print(json);
-        // logger.info("json: " + json);
-        out.flush();
-    }
-    */
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("application/json");
@@ -93,7 +80,10 @@ public class UserActivities extends HttpServlet {
                         .map(
                                 game -> new GameSummary(
                                         game.getId(),
-                                        game.getFirstPlayer().getUsername(),
+                                        game.getFirstPlayer() != null ?
+                                                game.getFirstPlayer().getUsername()
+                                                :
+                                                null,
                                         game.getSecondPlayer() != null ?
                                                 game.getSecondPlayer().getUsername()
                                                 :
