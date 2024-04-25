@@ -10,6 +10,10 @@ public class GameManager {
         this.game = game;
     }
 
+    // des méthodes pour piloter la partie
+    // par exemple :
+    // public void playMove(int columnNumber) throws IllegalMoveException {...}
+
     public Game getGame() {
         return game;
     }

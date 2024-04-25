@@ -36,6 +36,8 @@ public class CurrentModel {
     public void addGames(Game game) {
         this.games.put(game.getId(), game);
     }
+
+    public void removeGame(Game game) { this.games.remove(game.getId()); }
     /*
     public CurrentModel() {
         authenticatedUsers = new ConcurrentHashMap<>();

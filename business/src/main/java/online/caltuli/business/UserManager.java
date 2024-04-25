@@ -121,6 +121,9 @@ public class UserManager {
             if ((game.getSecondPlayer() != null) && (game.getSecondPlayer().getId() == userId)) {
                 game.setSecondPlayer(null);
             }
+            if ((game.getFirstPlayer() == null) && (game.getSecondPlayer() == null)) {
+                currentModel.removeGame(game);
+            }
         }
     }
 
