@@ -2,6 +2,7 @@ package online.caltuli.webapp.servlet.gui;
 
 import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpSession;
+import online.caltuli.business.ConstantGridParser;
 import online.caltuli.business.PlayerManager;
 
 import jakarta.servlet.ServletException;
@@ -9,15 +10,19 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import online.caltuli.business.exception.BusinessException;
+import online.caltuli.model.Coordinates;
 import online.caltuli.model.User;
 import online.caltuli.model.UserConnection;
 import org.apache.logging.log4j.LogManager;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.Enumeration;
 
 import org.apache.logging.log4j.Logger;
+
+import static online.caltuli.business.ConstantGridParser.bidimensionalParametrizationOfArrayOfCoordinatesRows;
 
 public class Home extends HttpServlet {
 
@@ -33,6 +38,22 @@ public class Home extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		for (int line = 0 ; line < 6 ; line++) {
+			for (int column = 0 ; column < 7 ; column++) {
+				int length = bidimensionalParametrizationOfArrayOfCoordinatesRows[line][column].length;
+				logger.info("length: " + length);
+				for (int l = 0 ; l < length ; l++) {
+					Coordinates[] r = ConstantGridParser.bidimensionalParametrizationOfArrayOfCoordinatesRows[line][column][l];
+					logger.info("param[" + line + "," + column + "][" + l + "]=["
+							+ "(" + r[0].getX() + "," + r[0].getY() + "), "
+							+ "(" + r[1].getX() + "," + r[1].getY() + "), "
+							+ "(" + r[2].getX() + "," + r[2].getY() + "), "
+							+ "(" + r[3].getX() + "," + r[3].getY() + "), ")
+							;
+				}
+			}
+		}
 
 		logger.info("This is a GET request.");
 

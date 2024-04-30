@@ -1,11 +1,14 @@
 package online.caltuli.model;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 import static online.caltuli.model.GameState.WAIT_OPPONENT;
 
 public class Game {
 
     private int id;
-    private Grid grid;
+    private HashMap<Coordinates, CellState> colorsGrid;
     private User firstPlayer;
     private User secondPlayer;
     private GameState gameState;
@@ -33,7 +36,7 @@ public class Game {
      */
     public Game(int id, User firstPlayer) {
         this.id = id;
-        this.grid = new Grid();
+        this.colorsGrid = new HashMap<Coordinates, CellState>();
         this.firstPlayer = firstPlayer;
         this.secondPlayer = null;
         this.gameState = WAIT_OPPONENT;
@@ -47,12 +50,11 @@ public class Game {
         this.id = id;
     }
 
-    public Grid getGrid() {
-        return grid;
+    public HashMap<Coordinates, CellState> getGrid() {
+        return colorsGrid;
     }
-
-    public void setGrid(Grid grid) {
-        this.grid = grid;
+    public void setGrid(HashMap<Coordinates, CellState> grid) {
+        this.colorsGrid = grid;
     }
 
     public User getFirstPlayer() {

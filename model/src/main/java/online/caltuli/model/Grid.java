@@ -18,11 +18,7 @@ public class Grid {
                             = new Cell(new Coordinates(i,j));
                 }
             }
-
         }
-
-
-
     }
 
 }
