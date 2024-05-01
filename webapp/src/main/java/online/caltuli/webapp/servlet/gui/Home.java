@@ -22,8 +22,6 @@ import java.util.Enumeration;
 
 import org.apache.logging.log4j.Logger;
 
-import static online.caltuli.business.ConstantGridParser.bidimensionalParametrizationOfArrayOfCoordinatesRows;
-
 public class Home extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -39,12 +37,16 @@ public class Home extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
 		for (int line = 0 ; line < 6 ; line++) {
 			for (int column = 0 ; column < 7 ; column++) {
-				int length = bidimensionalParametrizationOfArrayOfCoordinatesRows[line][column].length;
+				int length = ConstantGridParser.arrayOfCoordinatesRowsStartingFromBottomWithCoordinates[line][column].length;
 				logger.info("length: " + length);
+				if (length == 0) {
+					logger.info("param[" + line + "," + column + "] = empty");
+				}
 				for (int l = 0 ; l < length ; l++) {
-					Coordinates[] r = ConstantGridParser.bidimensionalParametrizationOfArrayOfCoordinatesRows[line][column][l];
+					Coordinates[] r = ConstantGridParser.arrayOfCoordinatesRowsStartingFromBottomWithCoordinates[line][column][l];
 					logger.info("param[" + line + "," + column + "][" + l + "]=["
 							+ "(" + r[0].getX() + "," + r[0].getY() + "), "
 							+ "(" + r[1].getX() + "," + r[1].getY() + "), "

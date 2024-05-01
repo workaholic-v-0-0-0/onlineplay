@@ -1,13 +1,7 @@
 package online.caltuli.business;
 
-import online.caltuli.consumer.api.abuseipdb.IpValidator;
 import online.caltuli.model.BidimensionalParametrizationOfSetOfCoordinatesFactory;
 import online.caltuli.model.Coordinates;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Objects;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,62 +12,64 @@ public class ConstantGridParser {
 
     // Coordinates parametrization
     // to optimally fetch a Coordinates instance from its coordinates
-    // usage : Coordinates coordinates = C.get(3,4);
+    // usage : Coordinates coordinates = CP.get(3,4);
     private static final BidimensionalParametrizationOfSetOfCoordinatesFactory CP;
 
     // Coordinates array
     // to optimally traverse all the Coordinates instances
-    // usage : Coordinates coordinates = C.get(3,4);
-    private static final Coordinates[][] CT;
+    // usage : Coordinates coordinates = CA[3,4];
+    public static final Coordinates[][] CA;
 
-    // set of Coordinates rows
-    private static final HashSet<Coordinates[]> setOfCoordinatesRows = null;
+    public static final Coordinates[][][][]
+            arrayOfCoordinatesRowsStartingFromBottomWithCoordinates;
 
-    // to optimize
-    // map : coordinates |----> array of Coordinates rows which contain coordinates
-    // think ArrayList<Coordinates[]>[][]
+    // an array which corresponds to a map :
+    // coordinates |----> array of Coordinates rows which contain coordinates
+    // think ArrayList<Coordinates[]>[][] but it is Coordinates[][][][] to optimize
     // usage :
     //      Coordinates[][][][] param =
-    //          ConstantGridParser.bidimensionalParametrizationOfArrayOfCoordinatesRows;
+    //          ConstantGridParser.arrayOfCoordinatesRowsContainingCoordinates;
     //      /*
-    //      param[0][0][3][1] is the last Coordinates instance of the second Coordinates
+    //      param[0][0][1][3] is the last Coordinates instance of the second Coordinates
     //      rows of the array of Coordinates rows which contain the Coordinates instance
     //      at the bottom left of the grid (i.e. at (0,0))
     //       */
     public static final Coordinates[][][][]
-            bidimensionalParametrizationOfArrayOfCoordinatesRows;
-
-    // map : Coordinates row |----> its altitude
-    // useless ? Actually altitude of the Coordinates[] is the first component
-    // of the first element of the Coordinates[]
-    // private static final HashMap<Coordinates[], Integer> coordinatesRowToAltitude = null;
+            arrayOfCoordinatesRowsContainingCoordinates;
 
     static {
         CP =
                 BidimensionalParametrizationOfSetOfCoordinatesFactory
                         .getInstance();
-        CT =
+        CA =
                 CP
                         .getCoordinatesGrid();
+
         /*
-         *Initialize a 4D array to represent groups of four aligned positions in a
-         * Connect Four grid.
-         * Each element tab[i][j] is configured based on its position in the grid (i,j).
-         * It dynamically sets the third dimension size (nbOfCoordinatesRows),
-         * representing Coordinates rows passing through the cell.
+         * Initialize the two bi-dimensional arrays of Coordinates rows
          */
-        bidimensionalParametrizationOfArrayOfCoordinatesRows = new Coordinates[6][7][][];
+        arrayOfCoordinatesRowsContainingCoordinates = new Coordinates[6][7][][];
+        arrayOfCoordinatesRowsStartingFromBottomWithCoordinates = new Coordinates[6][7][][];
 
         int line, column, coordinatesRowIndex;
-        int[][] counter = new int[6][7];
+        int[][] containingCoordinatesCounter  = new int[6][7];
+        int[][] startingWithCoordinatesCounter = new int[6][7];
         Coordinates coordinates;
 
+        // initialize the "variables lengths" of the two nested arrays
         for (line = 0; line < 6; line++) {
             for (column = 0; column < 7; column++) {
-                int nbOfCoordinatesRows = nbOfCoordinatesRowsContainingCoordinates(line, column);
-                bidimensionalParametrizationOfArrayOfCoordinatesRows[line][column]
-                        = new Coordinates[nbOfCoordinatesRows][4];
-                counter[line][column] = 0;
+                //int nbOfCoordinatesRows = nbOfCoordinatesRowsContainingCoordinates(line, column);
+                arrayOfCoordinatesRowsContainingCoordinates[line][column]
+                        = new Coordinates
+                            [nbOfCoordinatesRowsContainingCoordinates(line, column)]
+                            [4];
+                arrayOfCoordinatesRowsStartingFromBottomWithCoordinates[line][column]
+                        = new Coordinates
+                        [nbOfCoordinatesRowsStartingFromBottomWithCoordinates(line, column)]
+                        [4];
+                containingCoordinatesCounter[line][column] = 0;
+                startingWithCoordinatesCounter[line][column] = 0;
                 logger.info("init length loop ; line = " + line + " ; column = " + column);
             }
         }
@@ -83,42 +79,37 @@ public class ConstantGridParser {
             for (column = 0 ; column <= 3 ; column++) {
                 for (coordinatesRowIndex = 0 ; coordinatesRowIndex < 4 ; coordinatesRowIndex++) {
                     coordinates = CP.get(line,column + coordinatesRowIndex);
-                    bidimensionalParametrizationOfArrayOfCoordinatesRows
+                    arrayOfCoordinatesRowsContainingCoordinates
                             [line]
                             [column]
-                            [counter[line][column]]
+                            [containingCoordinatesCounter[line][column]]
                             [coordinatesRowIndex]
                             =
                             coordinates;
                     logger.info("horizontal add loop ; line = " + line + " ; column = " + column + " ; coordinatesRowIndex = " + coordinatesRowIndex);
                 }
                 Coordinates[] coordinatesRow =
-                        bidimensionalParametrizationOfArrayOfCoordinatesRows
+                        arrayOfCoordinatesRowsContainingCoordinates
                         [line]
                         [column]
-                        [counter[line][column]];
-                logger.info("param[" + line + "," + column + "][" + counter[line][column] + "]=[" + coordinatesRow
-                        + "(" + coordinatesRow[0].getX() + "," + coordinatesRow[0].getY() + "), "
-                        + "(" + coordinatesRow[1].getX() + "," + coordinatesRow[1].getY() + "), "
-                        + "(" + coordinatesRow[2].getX() + "," + coordinatesRow[2].getY() + "), "
-                        + "(" + coordinatesRow[3].getX() + "," + coordinatesRow[3].getY() + "), ")
-                ;
-                counter[line][column]++;
+                        [containingCoordinatesCounter[line][column]];
+                containingCoordinatesCounter[line][column]++;
+                arrayOfCoordinatesRowsStartingFromBottomWithCoordinates
+                        [line]
+                        [column]
+                        [startingWithCoordinatesCounter[line][column]]
+                        =
+                        coordinatesRow;
+                startingWithCoordinatesCounter[line][column]++;
                 for (Coordinates c : coordinatesRow) {
                     if (c != CP.get(line,column)) {
-                        bidimensionalParametrizationOfArrayOfCoordinatesRows
+                        arrayOfCoordinatesRowsContainingCoordinates
                                 [c.getX()]
                                 [c.getY()]
-                                [counter[c.getX()][c.getY()]]
+                                [containingCoordinatesCounter[c.getX()][c.getY()]]
                                 =
                                 coordinatesRow;
-                        logger.info("param[" + c.getX() + "," + c.getY() + "][" + counter[c.getX()][c.getY()] + "]=[" + coordinatesRow
-                                + "(" + coordinatesRow[0].getX() + "," + coordinatesRow[0].getY() + "), "
-                                + "(" + coordinatesRow[1].getX() + "," + coordinatesRow[1].getY() + "), "
-                                + "(" + coordinatesRow[2].getX() + "," + coordinatesRow[2].getY() + "), "
-                                + "(" + coordinatesRow[3].getX() + "," + coordinatesRow[3].getY() + "), ")
-                        ;
-                        counter[c.getX()][c.getY()]++;
+                        containingCoordinatesCounter[c.getX()][c.getY()]++;
                     }
                 }
             }
@@ -129,42 +120,37 @@ public class ConstantGridParser {
             for (column = 0 ; column <= 6 ; column++) {
                 for (coordinatesRowIndex = 0 ; coordinatesRowIndex < 4 ; coordinatesRowIndex++) {
                     coordinates = CP.get(line + coordinatesRowIndex, column);
-                    bidimensionalParametrizationOfArrayOfCoordinatesRows
+                    arrayOfCoordinatesRowsContainingCoordinates
                             [line]
                             [column]
-                            [counter[line][column]]
+                            [containingCoordinatesCounter[line][column]]
                             [coordinatesRowIndex]
                             =
                             coordinates;
                     logger.info("horizontal add loop ; line = " + line + " ; column = " + column + " ; coordinatesRowIndex = " + coordinatesRowIndex);
                 }
                 Coordinates[] coordinatesRow =
-                        bidimensionalParametrizationOfArrayOfCoordinatesRows
+                        arrayOfCoordinatesRowsContainingCoordinates
                                 [line]
                                 [column]
-                                [counter[line][column]];
-                logger.info("param[" + line + "," + column + "][" + counter[line][column] + "]=[" + coordinatesRow
-                        + "(" + coordinatesRow[0].getX() + "," + coordinatesRow[0].getY() + "), "
-                        + "(" + coordinatesRow[1].getX() + "," + coordinatesRow[1].getY() + "), "
-                        + "(" + coordinatesRow[2].getX() + "," + coordinatesRow[2].getY() + "), "
-                        + "(" + coordinatesRow[3].getX() + "," + coordinatesRow[3].getY() + "), ")
-                ;
-                counter[line][column]++;
+                                [containingCoordinatesCounter[line][column]];
+                containingCoordinatesCounter[line][column]++;
+                arrayOfCoordinatesRowsStartingFromBottomWithCoordinates
+                        [line]
+                        [column]
+                        [startingWithCoordinatesCounter[line][column]]
+                        =
+                        coordinatesRow;
+                startingWithCoordinatesCounter[line][column]++;
                 for (Coordinates c : coordinatesRow) {
                     if (c != CP.get(line,column)) {
-                        bidimensionalParametrizationOfArrayOfCoordinatesRows
+                        arrayOfCoordinatesRowsContainingCoordinates
                                 [c.getX()]
                                 [c.getY()]
-                                [counter[c.getX()][c.getY()]]
+                                [containingCoordinatesCounter[c.getX()][c.getY()]]
                                 =
                                 coordinatesRow;
-                        logger.info("param[" + c.getX() + "," + c.getY() + "][" + counter[c.getX()][c.getY()] + "]=[" + coordinatesRow
-                                + "(" + coordinatesRow[0].getX() + "," + coordinatesRow[0].getY() + "), "
-                                + "(" + coordinatesRow[1].getX() + "," + coordinatesRow[1].getY() + "), "
-                                + "(" + coordinatesRow[2].getX() + "," + coordinatesRow[2].getY() + "), "
-                                + "(" + coordinatesRow[3].getX() + "," + coordinatesRow[3].getY() + "), ")
-                        ;
-                        counter[c.getX()][c.getY()]++;
+                        containingCoordinatesCounter[c.getX()][c.getY()]++;
                     }
                 }
             }
@@ -175,43 +161,38 @@ public class ConstantGridParser {
             for (column = 0 ; column <= 3 ; column++) {
                 for (coordinatesRowIndex = 0 ; coordinatesRowIndex < 4 ; coordinatesRowIndex++) {
                     coordinates = CP.get(line + coordinatesRowIndex, column + coordinatesRowIndex);
-                    bidimensionalParametrizationOfArrayOfCoordinatesRows
+                    arrayOfCoordinatesRowsContainingCoordinates
                             [line]
                             [column]
-                            [counter[line][column]]
+                            [containingCoordinatesCounter[line][column]]
                             [coordinatesRowIndex]
                             =
                             coordinates;
                     logger.info("horizontal add loop ; line = " + line + " ; column = " + column + " ; coordinatesRowIndex = " + coordinatesRowIndex);
                 }
                 Coordinates[] coordinatesRow =
-                        bidimensionalParametrizationOfArrayOfCoordinatesRows
+                        arrayOfCoordinatesRowsContainingCoordinates
                                 [line]
                                 [column]
-                                [counter[line][column]];
-                logger.info("param[" + line + "," + column + "][" + counter[line][column] + "]=[ + coordinatesRow"
-                        + "(" + coordinatesRow[0].getX() + "," + coordinatesRow[0].getY() + "), "
-                        + "(" + coordinatesRow[1].getX() + "," + coordinatesRow[1].getY() + "), "
-                        + "(" + coordinatesRow[2].getX() + "," + coordinatesRow[2].getY() + "), "
-                        + "(" + coordinatesRow[3].getX() + "," + coordinatesRow[3].getY() + "), ")
-                ;
-                counter[line][column]++;
+                                [containingCoordinatesCounter[line][column]];
+                containingCoordinatesCounter[line][column]++;
+                arrayOfCoordinatesRowsStartingFromBottomWithCoordinates
+                        [line]
+                        [column]
+                        [startingWithCoordinatesCounter[line][column]]
+                        =
+                        coordinatesRow;
+                startingWithCoordinatesCounter[line][column]++;
                 for (Coordinates c : coordinatesRow) {
                     if (c != CP.get(line,column)) {
 
-                        bidimensionalParametrizationOfArrayOfCoordinatesRows
+                        arrayOfCoordinatesRowsContainingCoordinates
                                 [c.getX()]
                                 [c.getY()]
-                                [counter[c.getX()][c.getY()]]
+                                [containingCoordinatesCounter[c.getX()][c.getY()]]
                                 =
                                 coordinatesRow;
-                        logger.info("param[" + c.getX() + "," + c.getY() + "][" + counter[c.getX()][c.getY()] + "]=[" + coordinatesRow
-                                + "(" + coordinatesRow[0].getX() + "," + coordinatesRow[0].getY() + "), "
-                                + "(" + coordinatesRow[1].getX() + "," + coordinatesRow[1].getY() + "), "
-                                + "(" + coordinatesRow[2].getX() + "," + coordinatesRow[2].getY() + "), "
-                                + "(" + coordinatesRow[3].getX() + "," + coordinatesRow[3].getY() + "), ")
-                        ;
-                        counter[c.getX()][c.getY()]++;
+                        containingCoordinatesCounter[c.getX()][c.getY()]++;
                     }
                 }
             }
@@ -222,48 +203,42 @@ public class ConstantGridParser {
             for (column = 3 ; column <= 6 ; column++) {
                 for (coordinatesRowIndex = 0 ; coordinatesRowIndex < 4 ; coordinatesRowIndex++) {
                     coordinates = CP.get(line + coordinatesRowIndex, column - coordinatesRowIndex);
-                    bidimensionalParametrizationOfArrayOfCoordinatesRows
+                    arrayOfCoordinatesRowsContainingCoordinates
                             [line]
                             [column]
-                            [counter[line][column]]
+                            [containingCoordinatesCounter[line][column]]
                             [coordinatesRowIndex]
                             =
                             coordinates;
                     logger.info("horizontal add loop ; line = " + line + " ; column = " + column + " ; coordinatesRowIndex = " + coordinatesRowIndex);
                 }
                 Coordinates[] coordinatesRow =
-                        bidimensionalParametrizationOfArrayOfCoordinatesRows
+                        arrayOfCoordinatesRowsContainingCoordinates
                                 [line]
                                 [column]
-                                [counter[line][column]];
-                logger.info("param[" + line + "," + column + "][" + counter[line][column] + "]=[" + coordinatesRow
-                        + "(" + coordinatesRow[0].getX() + "," + coordinatesRow[0].getY() + "), "
-                        + "(" + coordinatesRow[1].getX() + "," + coordinatesRow[1].getY() + "), "
-                        + "(" + coordinatesRow[2].getX() + "," + coordinatesRow[2].getY() + "), "
-                        + "(" + coordinatesRow[3].getX() + "," + coordinatesRow[3].getY() + "), ")
-                ;
-                counter[line][column]++;
+                                [containingCoordinatesCounter[line][column]];
+                containingCoordinatesCounter[line][column]++;
+                arrayOfCoordinatesRowsStartingFromBottomWithCoordinates
+                        [line]
+                        [column]
+                        [startingWithCoordinatesCounter[line][column]]
+                        =
+                        coordinatesRow;
+                startingWithCoordinatesCounter[line][column]++;
                 for (Coordinates c : coordinatesRow) {
                     if (c != CP.get(line,column)) {
 
-                        bidimensionalParametrizationOfArrayOfCoordinatesRows
+                        arrayOfCoordinatesRowsContainingCoordinates
                                 [c.getX()]
                                 [c.getY()]
-                                [counter[c.getX()][c.getY()]]
+                                [containingCoordinatesCounter[c.getX()][c.getY()]]
                                 =
                                 coordinatesRow;
-                        logger.info("param[" + c.getX() + "," + c.getY() + "][" + counter[c.getX()][c.getY()] + "]=[" + coordinatesRow
-                                + "(" + coordinatesRow[0].getX() + "," + coordinatesRow[0].getY() + "), "
-                                + "(" + coordinatesRow[1].getX() + "," + coordinatesRow[1].getY() + "), "
-                                + "(" + coordinatesRow[2].getX() + "," + coordinatesRow[2].getY() + "), "
-                                + "(" + coordinatesRow[3].getX() + "," + coordinatesRow[3].getY() + "), ")
-                        ;
-                        counter[c.getX()][c.getY()]++;
+                        containingCoordinatesCounter[c.getX()][c.getY()]++;
                     }
                 }
             }
         }
-
     }
 
     private static int nbOfCoordinatesRowsContainingCoordinates(int line, int column) {
@@ -287,33 +262,20 @@ public class ConstantGridParser {
                     0);
     }
 
-
-    /* debug
-    public static void f() {
-        Logger logger2 = LogManager.getLogger(ConstantGridParser.class);
-        logger2.info("here");
-        Coordinates[][][][] param  = new Coordinates[6][7][][];
-        try {
-
-            int line, column;
-            for (line = 0; line < 6; line++) {
-                for (column = 0; column < 7; column++) {
-                    int nbOfCoordinatesRows = nbOfCoordinatesRowsContainingCoordinates(line, column);
-                    logger2.info(line + "," + column + " -> " + nbOfCoordinatesRows);
-                    param[line][column]
-                            = new Coordinates[nbOfCoordinatesRows][4];
-                }
-            }
-
-            Coordinates coordinates;
-        } catch (Exception e) {
-            ConstantGridParser.logger.error("Exception caught", e);
-
-        }
+    private static int nbOfCoordinatesRowsStartingFromBottomWithCoordinates(int line, int column) {
+        return
+                // add 1 if it starts a horizontal Coordinates row
+                ((column <= 3) ? 1 : 0)
+                +
+                // add 1 if it starts a vertical Coordinates row
+                ((line <= 2) ? 1 : 0)
+                +
+                // add 1 if it starts a diagonally ascending Coordinates row
+                (((line <= 2) && (column <= 3)) ? 1 : 0)
+                +
+                // add 1 if it starts a diagonally descending Coordinates row
+                (((line <= 2) && (column >= 3)) ? 1 : 0)
+                ;
     }
-
-     */
-
-
 
 }
