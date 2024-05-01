@@ -37,6 +37,8 @@ public class ConstantGridParser {
     public static final Coordinates[][][][]
             arrayOfCoordinatesRowsContainingCoordinates;
 
+    public static final int NUMBER_OF_COORDINATES_ROWS = 69;
+
     static {
         CP =
                 BidimensionalParametrizationOfSetOfCoordinatesFactory

@@ -55,7 +55,7 @@ public class EvolutiveGridParser {
         this.unWinnableCoordinatesRowsSet = unWinnableCoordinatesRowsSet;
     }
 
-    public void updateWithMove(int column) {
+    public Coordinates updateWithMove(int column) {
 
         Coordinates coordinatesPlayed = ConstantGridParser.CA[nextLine[column]][column];
         HashMap<Coordinates[],Integer>
@@ -97,6 +97,22 @@ public class EvolutiveGridParser {
         }
 
         nextLine[column]++;
+
+        return coordinatesPlayed;
+    }
+
+    public boolean detectDraw() {
+        return unWinnableCoordinatesRowsSet.size() == ConstantGridParser.NUMBER_OF_COORDINATES_ROWS;
+    }
+
+    public CellState detectWinningColor() {
+        for (int nbOfRedCoordinates : redRowsToNbOfRedCoordinates.values()) {
+            if (nbOfRedCoordinates == 4) return CellState.RED;
+        }
+        for (int nbOfGreenCoordinates : greenRowsToNbOfGreenCoordinates.values()) {
+            if (nbOfGreenCoordinates == 4) return CellState.GREEN;
+        }
+        return CellState.NULL;
     }
 
     public int[] getNextLine() {

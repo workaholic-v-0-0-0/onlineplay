@@ -1,10 +1,7 @@
 package online.caltuli.business;
 
 import online.caltuli.business.exception.BusinessException;
-import online.caltuli.model.CellState;
-import online.caltuli.model.Game;
-import online.caltuli.model.GameState;
-import online.caltuli.model.User;
+import online.caltuli.model.*;
 
 public class GameManager {
 
@@ -26,11 +23,35 @@ public class GameManager {
         return egp.getNextLine()[column] != 6;
     }
 
-    public boolean isWinningMove(int column) {
-        /*
-        TO DO
-        */
-        return false;
+    private void updateGameWithMove(Coordinates coordinatesPlayed) {
+
+        // game.colorsGrid update
+        game.setColorWithCoordinates(
+                coordinatesPlayed,
+                (game.getGameState() == GameState.WAIT_FIRST_PLAYER_MOVE) ?
+                    CellState.RED
+                    :
+                    CellState.GREEN
+        );
+
+        // game.gameState update
+        game.setGameState(
+                (game.getGameState() == GameState.WAIT_FIRST_PLAYER_MOVE) ?
+                        GameState.WAIT_SECOND_PLAYER_MOVE
+                        :
+                        GameState.WAIT_FIRST_PLAYER_MOVE
+        );
+        if (egp.detectDraw()) {
+            game.setGameState(GameState.DRAW);
+        }
+        CellState color = egp.detectWinningColor();
+        if (color == CellState.RED) {
+            game.setGameState(GameState.FIRST_PLAYER_WON);
+        }
+        if (color == CellState.GREEN) {
+            game.setGameState(GameState.SECOND_PLAYER_WON);
+        }
+
     }
 
     public void playMove(int column) throws BusinessException {
@@ -39,16 +60,8 @@ public class GameManager {
                         "Illegal move : Column " + column + " is full."
         );
         } else  {
-            /*
-             TO DO
-             */
-            /*
-            egp.updateWithMove(column);
-            game.updateWithMove(column);
-            if egp.detectsWin() {
-
-            }
-             */
+            Coordinates coordinatesPlayed = egp.updateWithMove(column);
+            updateGameWithMove(coordinatesPlayed);
         }
     }
 
@@ -59,24 +72,4 @@ public class GameManager {
     public void setGame(Game game) {
         this.game = game;
     }
-
-    // des méthodes pour piloter la partie
-
-    // par exemple :
-    // public void playMove(int columnNumber) throws IllegalMoveException {...}
-    // swithchPlayer
-
-    // pour voir si un joueur a gagné, regarder
-    // egp.getRedRowsToNbOfRedCoordinates() et
-    // egp.getGreenRowsToNbOfGreenCoordinates()
-
-    // pour voir si on peut jouer dans une colonne, regarder
-    // egp.getNextLine()
-
-    // remarque : lors de la création d'une instance de GameManager,
-    // un pointeur à une instance de Game est passé au constructeur
-    // (il n'y a pas de copie en mémoire).
-    // Donc une modification de l'attribut game faite par une méthode
-    // de l'instance de GameManager créée modifie l'instance passée
-    // lors de la création de l'instnace de GameManager.
 }

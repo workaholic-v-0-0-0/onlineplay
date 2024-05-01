@@ -57,6 +57,10 @@ public class Game {
         this.colorsGrid = grid;
     }
 
+    public void setColorWithCoordinates(Coordinates coordinates, CellState color) {
+        this.colorsGrid.put(coordinates, color);
+    }
+
     public User getFirstPlayer() {
         return firstPlayer;
     }

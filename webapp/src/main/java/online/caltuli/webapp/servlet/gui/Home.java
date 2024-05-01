@@ -41,10 +41,6 @@ public class Home extends HttpServlet {
 		for (int line = 0 ; line < 6 ; line++) {
 			for (int column = 0 ; column < 7 ; column++) {
 				int length = ConstantGridParser.arrayOfCoordinatesRowsStartingFromBottomWithCoordinates[line][column].length;
-				logger.info("length: " + length);
-				if (length == 0) {
-					logger.info("param[" + line + "," + column + "] = empty");
-				}
 				for (int l = 0 ; l < length ; l++) {
 					Coordinates[] r = ConstantGridParser.arrayOfCoordinatesRowsStartingFromBottomWithCoordinates[line][column][l];
 					logger.info("param[" + line + "," + column + "][" + l + "]=["

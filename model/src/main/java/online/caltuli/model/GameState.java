@@ -6,5 +6,6 @@ public enum GameState {
     WAIT_SECOND_PLAYER_MOVE,
     FIRST_PLAYER_WON,
     SECOND_PLAYER_WON,
+    DRAW,
     TO_BE_CANCELLED
 }
