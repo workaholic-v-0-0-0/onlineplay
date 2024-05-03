@@ -72,7 +72,6 @@ public class ConstantGridParser {
                         [4];
                 containingCoordinatesCounter[line][column] = 0;
                 startingWithCoordinatesCounter[line][column] = 0;
-                logger.info("init length loop ; line = " + line + " ; column = " + column);
             }
         }
 
@@ -88,7 +87,6 @@ public class ConstantGridParser {
                             [coordinatesRowIndex]
                             =
                             coordinates;
-                    logger.info("horizontal add loop ; line = " + line + " ; column = " + column + " ; coordinatesRowIndex = " + coordinatesRowIndex);
                 }
                 Coordinates[] coordinatesRow =
                         arrayOfCoordinatesRowsContainingCoordinates
@@ -129,7 +127,6 @@ public class ConstantGridParser {
                             [coordinatesRowIndex]
                             =
                             coordinates;
-                    logger.info("horizontal add loop ; line = " + line + " ; column = " + column + " ; coordinatesRowIndex = " + coordinatesRowIndex);
                 }
                 Coordinates[] coordinatesRow =
                         arrayOfCoordinatesRowsContainingCoordinates
@@ -170,7 +167,6 @@ public class ConstantGridParser {
                             [coordinatesRowIndex]
                             =
                             coordinates;
-                    logger.info("horizontal add loop ; line = " + line + " ; column = " + column + " ; coordinatesRowIndex = " + coordinatesRowIndex);
                 }
                 Coordinates[] coordinatesRow =
                         arrayOfCoordinatesRowsContainingCoordinates
@@ -212,7 +208,6 @@ public class ConstantGridParser {
                             [coordinatesRowIndex]
                             =
                             coordinates;
-                    logger.info("horizontal add loop ; line = " + line + " ; column = " + column + " ; coordinatesRowIndex = " + coordinatesRowIndex);
                 }
                 Coordinates[] coordinatesRow =
                         arrayOfCoordinatesRowsContainingCoordinates
@@ -279,5 +274,4 @@ public class ConstantGridParser {
                 (((line <= 2) && (column >= 3)) ? 1 : 0)
                 ;
     }
-
 }

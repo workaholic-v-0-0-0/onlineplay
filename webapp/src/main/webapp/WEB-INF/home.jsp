@@ -7,7 +7,10 @@
     <title>Onlineplay homepage</title>
 
     <!-- For React -->
-    <link rel="stylesheet" href="static/css/main.f855e6bc.css">
+    <!--
+    <link rel="stylesheet" href="${react.css}">
+    -->
+    <link rel="stylesheet" href="${react.css}">
 
 </head>
 
@@ -335,11 +338,13 @@
                     gameListUl.appendChild(li);
                 }
                 li.textContent =
-                    (!game.firsPlayerUsername || game.firsPlayerUsername.trim() === "") ?
-                        "#nobody#" : "${game.firstPlayerUsername}
+                    ((!game.firsPlayerUsername || game.firsPlayerUsername.trim() === "") ?
+                        "#nobody#" : "<c:out value='${game.firstPlayerUsername}' />")
                     +
-                    (!game.secondPlayerUsername || game.secondPlayerUsername.trim() === "") ?
-                        "#nobody#" : "${game.secondPlayerUsername};
+                    " vs "
+                    +
+                    ((!game.secondPlayerUsername || game.secondPlayerUsername.trim() === "") ?
+                        "#nobody#" : "<c:out value='${game.secondPlayerUsername}' />")
             });
 
             // suppress games not in the list anymore
@@ -480,8 +485,13 @@
         <div id="root"></div>
 
         <!-- React scripts -->
-        <script src="static/js/453.b110759a.chunk.js"></script>
-        <script src="static/js/main.9e3e678c.js"></script>
+        <!--
+        <script src="${react.chunk.js}"></script>
+        <script src="${react.js}"></script>
+        -->
+        <script src="${react.chunk.js}"></script>
+        <script src="${react.js}"></script>
+
 
 </body>
 </html>

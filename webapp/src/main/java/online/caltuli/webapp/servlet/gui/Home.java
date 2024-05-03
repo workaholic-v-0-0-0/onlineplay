@@ -3,6 +3,7 @@ package online.caltuli.webapp.servlet.gui;
 import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpSession;
 import online.caltuli.business.ConstantGridParser;
+import online.caltuli.business.GameManager;
 import online.caltuli.business.PlayerManager;
 
 import jakarta.servlet.ServletException;
@@ -38,6 +39,7 @@ public class Home extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
+		/* begin debug
 		for (int line = 0 ; line < 6 ; line++) {
 			for (int column = 0 ; column < 7 ; column++) {
 				int length = ConstantGridParser.arrayOfCoordinatesRowsStartingFromBottomWithCoordinates[line][column].length;
@@ -54,6 +56,8 @@ public class Home extends HttpServlet {
 		}
 
 		logger.info("This is a GET request.");
+
+		 */
 
 		// pour des raisons de sécurité, il faut convertir les éléments des listes
 		// en Player et en GameSummary afin de ne pas exposer les hashes des
@@ -114,14 +118,19 @@ public class Home extends HttpServlet {
 
 		// Qu'est-ce qu'il veut ?
 		String action = request.getParameter("action");
+		GameManager gameManager = null;
 
 		// il veut proposer une partie et attendre un adversaire
 		if ("new_game".equals(action)) {
 			try {
-				playerManager.makeUserProposeGame(user);
+				gameManager = playerManager.makeUserProposeGame(user);
 			} catch (BusinessException e) {
 				logger.info("User " + user.getId() + " had not been able to propose a game.");
 			}
+			logger.info(
+					"playerManager.getCurrentModel().getGameManagers().get(gameManager.getGame()): "
+					+ playerManager.getCurrentModel().getGameManagers().get(gameManager.getGame()));
+			logger.info("GameManager fetched by user " + user.getId() + " is " + gameManager);
 		}
 
 		// il veut jouer contre un utilisateur qui s'est déjà proposé
@@ -152,15 +161,17 @@ public class Home extends HttpServlet {
 			logger.info("id " + userId + " wants to play against id " + user.getId());
 			// fin to debug
 
-
 			try {
-				playerManager.makeUserPlayWithUser(
-						userId,
-						user
-				);
+				gameManager = playerManager
+						.makeUserPlayWithUser(
+								userId,
+								user
+						);
 			} catch (BusinessException e) {
 				logger.info("???");
 			}
+
+			logger.info("GameManager fetched by user " + user.getId() + " is " + gameManager);
 
 		}
 

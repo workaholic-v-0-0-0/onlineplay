@@ -9,15 +9,18 @@ public class Game {
 
     private int id;
     private HashMap<Coordinates, CellState> colorsGrid;
-    private User firstPlayer;
-    private User secondPlayer;
+    //private User firstPlayer;
+    private Player firstPlayer;
+
+    //private User secondPlayer;
+    private Player secondPlayer;
     private GameState gameState;
 
     public Game() {
 
     }
 
-    /**
+    /*
      * Constructs a new Game instance with the specified initial settings. This
      * constructor initializes a game with an ID and the first player already
      * defined, setting the stage for the addition of a second player. The game
@@ -34,7 +37,7 @@ public class Game {
      *                    reassignment of roles, allowing for the possibility of the
      *                    first and second players to swap their playing order.
      */
-    public Game(int id, User firstPlayer) {
+    public Game(int id, Player firstPlayer) {
         this.id = id;
         this.colorsGrid = new HashMap<Coordinates, CellState>();
         this.firstPlayer = firstPlayer;
@@ -61,19 +64,19 @@ public class Game {
         this.colorsGrid.put(coordinates, color);
     }
 
-    public User getFirstPlayer() {
+    public Player getFirstPlayer() {
         return firstPlayer;
     }
 
-    public void setFirstPlayer(User firstPlayer) {
+    public void setFirstPlayer(Player firstPlayer) {
         this.firstPlayer = firstPlayer;
     }
 
-    public User getSecondPlayer() {
+    public Player getSecondPlayer() {
         return secondPlayer;
     }
 
-    public void setSecondPlayer(User secondPlayer) {
+    public void setSecondPlayer(Player secondPlayer) {
         this.secondPlayer = secondPlayer;
     }
 

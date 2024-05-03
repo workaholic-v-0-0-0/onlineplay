@@ -118,6 +118,15 @@
 
   <build>
     <finalName>webapp</finalName>
+    <resources>
+      <resource>
+        <directory>${project.basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -172,9 +181,52 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>python3</executable>
+              <arguments>
+                <argument>${project.basedir}/src/main/scripts/find_react_files.py</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
         <version>3.3.1</version>
+        <configuration>
+          <filters>
+            <filter>${project.basedir}/src/main/resources/maven.properties</filter>
+          </filters>
+          <resources>
+            <resource>
+              <directory>${project.basedir}/src/main/webapp</directory>
+              <filtering>true</filtering>
+              <includes>
+                <include>**/home.jsp</include>
+              </includes>
+            </resource>
+            <resource>
+              <directory>${project.basedir}/src/main/react-webapp/build</directory>
+              <includes>
+                <!--
+                <include>**/*.js</include>
+                <include>**/*.css</include>
+                -->
+                <include>**/*</include>
+              </includes>
+            </resource>
+          </resources>
+        </configuration>
         <executions>
           <execution>
             <id>copy-resources</id>
@@ -184,15 +236,6 @@
             </goals>
             <configuration>
               <outputDirectory>${project.basedir}/target/webapp</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>${project.basedir}/src/main/react-webapp/build</directory>
-                  <filtering>false</filtering>
-                  <includes>
-                    <include>**/*</include>
-                  </includes>
-                </resource>
-              </resources>
             </configuration>
           </execution>
         </executions>

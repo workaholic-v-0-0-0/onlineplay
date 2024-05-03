@@ -1,20 +1,21 @@
 package online.caltuli.model;
 
 import online.caltuli.model.exceptions.user.*;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
-    private int id;
-    private String username;
+public class User extends Player {
+    //private int id;
+    //private String username;
     private String passwordHash;
     private String email;
-    private String message;
+    //private String message;
 
-    private static final Logger logger = LogManager.getLogger(User.class);
+    private static final Logger userLogger = LogManager.getLogger(User.class);
 
     public User() {
 
@@ -49,11 +50,12 @@ public class User {
 
         if (!validationErrors.isEmpty()) {
             String errorMessage = String.join(", ", validationErrors);
-            logger.info("User constructor encountered validation errors: " + errorMessage);
+            userLogger.info("User constructor encountered validation errors: " + errorMessage);
             throw new UserException(errorMessage);
         }
     }
 
+    /*
     public int getId() {
         return id;
     }
@@ -69,11 +71,12 @@ public class User {
     public void setUsername(String username) throws InvalidUsernameException {
         String regex = "^[A-Za-z0-9._-]{3,20}$";
         if (!username.matches(regex)) {
-            logger.info("Invalid username");
+            userLogger.info("Invalid username");
             throw new InvalidUsernameException("Invalid username: does not meet the criteria.");
         }
         this.username = username;
     }
+     */
 
     public String getPasswordHash() {
         return passwordHash;
@@ -82,7 +85,7 @@ public class User {
     public void setPasswordHash(String passwordHash) throws InvalidPasswordHashException {
         String regex = "^\\$2[ayb]\\$\\d{2}\\$[./A-Za-z0-9]{53}$";
         if (!passwordHash.matches(regex)) {
-            logger.info("Invalid password hash");
+            userLogger.info("Invalid password hash");
             throw new InvalidPasswordHashException("Invalid password hash: does not meet the BCrypt format.");
         }
         this.passwordHash = passwordHash;
@@ -95,12 +98,13 @@ public class User {
     public void setEmail(String email) throws InvalidMailException {
         String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
         if (!email.matches(regex)) {
-            logger.info("Invalid email format");
+            userLogger.info("Invalid email format");
             throw new InvalidMailException("Invalid email format: does not meet the criteria.");
         }
         this.email = email;
     }
 
+    /*
     public String getMessage() {
         return message;
     }
@@ -109,10 +113,12 @@ public class User {
         String regex = "^[A-Za-z0-9 .,!?\\-']{0,254}$";
 
         if (message != null && !message.matches(regex)) {
-            logger.info("Invalid message format");
+            userLogger.info("Invalid message format");
             throw new InvalidMessageException("Message contains invalid characters or exceeds the maximum length of 254 characters.");
         }
 
         this.message = message;
     }
+
+     */
 }

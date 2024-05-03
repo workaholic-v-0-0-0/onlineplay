@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import online.caltuli.model.exceptions.user.UserException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -47,14 +48,9 @@ public class UserActivities extends HttpServlet {
                         .getAuthenticatedUsers()
                         .values()
                         .stream()
-                        .map(
-                                user -> new Player(
-                                        user.getId(),
-                                        user.getUsername(),
-                                        user.getMessage()
-                                )
-                        )
-                        .collect(Collectors.toList()));
+                        .map(user -> (Player) user)
+                        .collect(Collectors.toList())
+        );
 
         data.put(
                 "waitingToPlayUsers",
@@ -62,14 +58,9 @@ public class UserActivities extends HttpServlet {
                         .getWaitingToPlayUser()
                         .values()
                         .stream()
-                        .map(
-                                user -> new Player(
-                                        user.getId(),
-                                        user.getUsername(),
-                                        user.getMessage()
-                                )
-                        )
-                        .collect(Collectors.toList()));
+                        .map(user -> (Player) user)
+                        .collect(Collectors.toList())
+        );
 
         data.put(
                 "games",
@@ -90,7 +81,8 @@ public class UserActivities extends HttpServlet {
                                                 null
                                 )
                         )
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList())
+        );
 
         try {
             String json = mapper.writeValueAsString(data);

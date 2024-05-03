@@ -24,6 +24,7 @@ import org.mindrot.jbcrypt.BCrypt;
 public class UserManager {
 
     @Inject
+    //protected CurrentModel currentModel;
     protected CurrentModel currentModel;
 
     protected final Logger logger = LogManager.getLogger(UserManager.class);
@@ -131,4 +132,7 @@ public class UserManager {
         return currentModel.getAuthenticatedUsers();
     }
 
+    public CurrentModel getCurrentModel() {
+        return currentModel;
+    }
 }

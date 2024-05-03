@@ -18,7 +18,8 @@ import jakarta.enterprise.inject.Specializes;
 @ApplicationScoped
 public class PlayerManager extends UserManager {
 
-    public Game makeUserProposeGame(User user_who_proposed_the_game) throws BusinessException {
+    public GameManager makeUserProposeGame(User user_who_proposed_the_game) throws BusinessException {
+        GameManager gameManager = null;
         GamesDao gamesDao = null;
         Game game = null;
         try {
@@ -29,18 +30,25 @@ public class PlayerManager extends UserManager {
         }
         try {
             int id = gamesDao.newRecord();
-            game = new Game(id, user_who_proposed_the_game);
+            game = new Game(
+                    id,
+                    user_who_proposed_the_game
+            );
             gamesDao.updateGame(game);
         } catch (DaoException e) {
             logger.info(e.getMessage());
             throw new BusinessException("Can't log game in games table.");
         }
+
+        // GameManager instance construction
+        gameManager = new GameManager(game);
+
         currentModel.addWaitingToPlayUser(user_who_proposed_the_game);
-        currentModel.addGames(game);
-        return game;
+        currentModel.addGame(game, gameManager);
+
+        return gameManager;
     }
 
-    // ICI
     // User instance of user with id id_of_user_who_proposed_the_game
     // has to be fetched because only information contained in Player instances
     // is accessible from front-end for security reasons
@@ -90,8 +98,8 @@ public class PlayerManager extends UserManager {
         game.setGameState(GameState.WAIT_FIRST_PLAYER_MOVE);
         getWaitingToPlayUser().remove(id_of_user_who_proposed_the_game);
 
-        // GameManager instance construction
-        gameManager = new GameManager(game);
+        // fetch the gameManager related to game in CurrentModel CDI bean
+        gameManager = (GameManager) (currentModel.getGameManagers().get(game));
 
         return gameManager;
     }
@@ -110,11 +118,7 @@ public class PlayerManager extends UserManager {
         for (Map.Entry<Integer, User> entry : users.entrySet()) {
             Integer id = entry.getKey();
             User user = entry.getValue();
-            Player player = new Player(
-                    id,
-                    user.getUsername(),
-                    user.getMessage()
-            );
+            Player player = (Player) user;
             players.put(id, player);
         }
         return players;
@@ -125,17 +129,17 @@ public class PlayerManager extends UserManager {
         for (Map.Entry<Integer, Game> entry : games.entrySet()) {
             Integer id = entry.getKey();
             Game game = entry.getValue();
-            User user;
+            Player player;
             GameSummary gameSummary =
                     new GameSummary(
                             id,
-                            (user = game.getFirstPlayer()) != null ?
-                                    user.getUsername()
+                            (player = game.getFirstPlayer()) != null ?
+                                    player.getUsername()
                                     :
                                     null
                             ,
-                            (user = game.getSecondPlayer()) != null ?
-                                    user.getUsername()
+                            (player = game.getSecondPlayer()) != null ?
+                                    player.getUsername()
                                     :
                                     null
                     );
@@ -151,5 +155,6 @@ public class PlayerManager extends UserManager {
     public Map<Integer, Game> getGames() {
         return currentModel.getGames();
     }
+
 
 }

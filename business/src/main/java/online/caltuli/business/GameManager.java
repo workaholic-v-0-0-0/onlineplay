@@ -13,12 +13,6 @@ public class GameManager {
         this.egp = new EvolutiveGridParser();
     }
 
-    public void switchPlayer() {
-        User playerMemory = game.getSecondPlayer();
-        game.setSecondPlayer(game.getFirstPlayer());
-        game.setFirstPlayer(playerMemory);
-    }
-
     public boolean isLegalMove(int column) {
         return egp.getNextLine()[column] != 6;
     }
@@ -63,6 +57,12 @@ public class GameManager {
             Coordinates coordinatesPlayed = egp.updateWithMove(column);
             updateGameWithMove(coordinatesPlayed);
         }
+    }
+
+    public void switchPlayer() {
+        Player playerMemory = game.getSecondPlayer();
+        game.setSecondPlayer(game.getFirstPlayer());
+        game.setFirstPlayer(playerMemory);
     }
 
     public Game getGame() {
