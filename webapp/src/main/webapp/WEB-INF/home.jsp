@@ -7,9 +7,6 @@
     <title>Onlineplay homepage</title>
 
     <!-- For React -->
-    <!--
-    <link rel="stylesheet" href="${react.css}">
-    -->
     <link rel="stylesheet" href="${react.css}">
 
 </head>
@@ -485,10 +482,6 @@
         <div id="root"></div>
 
         <!-- React scripts -->
-        <!--
-        <script src="${react.chunk.js}"></script>
-        <script src="${react.js}"></script>
-        -->
         <script src="${react.chunk.js}"></script>
         <script src="${react.js}"></script>
 

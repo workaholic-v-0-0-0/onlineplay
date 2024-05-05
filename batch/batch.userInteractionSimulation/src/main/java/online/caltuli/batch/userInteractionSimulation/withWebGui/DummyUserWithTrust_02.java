@@ -54,9 +54,7 @@ public class DummyUserWithTrust_02 implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
 
-        // ICI
-        // OUI ÇA MARCHE IL PROPOSE UNE PARTIE
-        // MAIS ERREUR 500 SI ON ACCEPTE DE JOUER CONTRE LUI EN CLIQUANT
+
         new Thread(() -> {
             try {
                 HttpClient client = createTrustedClient();
@@ -120,7 +118,10 @@ public class DummyUserWithTrust_02 implements HttpHandler {
                 logger.info("get id:" + userDto.getId());
                  */
 
-                Thread.sleep(40000);  // Simulate delay
+                for (int i=0 ; i<8 ; i++) {
+                    Thread.sleep(5000);  // Simulate delay
+                    sendTrustedGetRequest(client, urlPrefix + "home");
+                }
 
                 sendTrustedGetRequest(client, urlPrefix + "logout");
 

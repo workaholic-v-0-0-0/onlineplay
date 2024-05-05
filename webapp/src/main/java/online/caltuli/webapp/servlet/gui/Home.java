@@ -11,9 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import online.caltuli.business.exception.BusinessException;
-import online.caltuli.model.Coordinates;
-import online.caltuli.model.User;
-import online.caltuli.model.UserConnection;
+import online.caltuli.model.*;
 import org.apache.logging.log4j.LogManager;
 
 import java.io.IOException;
@@ -83,12 +81,96 @@ public class Home extends HttpServlet {
 								playerManager.getGames()
 						)
 		);
+
+		logger.info("deGet is called");
+
+		// C'est qui ?
+		HttpSession session = request.getSession(false);
+		User user = (User) session.getAttribute("user");
+
+		// si authentifié
+		if (user != null) {
+			logger.info("This is user " + user.getId());
+			// est-il en train de jouer une partie ou d'attendre un adversaire ?
+			GameManager gameManager = (GameManager) session.getAttribute("gameManager");
+			if (gameManager == null) {
+				// il n'est impliqué dans aucune partie
+				logger.info("User "
+						+ user.getId()
+						+ " is neither waiting for an opponent nor playing a game."
+				);
+			}
+
+			if (gameManager != null) {
+				// il est impliqué dans une partie
+				Game game = gameManager.getGame();
+				Player firstPlayer = game.getFirstPlayer();
+				Player secondPlayer = game.getSecondPlayer();
+				logger.info("User "
+						+ user.getId()
+						+ " is related to game "
+						+ gameManager.getGame().getId()
+						+ " via gameManager "
+						+ gameManager
+				);
+
+				if (game.getGameState() == GameState.WAIT_OPPONENT) {
+					// il attend un adversaire
+					logger.info("User "
+							+ user.getId()
+							+ " is currently waiting an other user to play "
+					);
+				} else {
+					// il est en train de jouer contre un autre adversaire
+					logger.info("User "
+							+ user.getId()
+							+ " is currently playing against user "
+							+ (
+									(secondPlayer.getId() == user.getId()) ?
+											firstPlayer.getId()
+											:
+											secondPlayer.getId()
+							)
+					);
+
+					GameState playerWon, waitPlayerMove, otherPlayerWon, waitOtherPlayerMove;
+					if (firstPlayer.getId() == user.getId()) {
+						playerWon = GameState.FIRST_PLAYER_WON;
+						waitPlayerMove = GameState.WAIT_FIRST_PLAYER_MOVE;
+						otherPlayerWon = GameState.SECOND_PLAYER_WON;
+						waitOtherPlayerMove = GameState.WAIT_SECOND_PLAYER_MOVE;
+					} else {
+						playerWon = GameState.SECOND_PLAYER_WON;
+						waitPlayerMove = GameState.WAIT_SECOND_PLAYER_MOVE;
+						otherPlayerWon = GameState.FIRST_PLAYER_WON;
+						waitOtherPlayerMove = GameState.WAIT_FIRST_PLAYER_MOVE;
+					}
+
+					GameState gameState = game.getGameState();
+					if (gameState == playerWon) {
+						// Code à exécuter si le joueur a gagné
+					} else if (gameState == waitPlayerMove) {
+						// Code à exécuter si on attend que le joueur joue
+					} else if (gameState == otherPlayerWon) {
+						// Code à exécuter si l'autre joueur a gagné
+					} else if (gameState == waitOtherPlayerMove) {
+						// Code à exécuter si on attend que l'autre joueur joue
+					} else if (gameState == GameState.DRAW) {
+						// Code à exécuter en cas de match nul
+					} else {
+						// Gérer les autres états, tels que WAIT_OPPONENT et TO_BE_CANCELLED, si nécessaire
+					}
+				}
+			}
+		}
+
 		this.getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// monitoring des paramètres POST
+		/*
 		Enumeration<String> parameterNames = request.getParameterNames();
 		StringBuilder paramsLog = new StringBuilder("Received POST parameters: ");
 		while (parameterNames.hasMoreElements()) {
@@ -106,7 +188,10 @@ public class Home extends HttpServlet {
 			}
 		}
 		logger.info(paramsLog.toString());
+		 */
 		// fin monitoring
+
+		logger.info("doPost is called");
 
 		// C'est qui ?
 		HttpSession session = request.getSession(false);
@@ -114,6 +199,7 @@ public class Home extends HttpServlet {
 
 		if (user == null) { // C'est personne
 			// il faut lui expliquer qu'il doit s'authentifier
+			logger.info("It's nobody");
 		}
 
 		// Qu'est-ce qu'il veut ?
@@ -124,13 +210,17 @@ public class Home extends HttpServlet {
 		if ("new_game".equals(action)) {
 			try {
 				gameManager = playerManager.makeUserProposeGame(user);
+				session.setAttribute("gameManager", gameManager);
 			} catch (BusinessException e) {
 				logger.info("User " + user.getId() + " had not been able to propose a game.");
 			}
-			logger.info(
-					"playerManager.getCurrentModel().getGameManagers().get(gameManager.getGame()): "
-					+ playerManager.getCurrentModel().getGameManagers().get(gameManager.getGame()));
-			logger.info("GameManager fetched by user " + user.getId() + " is " + gameManager);
+			logger.info("GameManager fetched by user "
+					+ user.getId()
+					+ " is "
+					+ gameManager
+					+ ". Its Game instance attribute is game with id "
+					+ gameManager.getGame().getId()
+			);
 		}
 
 		// il veut jouer contre un utilisateur qui s'est déjà proposé
@@ -140,15 +230,17 @@ public class Home extends HttpServlet {
 			int userId = 0;
 			if (userIdString == null || userIdString.isEmpty()) {
 				// ???
+				logger.info("blabla");
 			}
 			try {
 				userId = Integer.parseInt(userIdString);
 			} catch (NumberFormatException e) {
+				// ???
 				logger.info("blabla");
 			}
 
 			// début to debug
-			logger.info("This is a POST request.");
+			/*
 			if (user == null) {
 				logger.info(
 						"user is null and userConnection.id: " +
@@ -159,6 +251,7 @@ public class Home extends HttpServlet {
 								((UserConnection) session.getAttribute("userConnection")).getId());
 			}
 			logger.info("id " + userId + " wants to play against id " + user.getId());
+			 */
 			// fin to debug
 
 			try {
@@ -167,18 +260,25 @@ public class Home extends HttpServlet {
 								userId,
 								user
 						);
+				session.setAttribute("gameManager", gameManager);
 			} catch (BusinessException e) {
 				logger.info("???");
 			}
 
-			logger.info("GameManager fetched by user " + user.getId() + " is " + gameManager);
+			logger.info("GameManager fetched by user "
+					+ user.getId()
+					+ " is "
+					+ gameManager
+					+ ". Its Game instance attribute is game with id "
+					+ gameManager.getGame().getId()
+			);
 
 		}
 
 
-
 		// pour repasser les paramètres pour afficher tout de suite les trois
 		// listes
+		// et pour ...???
 		doGet(request, response);
 	}
 
