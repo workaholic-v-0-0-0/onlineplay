@@ -32,7 +32,7 @@ public class PlayerManager extends UserManager {
             int id = gamesDao.newRecord();
             game = new Game(
                     id,
-                    user_who_proposed_the_game
+                    (Player) user_who_proposed_the_game
             );
             gamesDao.updateGame(game);
         } catch (DaoException e) {
@@ -94,7 +94,7 @@ public class PlayerManager extends UserManager {
         }
 
         // update CurrentModel CDI bean
-        game.setSecondPlayer(user_who_joins_the_game);
+        game.setSecondPlayer((Player) user_who_joins_the_game);
         game.setGameState(GameState.WAIT_FIRST_PLAYER_MOVE);
         getWaitingToPlayUser().remove(id_of_user_who_proposed_the_game);
 
@@ -106,7 +106,7 @@ public class PlayerManager extends UserManager {
 
     public Game getGameProposedByUser(User user_who_proposed_game) {
         for (Game game : getGames().values()) {
-            if (game.getFirstPlayer() == user_who_proposed_game) {
+            if (game.getFirstPlayer() == (Player) user_who_proposed_game) {
                 return game;
             }
         }

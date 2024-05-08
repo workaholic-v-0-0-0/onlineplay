@@ -68,18 +68,7 @@ public class UserActivities extends HttpServlet {
                         .getGames()
                         .values()
                         .stream()
-                        .map(
-                                game -> new GameSummary(
-                                        game.getId(),
-                                        game.getFirstPlayer() != null ?
-                                                game.getFirstPlayer().getUsername()
-                                                :
-                                                null,
-                                        game.getSecondPlayer() != null ?
-                                                game.getSecondPlayer().getUsername()
-                                                :
-                                                null
-                                )
+                        .map(game -> game
                         )
                         .collect(Collectors.toList())
         );

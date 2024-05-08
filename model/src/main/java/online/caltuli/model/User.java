@@ -1,5 +1,6 @@
 package online.caltuli.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import online.caltuli.model.exceptions.user.*;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,7 +12,11 @@ import java.util.List;
 public class User extends Player {
     //private int id;
     //private String username;
+
+    @JsonIgnore
     private String passwordHash;
+
+    @JsonIgnore
     private String email;
     //private String message;
 

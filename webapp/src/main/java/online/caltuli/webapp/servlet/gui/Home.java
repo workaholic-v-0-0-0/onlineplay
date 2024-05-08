@@ -12,13 +12,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import online.caltuli.business.exception.BusinessException;
 import online.caltuli.model.*;
-import org.apache.logging.log4j.LogManager;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.Enumeration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Home extends HttpServlet {
@@ -102,8 +101,16 @@ public class Home extends HttpServlet {
 			}
 
 			if (gameManager != null) {
+
 				// il est impliqué dans une partie
 				Game game = gameManager.getGame();
+				ObjectMapper objectMapper = new ObjectMapper();
+				String rawJson = objectMapper.writeValueAsString(game);
+				String safeJson = rawJson.replace("\"", "\\\""); // Basic manual escaping
+				request.setAttribute("gameState", safeJson);
+
+				request.setAttribute("gameId", game.getId());
+
 				Player firstPlayer = game.getFirstPlayer();
 				Player secondPlayer = game.getSecondPlayer();
 				logger.info("User "
@@ -122,16 +129,20 @@ public class Home extends HttpServlet {
 					);
 				} else {
 					// il est en train de jouer contre un autre adversaire
-					logger.info("User "
-							+ user.getId()
-							+ " is currently playing against user "
-							+ (
-									(secondPlayer.getId() == user.getId()) ?
-											firstPlayer.getId()
-											:
-											secondPlayer.getId()
-							)
-					);
+					if (secondPlayer != null) {
+						logger.info("User "
+										+ user.getId()
+										+ " is currently playing against user "
+										+ (
+										(secondPlayer.getId() == user.getId()) ?
+												firstPlayer.getId()
+												:
+												secondPlayer.getId()
+								)
+						);
+					} else {
+						logger.info("secondPlayer is null");
+					}
 
 					GameState playerWon, waitPlayerMove, otherPlayerWon, waitOtherPlayerMove;
 					if (firstPlayer.getId() == user.getId()) {

@@ -1,31 +1,44 @@
-import React, { useEffect } from 'react';
-import logo from './leo.png';
-import './App.css';
-import Grid from './Grid'; // Supposons que vous mettiez le code Grid dans Grid.js
+import React, { useEffect, useState } from 'react';
+import { w3cwebsocket as W3CWebSocket } from 'websocket';
 
 function App() {
+  const [gameState, setGameState] = useState(null);
+  const [isConnected, setIsConnected] = useState(false);
 
-useEffect(() => {
-      console.log("App component is mounting");
-      console.log("logo is ", logo);
-    }, []);
+  useEffect(() => {
+    // Assurer que gameId est défini
+    if (!window.gameId) return;
+
+    const client = new W3CWebSocket(`wss://localhost:8443/webapp/game/${window.gameId}`);
+
+    client.onopen = () => {
+      console.log('WebSocket Client Connected');
+      setIsConnected(true);
+      setGameState(JSON.parse(window.initialState));  // Utilisez l'état initial si disponible
+    };
+
+    client.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        console.log("Mise à jour de l'état du jeu reçue", data);
+        setGameState(data);
+    };
+
+    client.onclose = () => {
+      console.log('WebSocket closed');
+      setIsConnected(false);
+    };
+
+    client.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    return () => client.close();  // Nettoyage en fermant la WebSocket lors du démontage du composant
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={`./${logo}`} className="App-logo" alt="loggo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <Grid /> {/* Utilisation du composant Grid ici */}
+      {isConnected ? <p>Connected to server</p> : <p>Disconnected</p>}
+      <p>Current Game State: {JSON.stringify(gameState)}</p>
     </div>
   );
 }

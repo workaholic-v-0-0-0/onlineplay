@@ -1,5 +1,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -325,24 +327,19 @@
                     );
 
             // add new games
-            games.forEach(game => {
-                let li = existingGames[game.id];
-                if (!li) {
-                    li = document.createElement('li');
-                    li.dataset.id = game.id.toString();
-                    li.dataset.firstPlayerUsername = game.firstPlayerUsername;
-                    li.dataset.secondPlayerUsername = game.secondPlayerUsername;
-                    gameListUl.appendChild(li);
+            games.forEach(
+                game => {
+                    let li = existingGames[game.id];
+                    if (!li) {
+                        li = document.createElement('li');
+                        li.dataset.id = game.id.toString();
+                        gameListUl.appendChild(li);
+                    }
+                    li.dataset.firstPlayerUsername = game.firstPlayer ? game.firstPlayer.username : "#nobody#";
+                    li.dataset.secondPlayerUsername = game.secondPlayer ? game.secondPlayer.username : "#nobody#";
+                    li.textContent = li.dataset.firstPlayerUsername + " vs " + li.dataset.secondPlayerUsername;
                 }
-                li.textContent =
-                    ((!game.firsPlayerUsername || game.firsPlayerUsername.trim() === "") ?
-                        "#nobody#" : "<c:out value='${game.firstPlayerUsername}' />")
-                    +
-                    " vs "
-                    +
-                    ((!game.secondPlayerUsername || game.secondPlayerUsername.trim() === "") ?
-                        "#nobody#" : "<c:out value='${game.secondPlayerUsername}' />")
-            });
+            );
 
             // suppress games not in the list anymore
             Object.keys(existingGames).forEach(id => {
@@ -480,6 +477,11 @@
 
     <!-- For React -->
         <div id="root"></div>
+
+        <script type="text/javascript">
+            var initialState = "${gameState}";  // gameState should be a JavaScript-safe JSON string
+            var gameId = "${fn:escapeXml(gameId)}";  // Use escapeXml to handle HTML special characters
+        </script>
 
         <!-- React scripts -->
         <script src="${react.chunk.js}"></script>

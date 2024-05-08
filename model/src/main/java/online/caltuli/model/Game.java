@@ -1,7 +1,6 @@
 package online.caltuli.model;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 import static online.caltuli.model.GameState.WAIT_OPPONENT;
 
