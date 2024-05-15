@@ -1,7 +1,10 @@
 package online.caltuli.webapp.servlet.gui;
 
 import jakarta.inject.Inject;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
 import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 import online.caltuli.business.ConstantGridParser;
 import online.caltuli.business.GameManager;
 import online.caltuli.business.PlayerManager;
@@ -14,9 +17,12 @@ import online.caltuli.business.exception.BusinessException;
 import online.caltuli.model.*;
 
 import java.io.IOException;
+import java.util.HashSet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import online.caltuli.webapp.util.JsonUtil;
+import online.caltuli.webapp.websocket.GameWebSocket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -86,6 +92,7 @@ public class Home extends HttpServlet {
 		// C'est qui ?
 		HttpSession session = request.getSession(false);
 		User user = (User) session.getAttribute("user");
+		Player player = (Player) user;
 
 		// si authentifié
 		if (user != null) {
@@ -107,9 +114,10 @@ public class Home extends HttpServlet {
 				ObjectMapper objectMapper = new ObjectMapper();
 				String rawJson = objectMapper.writeValueAsString(game);
 				String safeJson = rawJson.replace("\"", "\\\""); // Basic manual escaping
-				request.setAttribute("gameState", safeJson);
+				request.setAttribute("game", safeJson);
 
 				request.setAttribute("gameId", game.getId());
+				request.setAttribute("playerId", player.getId());
 
 				Player firstPlayer = game.getFirstPlayer();
 				Player secondPlayer = game.getSecondPlayer();
@@ -157,11 +165,13 @@ public class Home extends HttpServlet {
 						waitOtherPlayerMove = GameState.WAIT_FIRST_PLAYER_MOVE;
 					}
 
+					// EN FAIT IL FAUT TOUT FAIRE EN JAVASCRIPT
 					GameState gameState = game.getGameState();
 					if (gameState == playerWon) {
 						// Code à exécuter si le joueur a gagné
 					} else if (gameState == waitPlayerMove) {
 						// Code à exécuter si on attend que le joueur joue
+
 					} else if (gameState == otherPlayerWon) {
 						// Code à exécuter si l'autre joueur a gagné
 					} else if (gameState == waitOtherPlayerMove) {
@@ -207,6 +217,7 @@ public class Home extends HttpServlet {
 		// C'est qui ?
 		HttpSession session = request.getSession(false);
 		User user = (User) session.getAttribute("user");
+		Player player = (Player) user;
 
 		if (user == null) { // C'est personne
 			// il faut lui expliquer qu'il doit s'authentifier
@@ -274,6 +285,51 @@ public class Home extends HttpServlet {
 				session.setAttribute("gameManager", gameManager);
 			} catch (BusinessException e) {
 				logger.info("???");
+			}
+
+			// inform all related users of generated changes
+			JsonObject newSecondPlayerUpdateJsonObject = null;
+			String newSecondPlayerUpdateJson = JsonUtil.convertToJson(player);
+			newSecondPlayerUpdateJsonObject =
+					Json.createObjectBuilder()
+						.add("update", "secondPlayer")
+						.add("newValue", newSecondPlayerUpdateJson)
+						.build();
+			JsonObject newGameStateUpdateJsonObject = null;
+			String newGameStateUpdateJson =
+					JsonUtil.convertToJson(
+							GameState.WAIT_FIRST_PLAYER_MOVE
+					);
+			newGameStateUpdateJsonObject =
+					Json.createObjectBuilder()
+						.add("update", "gameState")
+						.add("newValue", newGameStateUpdateJson)
+						.build();
+			HashSet<Session> webSocketSessions =
+					GameWebSocket.getSessionsRelatedToGameId(
+							gameManager.getGame().getId()
+					);
+			for (Session webSocketSession : webSocketSessions) {
+				logger.info("here 4");
+				if (webSocketSession != null && webSocketSession.isOpen()) {
+					try {
+						logger.info("here 5");
+						webSocketSession
+								.getBasicRemote()
+								.sendText(
+										newSecondPlayerUpdateJsonObject.toString()
+								);
+						logger.info("here 6");
+						webSocketSession
+								.getBasicRemote()
+								.sendText(
+										newGameStateUpdateJsonObject.toString()
+								);
+						logger.info("here 7");
+					} catch (Exception e) {
+						logger.info(e.getMessage());
+					}
+				}
 			}
 
 			logger.info("GameManager fetched by user "

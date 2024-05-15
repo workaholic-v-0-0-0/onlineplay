@@ -119,6 +119,16 @@
       <groupId>org.quartz-scheduler</groupId>
       <artifactId>quartz-jobs</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/jakarta.json/jakarta.json-api -->
+    <dependency>
+      <groupId>jakarta.json</groupId>
+      <artifactId>jakarta.json-api</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.johnzon/johnzon-core -->
+    <dependency>
+      <groupId>org.apache.johnzon</groupId>
+      <artifactId>johnzon-core</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

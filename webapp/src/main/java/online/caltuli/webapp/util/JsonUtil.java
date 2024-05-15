@@ -14,4 +14,13 @@ public class JsonUtil {
             return "{}";
         }
     }
+
+    public static <T> T convertFromJson(String json, Class<T> clazz) {
+        try {
+            return mapper.readValue(json, clazz);
+        } catch (Exception e) {
+            throw new RuntimeException("Could not parse JSON to " + clazz.getSimpleName(), e);
+        }
+    }
+
 }

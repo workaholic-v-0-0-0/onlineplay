@@ -51,7 +51,7 @@ public class GameManager {
 
     }
 
-    public void playMove(int column) throws BusinessException {
+    public Coordinates playMove(int column) throws BusinessException {
         if (!isLegalMove(column)) {
                 throw new BusinessException(
                         "Illegal move : Column " + column + " is full."
@@ -59,6 +59,7 @@ public class GameManager {
         } else  {
             Coordinates coordinatesPlayed = egp.updateWithMove(column);
             updateGameWithMove(coordinatesPlayed);
+            return coordinatesPlayed;
         }
     }
 

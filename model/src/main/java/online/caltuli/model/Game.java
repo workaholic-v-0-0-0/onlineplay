@@ -52,11 +52,12 @@ public class Game {
         this.id = id;
     }
 
-    public HashMap<Coordinates, CellState> getGrid() {
+    public HashMap<Coordinates, CellState> getColorsGrid() {
         return colorsGrid;
     }
-    public void setGrid(HashMap<Coordinates, CellState> grid) {
-        this.colorsGrid = grid;
+
+    public void setColorsGrid(HashMap<Coordinates, CellState> colorsGrid) {
+        this.colorsGrid = colorsGrid;
     }
 
     public void setColorWithCoordinates(Coordinates coordinates, CellState color) {

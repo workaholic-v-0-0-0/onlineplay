@@ -38,17 +38,16 @@ public class IpValidator {
             ipDetails = getIpDetailsFromJson(ip);
             isWhitelistedObj = ipDetails.get("isWhitelisted");
             isWhitelisted = isWhitelistedObj instanceof Boolean && (Boolean) isWhitelistedObj;
-            isAllowedIp = ((((int) ipDetails.get("abuseConfidenceScore")) == 0)
-                    && (isWhitelistedObj == null || isWhitelisted)
-                    && (("FR".equals(ipDetails.get("countryCode").toString())))
+            isAllowedIp = (ip.startsWith("192.168"))
                     ||
-                    // to allow functionnal tests from batch.userInteractionSimulation
-                    (ip.equals("64.23.187.50"))
+                    (
+                            ((((int) ipDetails.get("abuseConfidenceScore")) == 0)
+                            && (isWhitelistedObj == null || isWhitelisted)
+                            && (("FR".equals(ipDetails.get("countryCode").toString()))))
+                            ||
+                            // to allow functionnal tests from batch.userInteractionSimulation
+                            (ip.equals("64.23.187.50"))
             ///* // to debug (to check the access is denied)
-                    ||
-                    (ip.equals("127.0.0.1"))
-                    ||
-                    (ip.startsWith("192.168"))
                     //*/
             );
         } catch (JsonParseException e) {

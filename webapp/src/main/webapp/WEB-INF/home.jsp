@@ -479,14 +479,14 @@
         <div id="root"></div>
 
         <script type="text/javascript">
-            var initialState = "${gameState}";  // gameState should be a JavaScript-safe JSON string
-            var gameId = "${fn:escapeXml(gameId)}";  // Use escapeXml to handle HTML special characters
+          var game = '${game}';
+          var gameId = '${fn:escapeXml(gameId)}';
+          var playerId = '${fn:escapeXml(playerId)}';
         </script>
 
         <!-- React scripts -->
         <script src="${react.chunk.js}"></script>
         <script src="${react.js}"></script>
-
 
 </body>
 </html>
