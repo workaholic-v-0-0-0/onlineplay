@@ -13,11 +13,11 @@ function App() {
     // ensure gameId is defined
     if (!window.gameId) return;
 
-    //const client = new W3CWebSocket(`wss://localhost:8443/webapp/game/${window.gameId}`);
-    //const client = new W3CWebSocket(`wss://192.168.0.14:8443/webapp/game/${window.gameId}`);
-    //const client = new W3CWebSocket(`wss://caltuli.online/webapp_version_sylvain/game/${window.gameId}`);
+    //const newClient = new W3CWebSocket(`wss://localhost:8443/webapp/game/${window.gameId}`);
     //const newClient = new W3CWebSocket(`wss://192.168.0.14:8443/webapp/game/${window.gameId}`);
-    const newClient = new W3CWebSocket(`wss://192.168.180.246:8443/webapp/game/${window.gameId}`);
+    const newClient = new W3CWebSocket(`wss://caltuli.online/webapp_version_sylvain/game/${window.gameId}`);
+    //const newClient = new W3CWebSocket(`wss://192.168.0.20:8443/webapp/game/${window.gameId}`);
+    //const newClient = new W3CWebSocket(`wss://192.168.180.246:8443/webapp/game/${window.gameId}`);
     setClient(newClient);
 
     newClient.onopen = () => {
@@ -79,12 +79,10 @@ const handlePlay = (columnIndex) => {
     console.log(`handlePlay is called for column ${columnIndex}.`);
 
     if (client && isConnected && game) {
-          console.log("here 1");
           const isFirstPlayerTurn = game.gameState === 'WAIT_FIRST_PLAYER_MOVE';
           const isSecondPlayerTurn = game.gameState === 'WAIT_SECOND_PLAYER_MOVE';
         if ((isFirstPlayerTurn && (playerId == game.firstPlayer.id)) ||
             (isSecondPlayerTurn && (playerId == game.secondPlayer.id))) {
-          console.log("here 2");
           var move = {
               update: 'colorsGrid',
               column: columnIndex,

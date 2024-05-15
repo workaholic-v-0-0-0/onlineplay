@@ -84,7 +84,6 @@ public class GameWebSocket {
 
         switch (updateType) {
             case "colorsGrid":
-                logger.info("step 1");
                 int playedColumn = 0;
                 JsonValue columnValue = jsonMessage.get("column");
                 if (columnValue != null && columnValue.getValueType() == JsonValue.ValueType.NUMBER) {
@@ -97,15 +96,16 @@ public class GameWebSocket {
                         return;
                     }
                 }
-                logger.info("step 2");
                 Coordinates coordinatesPlayed = null;
                 try {
                     coordinatesPlayed = gameManager.playMove(playedColumn);
                 } catch (BusinessException e) {
 
                 }
-                // inform all related client
-                logger.info("step 3");
+
+                // inform all related clients
+
+                // new colored cell
                 int playerId = 0;
                 JsonValue playerIdValue = jsonMessage.get("playerId");
                 if (playerIdValue != null && playerIdValue.getValueType() == JsonValue.ValueType.NUMBER) {
@@ -118,14 +118,25 @@ public class GameWebSocket {
                         return;
                     }
                 }
-                logger.info("step 4");
-
+                String color = (playerId == game.getFirstPlayer().getId()) ? "red" : "green";
                 JsonObject newColorsGridUpdateJsonObject =
                         Json.createObjectBuilder()
                                 .add("update", "colorsGrid")
                                 .add("x", coordinatesPlayed.getX())
                                 .add("y", coordinatesPlayed.getY())
-                                .add("color", "red")
+                                .add("color", color)
+                                .build();
+
+                // new gameState
+                JsonObject newGameStateUpdateJsonObject = null;
+                String newGameStateUpdateJson =
+                        JsonUtil.convertToJson(
+                                game.getGameState()
+                        );
+                newGameStateUpdateJsonObject =
+                        Json.createObjectBuilder()
+                                .add("update", "gameState")
+                                .add("newValue", newGameStateUpdateJson)
                                 .build();
 
                 for (Session webSocketSession : GameWebSocket.getSessionsRelatedToGameId(game.getId())) {
@@ -135,6 +146,11 @@ public class GameWebSocket {
                                     .getBasicRemote()
                                     .sendText(
                                             newColorsGridUpdateJsonObject.toString()
+                                    );
+                            webSocketSession
+                                    .getBasicRemote()
+                                    .sendText(
+                                            newGameStateUpdateJsonObject.toString()
                                     );
                         } catch (Exception e) {
                             logger.info(e.getMessage());
