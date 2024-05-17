@@ -8,10 +8,7 @@ public class Game {
 
     private int id;
     private HashMap<Coordinates, CellState> colorsGrid;
-    //private User firstPlayer;
     private Player firstPlayer;
-
-    //private User secondPlayer;
     private Player secondPlayer;
     private GameState gameState;
 

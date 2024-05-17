@@ -8,21 +8,6 @@ const GameBoard = ({ colorsGrid, handlePlay, playerId, gameState, firstPlayerId,
   const isPlayerTurn = (isFirstPlayerTurn && playerId == firstPlayerId) ||
                          (isSecondPlayerTurn && playerId == secondPlayerId);
 
-
-  console.log("(gameState === 'WAIT_FIRST_PLAYER_MOVE'):", (gameState === 'WAIT_FIRST_PLAYER_MOVE'));
-  console.log("playerId === firstPlayerId:", playerId === firstPlayerId);
-  console.log("playerId === secondPlayerId:", playerId === secondPlayerId);
-  console.log("(isFirstPlayerTurn && playerId === firstPlayerId):", (isFirstPlayerTurn && playerId === firstPlayerId));
-  console.log("(isSecondPlayerTurn && playerId === secondPlayerId):", (isSecondPlayerTurn && playerId === secondPlayerId));
-  console.log("(isFirstPlayerTurn && playerId === firstPlayerId) || (isSecondPlayerTurn && playerId === secondPlayerId):", (isFirstPlayerTurn && playerId === firstPlayerId) || (isSecondPlayerTurn && playerId === secondPlayerId));
-  console.log('gameState:', gameState);
-  console.log('isFirstPlayerTurn:', isFirstPlayerTurn);
-  console.log('isSecondPlayerTurn:', isSecondPlayerTurn);
-  console.log('playerId:', playerId);
-  console.log('firstPlayerId:', firstPlayerId);
-  console.log('secondPlayerId:', secondPlayerId);
-  console.log('isPlayerTurn:', isPlayerTurn);
-
 const renderCell = (x, y) => {
     const cellKey = `${y}-${x}`;
     const cellState = colorsGrid[cellKey] || 'empty';

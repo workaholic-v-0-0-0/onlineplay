@@ -15,9 +15,9 @@ function App() {
 
     //const newClient = new W3CWebSocket(`wss://localhost:8443/webapp/game/${window.gameId}`);
     //const newClient = new W3CWebSocket(`wss://192.168.0.14:8443/webapp/game/${window.gameId}`);
-    const newClient = new W3CWebSocket(`wss://caltuli.online/webapp_version_sylvain/game/${window.gameId}`);
+    //const newClient = new W3CWebSocket(`wss://caltuli.online/webapp_version_sylvain/game/${window.gameId}`);
     //const newClient = new W3CWebSocket(`wss://192.168.0.20:8443/webapp/game/${window.gameId}`);
-    //const newClient = new W3CWebSocket(`wss://192.168.180.246:8443/webapp/game/${window.gameId}`);
+    const newClient = new W3CWebSocket(`wss://192.168.180.246:8443/webapp/game/${window.gameId}`);
     setClient(newClient);
 
     newClient.onopen = () => {

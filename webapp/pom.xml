@@ -246,10 +246,6 @@
             <resource>
               <directory>${project.basedir}/src/main/react-webapp/build</directory>
               <includes>
-                <!--
-                <include>**/*.js</include>
-                <include>**/*.css</include>
-                -->
                 <include>**/*</include>
               </includes>
             </resource>

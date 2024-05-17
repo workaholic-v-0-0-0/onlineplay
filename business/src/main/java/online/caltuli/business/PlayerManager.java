@@ -156,5 +156,4 @@ public class PlayerManager extends UserManager {
         return currentModel.getGames();
     }
 
-
 }
