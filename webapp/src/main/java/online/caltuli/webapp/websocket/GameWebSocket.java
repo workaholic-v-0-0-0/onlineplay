@@ -27,7 +27,6 @@ import org.apache.logging.log4j.Logger;
 @ServerEndpoint("/game/{gameId}")
 public class GameWebSocket {
     private static final Map<Integer, HashSet<Session>> sessions = new ConcurrentHashMap<>();
-    //@Inject
     private CurrentModel currentModel;
     private GameManager gameManager;
     private Game game;
@@ -100,7 +99,7 @@ public class GameWebSocket {
                 try {
                     coordinatesPlayed = gameManager.playMove(playedColumn);
                 } catch (BusinessException e) {
-
+                    return;
                 }
 
                 // inform all related clients
@@ -139,6 +138,18 @@ public class GameWebSocket {
                                 .add("newValue", newGameStateUpdateJson)
                                 .build();
 
+                //to debug
+                JsonObject newGameManagerUpdateJsonObject = null;
+                String newGameManagerUpdateJson =
+                        JsonUtil.convertToJson(
+                                gameManager
+                        );
+                newGameManagerUpdateJsonObject =
+                        Json.createObjectBuilder()
+                                .add("update", "gameManager")
+                                .add("newValue", newGameManagerUpdateJson)
+                                .build();
+
                 for (Session webSocketSession : GameWebSocket.getSessionsRelatedToGameId(game.getId())) {
                     if (webSocketSession != null && webSocketSession.isOpen()) {
                         try {
@@ -152,6 +163,13 @@ public class GameWebSocket {
                                     .sendText(
                                             newGameStateUpdateJsonObject.toString()
                                     );
+
+                            //to debug
+                            webSocketSession
+                                .getBasicRemote()
+                                .sendText(
+                                        newGameManagerUpdateJsonObject.toString()
+                                );
                         } catch (Exception e) {
                             logger.info(e.getMessage());
                         }
@@ -163,26 +181,6 @@ public class GameWebSocket {
                 logger.warn("Received an unsupported update type: " + updateType);
                 break;
         }
-        /*
-        JsonObject json = Json.createReader(new StringReader(message)).readObject();
-        if ("secondPlayer".equals(json.getString("update"))) {
-
-            Player newSecondPlayer =
-                    JsonUtil.convertFromJson(
-                            json.getString("newValue"),
-                            Player.class
-                    );
-
-
-        }
-        if ("gameState".equals(json.getString("update"))) {
-            GameState newGameState = GameState.valueOf(json.getString("newValue"));
-        }
-        if ("colorsGrid".equals(json.getString("update"))) {
-            logger.info("here 3");
-        }
-
-         */
     }
 
     @OnClose

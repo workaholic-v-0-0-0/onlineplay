@@ -26,30 +26,39 @@ public class Authentication extends HttpServlet {
 
 	private final Logger logger = LogManager.getLogger(Authentication.class);
 
-    public Authentication() {}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/WEB-INF/authentication.jsp").forward(request, response);
+	protected void doGet(
+			HttpServletRequest request,
+			HttpServletResponse response)
+			throws ServletException, IOException {
+		this.getServletContext().getRequestDispatcher(
+				"/WEB-INF/authentication.jsp").forward(request, response
+		);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(
+			HttpServletRequest request,
+			HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		User user = null;
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		logger.info("username : " + username + " ; password : " + password);
-
 		try {
 			user = userManager.authenticateUser(username, password);
 			session.setAttribute("user", user);
 			if (user == null) {
 				request.setAttribute("authenticationFailed", true);
 			} else {
-				request.setAttribute("hasJustBeenAuthenticated", user.getUsername());
-				((UserConnection) session.getAttribute("userConnection")).setUserId(user.getId());
+				request.setAttribute(
+						"hasJustBeenAuthenticated",
+						user.getUsername()
+				);
+				((UserConnection) session.getAttribute("userConnection"))
+						.setUserId(user.getId());
 				try {
 					userManager.updateUserConnection(
-							((UserConnection) session.getAttribute("userConnection"))
+							((UserConnection)
+									session.getAttribute("userConnection"))
 					);
 				} catch (BusinessException e) {
 					logger.info("Information related to user "
@@ -61,12 +70,18 @@ public class Authentication extends HttpServlet {
 				}
 			}
 		} catch (BusinessException e) {
-			request.setAttribute("authenticationProblemEncountred", e.getMessage());
+			request.setAttribute(
+					"authenticationProblemEncountred",
+					e.getMessage()
+			);
 		} catch (UserException e) {
-			request.setAttribute("authenticationProblemEncountred", "Your account has been invalidated.");
+			request.setAttribute(
+					"authenticationProblemEncountred",
+					"Your account has been invalidated."
+			);
 		}
-
-		//request.getRequestDispatcher("/home").forward(request, response);
-		this.getServletContext().getRequestDispatcher("/WEB-INF/authentication.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher(
+				"/WEB-INF/authentication.jsp"
+		).forward(request, response);
 	}
 }

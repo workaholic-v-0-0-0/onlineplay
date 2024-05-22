@@ -76,4 +76,12 @@ public class GameManager {
     public void setGame(Game game) {
         this.game = game;
     }
+
+    public EvolutiveGridParser getEgp() {
+        return egp;
+    }
+
+    public void setEgp(EvolutiveGridParser egp) {
+        this.egp = egp;
+    }
 }

@@ -1,11 +1,24 @@
+/******************************************************************************
+ * NAME: updateLists.js
+ * ROLE: Manages dynamic lists of users and games by fetching data from backend.
+ * AUTHOR: Sylvain Labopin
+ * LICENSE: Educational use in "Réalisation de programme" course.
+ * COMPILATION: No compilation needed. Include in HTML for web browser execution.
+ * USAGE: Embed via <script src="updateLists.js"></script> in an HTML file.
+ *        Ensure the backend 'user-activities' endpoint is correctly set up.
+ ******************************************************************************/
 
+// listen for the DOM content to be fully loaded before executing the script
 document.addEventListener('DOMContentLoaded', function() {
+
+    // fetch user activity data from the server
     function fetchData() {
-        fetch('user-activities')
+        fetch('user-activities') // make request to user-activities endpoint
             .then(function(response) {
-                return response.json();
+                return response.json(); // parse the response as Json
             })
             .then(function(data) {
+                // update lists displayed on the webpage
                 updateAuthenticatedUsersList(data.authenticatedUsers);
                 updateWaitingToPlayUsers(data.waitingToPlayUsers);
                 updateGamesList(data.games);
@@ -15,16 +28,23 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
+    // updates the list of authenticated users displayed on the webpage
     function updateAuthenticatedUsersList(authenticatedUsers) {
 
-        // fetch the ul component to update
-        const authenticatedUsersListUl = document.querySelector('#authenticatedUsersList ul');
+        // selects unordered list (ul) where authenticated users are displayed
+        const authenticatedUsersListUl =
+            document.querySelector('#authenticatedUsersList ul');
+
+        // log error and exit if the list element is not found
         if (!authenticatedUsersListUl) {
-            console.error("Failed to find the element with selector:", '#authenticatedUsersList ul');
+            console.error(
+                "Failed to find the element with selector:",
+                '#authenticatedUsersList ul'
+            );
             return;
         }
 
-        // catch displayed list in a map
+        // map existing list items to manage updates and removals efficiently
         const existingAuthenticatedUsers =
             Array.from(authenticatedUsersListUl.children)
                 .reduce(
@@ -35,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     {}
                 );
 
-        // add new authenticated users
+        // update or add new items for each authenticated user
         authenticatedUsers.forEach(authenticatedUser => {
             let li = existingAuthenticatedUsers[authenticatedUser.id];
             if (!li) {
@@ -54,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // suppress authenticatedUsers not in the list anymore
+        // remove users no longer authenticated
         Object.keys(existingAuthenticatedUsers).forEach(id => {
             if (!authenticatedUsers.some(p => p.id === parseInt(id, 10))) {
                 authenticatedUsersListUl
@@ -63,16 +83,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // updates the list of users waiting to play a game
     function updateWaitingToPlayUsers(waitingToPlayUsers) {
 
-        // fetch the ul component to update
-        const waitingToPlayUsersUl = document.querySelector('#waitingToPlayUsersList ul');
+        // selects the unordered list (ul) where waiting users are displayed
+        const waitingToPlayUsersUl =
+            document.querySelector('#waitingToPlayUsersList ul');
+
+        // log error and exit if the list element is not found
         if (!waitingToPlayUsersUl) {
-            console.error("Failed to find the element with selector: #waitingToPlayUsersList ul");
+            console.error(
+                "Failed to find the element with selector:",
+                 "#waitingToPlayUsersList ul");
             return;
         }
 
-        // catch displayed list in a map
+        // map existing list items to manage updates and removals efficiently
         const existingWaitingToPlayUsers =
             Array
                 .from(waitingToPlayUsersUl.children)
@@ -84,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     {}
                 );
 
-        // Add new waiting to play users
+        // update or add new items with forms for each user waiting to play
         waitingToPlayUsers.forEach(
             waitingToPlayUser => {
                 let li = existingWaitingToPlayUsers[waitingToPlayUser.id];
@@ -98,8 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     form.action = "home";
                     form.method = "post";
 
-                    // make hidden field indicating a user wants to play against the one who
-                    // corresponds to this list item
+                    /* make hidden field indicating a user wants to play
+                     * against the one who corresponds to this list item */
                     const inputAction = document.createElement('input');
                     inputAction.type = "hidden";
                     inputAction.name = "action";
@@ -115,9 +141,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     // make submit input
                     const inputSubmit = document.createElement('input');
                     inputSubmit.type = "submit";
-                    inputSubmit.value = "Play with " + waitingToPlayUser.username;
+                    inputSubmit.value =
+                        "Play with " + waitingToPlayUser.username;
 
-                    // Assemble the form
+                    // assemble the form
                     form.appendChild(inputAction);
                     form.appendChild(inputUserId);
                     form.appendChild(inputSubmit);
@@ -130,24 +157,31 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         );
 
-        // suppress users not waiting anymore to play
+        // remove users no longer waiting to play.
         Object.keys(existingWaitingToPlayUsers).forEach(id => {
             if (!waitingToPlayUsers.some(p => p.id === parseInt(id, 10))) {
-                waitingToPlayUsersUl.removeChild(existingWaitingToPlayUsers[id]);
+                waitingToPlayUsersUl
+                    .removeChild(existingWaitingToPlayUsers[id]);
             }
         });
     }
 
+    // updates the games list displayed on the webpage
     function updateGamesList(games) {
 
-        // fetch the ul component to update
+        // selects the unordered list (ul) where games are displayed
         const gameListUl = document.querySelector('#gamesList ul');
+
+        // log error and exit if the list element is not found
         if (!gameListUl) {
-            console.error("Failed to find the element with selector:", '#gamesList ul');
+            console.error(
+                "Failed to find the element with selector:",
+                '#gamesList ul'
+            );
             return;
         }
 
-        // catch displayed list in a map
+        // map existing list items to manage updates and removals efficiently
         const existingGames =
             Array.from(gameListUl.children)
                 .reduce(
@@ -158,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     {}
                 );
 
-        // add new games
+        // update or add new list items for each game
         games.forEach(
             game => {
                 let li = existingGames[game.id];
@@ -173,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         );
 
-        // suppress games not in the list anymore
+        // remove games no longer current
         Object.keys(existingGames).forEach(id => {
             if (!games.some(g => g.id === parseInt(id, 10))) {
                 gameListUl.removeChild(existingGames[id]);
@@ -181,6 +215,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Refresh the data every 5 seconds
+    // refresh data every 5 seconds to keep the display updated
     setInterval(fetchData, 5000);
 });

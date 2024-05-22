@@ -1,34 +1,45 @@
 package online.caltuli.business;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import online.caltuli.model.CellState;
 import online.caltuli.model.Coordinates;
 
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class EvolutiveGridParser {
 
     // column number y to number of the lowest line x so that (x,y) can be played
+    @JsonProperty
     private int[] nextLine;
 
     // the color of the player to who it is its turn to play
+    @JsonProperty
     CellState nextColor;
 
     // map :
     // coordinates row              number of red coordinates
     // R where only red    ----->   in R
     // has played
+    @JsonProperty
     private HashMap<Coordinates[],Integer> redRowsToNbOfRedCoordinates;
 
     // map :
     // coordinates row                number of green coordinates
     // R where only green    ----->   in R
     // has played
+    @JsonProperty
     private HashMap<Coordinates[],Integer> greenRowsToNbOfGreenCoordinates;
 
     // set of Coordinates rows which contain at least one red Coordinates
     // and one green Coordinates
+    @JsonProperty
     private HashSet<Coordinates[]> unWinnableCoordinatesRowsSet;
+
+    private Logger logger = LogManager.getLogger(EvolutiveGridParser.class); // to debug
 
     public EvolutiveGridParser() {
         nextLine = new int[7];
@@ -68,7 +79,7 @@ public class EvolutiveGridParser {
             nextColor = CellState.GREEN;
         } else {
             playedColorRowsToNbOfPlayedColorCoordinates = greenRowsToNbOfGreenCoordinates;
-            notPlayedColorRowsToNbOfNotPlayedColorCoordinates = greenRowsToNbOfGreenCoordinates;
+            notPlayedColorRowsToNbOfNotPlayedColorCoordinates = redRowsToNbOfRedCoordinates;
             nextColor = CellState.RED;
         }
 
@@ -79,20 +90,25 @@ public class EvolutiveGridParser {
                                 [column]
         ) {
             if (!unWinnableCoordinatesRowsSet.contains(coordinatesRow)) {
+                logger.info("here 1");
+                // if opponent's already played in this coordinatesRow
                 if ((notPlayedColorRowsToNbOfNotPlayedColorCoordinates.get(coordinatesRow) != null)) {
+                    logger.info("here 2");
+                    // remove the pair which corresponds to this coordinatesRow in "opponent dictionnary"
                     notPlayedColorRowsToNbOfNotPlayedColorCoordinates.remove(coordinatesRow);
+                    playedColorRowsToNbOfPlayedColorCoordinates.remove(coordinatesRow);
+                    // one can't win anymore in this coordinatesRow because it's bicolor
                     unWinnableCoordinatesRowsSet.add(coordinatesRow);
                 } else {
-                    Integer newNbOfPlayedColorCoordinatesInCoordinatesRow =
-                            playedColorRowsToNbOfPlayedColorCoordinates.getOrDefault(
-                                    coordinatesPlayed,
-                                    0
-                            );
-                    playedColorRowsToNbOfPlayedColorCoordinates.put(
+                    logger.info("here 3");
+                    playedColorRowsToNbOfPlayedColorCoordinates.merge(
                             coordinatesRow,
-                            newNbOfPlayedColorCoordinatesInCoordinatesRow
+                            1,
+                            (existingValue, newValue) -> existingValue + newValue
                     );
                 }
+            } else {
+                logger.info("here 4");
             }
         }
 
@@ -145,5 +161,13 @@ public class EvolutiveGridParser {
 
     public void setGreenRowsToNbOfGreenCoordinates(HashMap<Coordinates[], Integer> greenRowsToNbOfGreenCoordinates) {
         this.greenRowsToNbOfGreenCoordinates = greenRowsToNbOfGreenCoordinates;
+    }
+
+    public HashSet<Coordinates[]> getUnWinnableCoordinatesRowsSet() {
+        return unWinnableCoordinatesRowsSet;
+    }
+
+    public void setUnWinnableCoordinatesRowsSet(HashSet<Coordinates[]> unWinnableCoordinatesRowsSet) {
+        this.unWinnableCoordinatesRowsSet = unWinnableCoordinatesRowsSet;
     }
 }

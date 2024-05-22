@@ -1,23 +1,23 @@
 body, html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        width: 100%; /* html et body occupent toute la largeur */
-    }
-    .container {
-        display: flex; /* Alignement horizontal des .half */
-        width: 100%; /* le conteneur prend toute la largeur */
-    }
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+.container {
+    display: flex;
+    width: 100%;
+}
 
-    .half {
-        display: flex;
-        flex-direction: column; /* Empilement vertical à l'intérieur de chaque .half */
-        flex: 1; /* Assure que chaque .half prend une part égale de l'espace disponible */
-        padding: 10px; /* Espace intérieur pour la visibilité */
-    }
-    .left {
-        background-color: #f8f9fa; /* Couleur de fond de la div gauche */
-    }
-    .right {
-        background-color: #adb5bd; /* Couleur de fond de la div droite */
-    }
+.half {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 10px;
+}
+.left {
+    background-color: #f8f9fa;
+}
+.right {
+    background-color: #adb5bd;
+}
