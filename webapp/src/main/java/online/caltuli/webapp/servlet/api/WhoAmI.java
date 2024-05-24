@@ -14,8 +14,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WhoAmI extends HttpServlet {
+    protected void doGet(
+            HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

@@ -26,7 +26,8 @@ import org.apache.logging.log4j.Logger;
 
 @ServerEndpoint("/game/{gameId}")
 public class GameWebSocket {
-    private static final Map<Integer, HashSet<Session>> sessions = new ConcurrentHashMap<>();
+    //private static final Map<Integer, HashSet<Session>> sessions = new ConcurrentHashMap<>();
+    public static final Map<Integer, HashSet<Session>> sessions = new ConcurrentHashMap<>();
     private CurrentModel currentModel;
     private GameManager gameManager;
     private Game game;
@@ -60,11 +61,14 @@ public class GameWebSocket {
         }
         sessions.get(gameKey).add(session);
 
+        logger.info("sessions: " + sessions);
+
     }
 
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
         logger.info("Message received: " + message);
+        logger.info("sessions: " + sessions);
         //JsonObject json = Json.createReader(new StringReader(message)).readObject();
 
         JsonObject jsonMessage;
@@ -138,7 +142,8 @@ public class GameWebSocket {
                                 .add("newValue", newGameStateUpdateJson)
                                 .build();
 
-                //to debug
+                // to debug by diplaying EvolutiveGridParser on front-end
+                /*
                 JsonObject newGameManagerUpdateJsonObject = null;
                 String newGameManagerUpdateJson =
                         JsonUtil.convertToJson(
@@ -149,6 +154,8 @@ public class GameWebSocket {
                                 .add("update", "gameManager")
                                 .add("newValue", newGameManagerUpdateJson)
                                 .build();
+
+                 */
 
                 for (Session webSocketSession : GameWebSocket.getSessionsRelatedToGameId(game.getId())) {
                     if (webSocketSession != null && webSocketSession.isOpen()) {
@@ -164,12 +171,15 @@ public class GameWebSocket {
                                             newGameStateUpdateJsonObject.toString()
                                     );
 
-                            //to debug
+                            // to debug by diplaying EvolutiveGridParser on front-end
+                            /*
                             webSocketSession
                                 .getBasicRemote()
                                 .sendText(
                                         newGameManagerUpdateJsonObject.toString()
                                 );
+
+                             */
                         } catch (Exception e) {
                             logger.info(e.getMessage());
                         }
@@ -197,5 +207,7 @@ public class GameWebSocket {
     public static HashSet<Session> getSessionsRelatedToGameId(Integer gameId) {
         return sessions.get(gameId);
     }
+
+
 
 }

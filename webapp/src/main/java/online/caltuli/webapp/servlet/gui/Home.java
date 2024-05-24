@@ -126,6 +126,12 @@ public class Home extends HttpServlet {
 
 		// Check if the user is authenticated and their game status
 		if (user != null) {
+
+			//todebug
+			logger.info("doGet");
+			logger.info("user.getId:" + user.getId());
+			logger.info("GameWebSocket.sessions:" + GameWebSocket.sessions);
+
 			// Retrieve any existing GameManager instance that corresponds
 			// to the game the user may be involved in.
 			GameManager gameManager =
@@ -183,6 +189,11 @@ public class Home extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		User user = (User) session.getAttribute("user");
 		Player player = (Player) user;
+
+		//todebug
+		logger.info("doPost");
+		logger.info("user.getId:" + user.getId());
+		logger.info("GameWebSocket.sessions:" + GameWebSocket.sessions);
 
 		if (user == null) { // the user is not authenticated
 			// Inform that the user needs to authenticate before proceeding

@@ -90,25 +90,20 @@ public class EvolutiveGridParser {
                                 [column]
         ) {
             if (!unWinnableCoordinatesRowsSet.contains(coordinatesRow)) {
-                logger.info("here 1");
                 // if opponent's already played in this coordinatesRow
                 if ((notPlayedColorRowsToNbOfNotPlayedColorCoordinates.get(coordinatesRow) != null)) {
-                    logger.info("here 2");
                     // remove the pair which corresponds to this coordinatesRow in "opponent dictionnary"
                     notPlayedColorRowsToNbOfNotPlayedColorCoordinates.remove(coordinatesRow);
                     playedColorRowsToNbOfPlayedColorCoordinates.remove(coordinatesRow);
                     // one can't win anymore in this coordinatesRow because it's bicolor
                     unWinnableCoordinatesRowsSet.add(coordinatesRow);
                 } else {
-                    logger.info("here 3");
                     playedColorRowsToNbOfPlayedColorCoordinates.merge(
                             coordinatesRow,
                             1,
                             (existingValue, newValue) -> existingValue + newValue
                     );
                 }
-            } else {
-                logger.info("here 4");
             }
         }
 

@@ -57,21 +57,28 @@ public class DummyUserWithTrust_02 implements HttpHandler {
 
         new Thread(() -> {
             try {
+                logger.info("here 1");
                 HttpClient client = createTrustedClient();
+                logger.info("here 2");
 
                 String homeResponse = sendTrustedGetRequest(client, urlPrefix + "home");
+                logger.info("here 3");
                 sendTrustedGetRequest(client, urlPrefix + "registration");
+                logger.info("here 4");
 
                 String registrationParams = "username=" + URLEncoder.encode(user, "UTF-8") +
                         "&password=123&email=ai.ai@ai.com&message=I'm clever";
                 sendTrustedPostRequest(client, urlPrefix + "registration", registrationParams);
+                logger.info("here 5");
 
                 String authParams = "username=" + URLEncoder.encode(user, "UTF-8") + "&password=123";
                 sendTrustedPostRequest(client, urlPrefix + "authentication", authParams);
+                logger.info("here 6");
 
                 // propose a game
                 String postParams = "action=" + "new_game";
                 sendTrustedPostRequest(client, urlPrefix + "home", postParams);
+                logger.info("here 7");
 
                 // TEST FAIT PAR HASARD EN SE TROMPANT MAIS QUI SERA UTILE PLUS TARD
                 // Effectuer une requête GET pour obtenir les informations de l'utilisateur

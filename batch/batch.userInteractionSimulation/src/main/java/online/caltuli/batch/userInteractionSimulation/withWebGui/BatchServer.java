@@ -30,10 +30,14 @@ public class BatchServer {
         server.createContext("/", new HttpHandler() {
             @Override
             public void handle(final HttpExchange exchange) {
+                Logger logger = LogManager.getLogger(BatchServer.class);
+                logger.info("here 1");
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        logger.info("here 2");
                         try {
+                            logger.info("here 3");
                             String response = "Server active!";
                             exchange.sendResponseHeaders(200, response.getBytes().length);
                             try (OutputStream os = exchange.getResponseBody()) {
@@ -41,6 +45,7 @@ public class BatchServer {
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
+                            logger.info("e.printStackTrace()");
                         } finally {
                             exchange.close();
                         }
@@ -77,6 +82,7 @@ public class BatchServer {
                 "/dummyUser_local_01",
                 new DummyUserWithTrust_01(
                         "https://localhost:8443/webapp/",
+                        //"https://caltuli.online/webapp_version_sylvain/",
                         "fake-local-user-01"
                 )
         );

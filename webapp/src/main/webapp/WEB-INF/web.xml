@@ -33,6 +33,10 @@
     <servlet-name>WhoAmI</servlet-name>
     <servlet-class>online.caltuli.webapp.servlet.api.WhoAmI</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>HowIsMyGame</servlet-name>
+    <servlet-class>online.caltuli.webapp.servlet.api.HowIsMyGame</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>Home</servlet-name>
@@ -61,6 +65,10 @@
   <servlet-mapping>
     <servlet-name>WhoAmI</servlet-name>
     <url-pattern>/who-am-i</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>HowIsMyGame</servlet-name>
+    <url-pattern>/how-is-my-game</url-pattern>
   </servlet-mapping>
 
   <filter>

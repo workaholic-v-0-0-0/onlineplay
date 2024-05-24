@@ -39,6 +39,7 @@ public class IpValidator {
             isWhitelistedObj = ipDetails.get("isWhitelisted");
             isWhitelisted = isWhitelistedObj instanceof Boolean && (Boolean) isWhitelistedObj;
             isAllowedIp = (ip.startsWith("192.168"))
+                    || (ip.equals("127.0.0.1"))
                     ||
                     (
                             ((((int) ipDetails.get("abuseConfidenceScore")) == 0)

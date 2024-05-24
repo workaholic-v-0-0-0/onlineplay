@@ -262,8 +262,8 @@
         <script type="text/javascript">
           var game = '${game}';
 
-          <!--todebug-->
-          var gameManager = '${gameManager}';
+          <!--to debug-->
+          <!--var gameManager = '${gameManager}';-->
 
           var gameId = '${fn:escapeXml(gameId)}';
           var playerId = '${fn:escapeXml(playerId)}';

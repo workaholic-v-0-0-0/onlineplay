@@ -4,8 +4,9 @@ import GameBoard from './GameBoard';
 
 function App() {
   const [game, setGame] = useState(null);
-  //to debug
-  const [gameManager, setGameManager] = useState(null);
+
+  // to debug by diplaying EvolutiveGridParser on front-end
+  //const [gameManager, setGameManager] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
   const [client, setClient] = useState(null);
 
@@ -18,8 +19,10 @@ function App() {
     //const newClient = new W3CWebSocket(`wss://localhost:8443/webapp/game/${window.gameId}`);
     //const newClient = new W3CWebSocket(`wss://192.168.0.14:8443/webapp/game/${window.gameId}`);
     //const newClient = new W3CWebSocket(`wss://caltuli.online/webapp_version_sylvain/game/${window.gameId}`);
+    //const newClient = new W3CWebSocket(`wss://caltuli.online/webapp/game/${window.gameId}`);
     //const newClient = new W3CWebSocket(`wss://192.168.0.11:8443/webapp/game/${window.gameId}`);
     const newClient = new W3CWebSocket(`wss://192.168.180.246:8443/webapp/game/${window.gameId}`);
+
     setClient(newClient);
 
     newClient.onopen = () => {
@@ -29,9 +32,11 @@ function App() {
           const parsedState = JSON.parse(window.game);
           console.log('Parsed initialState:', parsedState);
           setGame(parsedState);
-          //to debug (2 lines)
+          // to debug by diplaying EvolutiveGridParser on front-end
+          /*
           const parsedState2 = JSON.parse(window.gameManager);
           setGameManager(parsedState2);
+          */
       } catch (error) {
         console.error('Error parsing initialState:', error);
       }
@@ -62,10 +67,12 @@ function App() {
             }));
         }
 
-        // to debug (6 lines)
+        // to debug by diplaying EvolutiveGridParser on front-end
+        /*
         if (data.update === "gameManager") {
                 setGameManager(prevState => JSON.parse(data.newValue));
         }
+        */
     };
 
     newClient.onclose = () => {
@@ -121,7 +128,6 @@ const formatColorsGrid = (colorsGrid) => {
     <div className="App">
       {isConnected ? <p>Connected to server</p> : <p>Disconnected</p>}
       <p>Current Game: {JSON.stringify(game)}</p>
-      <p>Current GameManager: {JSON.stringify(gameManager)}</p>
       {game && game.colorsGrid && (
               <GameBoard
                 colorsGrid={formatColorsGrid(game.colorsGrid)}
