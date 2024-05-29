@@ -103,30 +103,6 @@ public class BatchServer {
                 )
         );
 
-        server.createContext(
-                "/dummyPlayer_local_01",
-                new DummyUserWithTrust_02(
-                        "https://localhost:8443/webapp/",
-                        "fake-local-player-01"
-                )
-        );
-
-        server.createContext(
-                "/dummyPlayer_local_02",
-                new DummyUserWithTrust_02(
-                        "https://localhost:8443/webapp/",
-                        "fake-local-player-02"
-                )
-        );
-
-        server.createContext(
-                "/dummyPlayer_local_03",
-                new DummyUserWithTrust_02(
-                        "https://localhost:8443/webapp/",
-                        "fake-local-player-03"
-                )
-        );
-
         server.setExecutor(null);
         server.start();
     }

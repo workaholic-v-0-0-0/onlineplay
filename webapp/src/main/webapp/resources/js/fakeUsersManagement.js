@@ -18,40 +18,6 @@ document.getElementById('sendDummyUser01').addEventListener('click', function() 
         console.error(error);
     });
 });
-document.getElementById('sendDummyUser02').addEventListener('click', function() {
-            fetch('http://localhost:8000/dummyUser_local_02', {
-                method: 'GET',
-            })
-            .then(response => {
-                if(response.ok) {
-                    return response.text();
-                }
-                throw new Error('The request failed.');
-            })
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        });
-document.getElementById('sendDummyUser03').addEventListener('click', function() {
-            fetch('http://localhost:8000/dummyUser_local_03', {
-                method: 'GET',
-            })
-            .then(response => {
-                if(response.ok) {
-                    return response.text();
-                }
-                throw new Error('The request failed.');
-            })
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        });
 */
 
 // if not local -->
@@ -72,37 +38,3 @@ document.getElementById('sendDummyUser01').addEventListener('click', function() 
         console.error(error);
     });
 });
-document.getElementById('sendDummyUser02').addEventListener('click', function() {
-            fetch('http://localhost:8000/dummyUser_02', {
-                method: 'GET',
-            })
-            .then(response => {
-                if(response.ok) {
-                    return response.text();
-                }
-                throw new Error('The request failed.');
-            })
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        });
-document.getElementById('sendDummyUser03').addEventListener('click', function() {
-            fetch('http://localhost:8000/dummyUser_03', {
-                method: 'GET',
-            })
-            .then(response => {
-                if(response.ok) {
-                    return response.text();
-                }
-                throw new Error('The request failed.');
-            })
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        });

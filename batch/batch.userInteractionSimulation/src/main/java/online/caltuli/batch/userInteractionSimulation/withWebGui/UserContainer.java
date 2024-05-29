@@ -1,13 +1,15 @@
 package online.caltuli.batch.userInteractionSimulation.withWebGui;
 
-public class UserContainer {
-    private UserDTO user;
+import online.caltuli.model.User;
 
-    public UserDTO getUser() {
+public class UserContainer {
+    private User user;
+
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserDTO user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

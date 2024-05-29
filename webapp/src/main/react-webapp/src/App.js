@@ -15,6 +15,7 @@ function App() {
   useEffect(() => {
     // ensure gameId is defined
     if (!window.gameId) return;
+    console.log('window.gameId is not null');
 
     //const newClient = new W3CWebSocket(`wss://localhost:8443/webapp/game/${window.gameId}`);
     //const newClient = new W3CWebSocket(`wss://192.168.0.14:8443/webapp/game/${window.gameId}`);
@@ -22,6 +23,7 @@ function App() {
     //const newClient = new W3CWebSocket(`wss://caltuli.online/webapp/game/${window.gameId}`);
     //const newClient = new W3CWebSocket(`wss://192.168.0.11:8443/webapp/game/${window.gameId}`);
     const newClient = new W3CWebSocket(`wss://192.168.180.246:8443/webapp/game/${window.gameId}`);
+    console.log('newClient is initialized');
 
     setClient(newClient);
 

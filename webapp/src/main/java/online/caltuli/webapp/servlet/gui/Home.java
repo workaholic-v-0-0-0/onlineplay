@@ -52,13 +52,13 @@
 
 package online.caltuli.webapp.servlet.gui;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import jakarta.inject.Inject;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.Session;
-import online.caltuli.business.EvolutiveGridParser;
 import online.caltuli.business.GameManager;
 import online.caltuli.business.PlayerManager;
 
@@ -70,13 +70,14 @@ import online.caltuli.business.exception.BusinessException;
 import online.caltuli.model.*;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import online.caltuli.webapp.util.CustomHashMapDeserializer;
-import online.caltuli.webapp.util.CustomHashMapSerializer;
+import online.caltuli.webapp.util.CustomColorsGridSerializer;
+import online.caltuli.webapp.util.CustomCoordinatesSerializer;
+import online.caltuli.webapp.util.CustomGameSerializer;
 import online.caltuli.webapp.util.JsonUtil;
 import online.caltuli.webapp.websocket.GameWebSocket;
 import org.apache.logging.log4j.LogManager;
@@ -145,16 +146,36 @@ public class Home extends HttpServlet {
 				// User is currently involved in a game
 				Game game = gameManager.getGame();
 
+				//to debug
+				// Configure ObjectMapper with custom serializers
+				/*
+				ObjectMapper mapper = new ObjectMapper();
+				SimpleModule module = new SimpleModule();
+				module.addSerializer(Coordinates.class, new CustomCoordinatesSerializer());
+				module.addSerializer(Game.class, new CustomGameSerializer());
+				mapper.registerModule(module);
+				// Specifically handle Map<Coordinates, CellState> serialization
+				TypeReference<Map<Coordinates, CellState>> typeRef = new TypeReference<Map<Coordinates, CellState>>() {};
+				String mapJson = mapper.writerFor(typeRef).writeValueAsString(game.getColorsGrid());
+				// Serialize the game object, ensuring to manually inject the mapJson
+				String gameJson = mapper.writeValueAsString(game);
+				gameJson = gameJson.replace("\"colorsGrid\":{}", "\"colorsGrid\":" + mapJson); // Replace the placeholder
+				logger.info("test serializer:" + gameJson);
+
+				 */
+
+
 				// Serialize the game object to JSON, manually escape it to ensure
 				// safety, and set game details as attributes on the request
 				ObjectMapper objectMapper = new ObjectMapper();
 				String rawJson = objectMapper.writeValueAsString(game);
-				String safeJson = rawJson.replace("\"", "\\\""); // Basic manual escaping
+				String safeJson = rawJson.replace("\"", "\\\"").replace("'", "\\'");; // Basic manual escaping
 				request.setAttribute("game", safeJson);
 
 				//to debug
+				/*
 				SimpleModule module = new SimpleModule("CustomModule");
-				module.addSerializer(new CustomHashMapSerializer());
+				module.addSerializer(new CustomCoordinatesSerializer());
 				module.addDeserializer(HashMap.class, new CustomHashMapDeserializer());
 				ObjectMapper mapper = new ObjectMapper();
 				mapper.registerModule(module);
@@ -166,6 +187,8 @@ public class Home extends HttpServlet {
 				EvolutiveGridParser egp = new EvolutiveGridParser();
 				String json = mapper.writeValueAsString(egp);
 				logger.info("json:" + json);
+
+				 */
 
 
 				request.setAttribute("gameId", game.getId());
@@ -190,16 +213,16 @@ public class Home extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		Player player = (Player) user;
 
-		//todebug
-		logger.info("doPost");
-		logger.info("user.getId:" + user.getId());
-		logger.info("GameWebSocket.sessions:" + GameWebSocket.sessions);
-
 		if (user == null) { // the user is not authenticated
 			// Inform that the user needs to authenticate before proceeding
 			logger.info("Attempt to access without authentication.");
 			return;  // Optionally redirect to login or send an error response
 		}
+
+		//todebug
+		logger.info("doPost");
+		logger.info("user.getId:" + user.getId());
+		logger.info("GameWebSocket.sessions:" + GameWebSocket.sessions);
 
 		// Determine the user's intended action from the POST request parameters.
 		String action = request.getParameter("action");
@@ -272,6 +295,8 @@ public class Home extends HttpServlet {
 			for (Session webSocketSession : webSocketSessions) {
 				if (webSocketSession != null && webSocketSession.isOpen()) {
 					try {
+						logger.info("notify a relevant user");
+						logger.info("webSocketSession:" + webSocketSession);
 						webSocketSession
 								.getBasicRemote()
 								.sendText(

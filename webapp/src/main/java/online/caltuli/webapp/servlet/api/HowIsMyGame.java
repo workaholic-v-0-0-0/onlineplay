@@ -1,5 +1,6 @@
 package online.caltuli.webapp.servlet.api;
 
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -7,37 +8,46 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import online.caltuli.business.GameManager;
+import online.caltuli.model.Coordinates;
 import online.caltuli.model.Game;
 import online.caltuli.model.User;
+import online.caltuli.webapp.util.CustomCoordinatesSerializer;
+import online.caltuli.webapp.util.CustomGameSerializer;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HowIsMyGame  extends HttpServlet {
+public class HowIsMyGame extends HttpServlet {
+    private ObjectMapper mapper;
 
-    protected void doGet(
-            HttpServletRequest request,
-            HttpServletResponse response)
-            throws ServletException, IOException {
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        mapper = new ObjectMapper();
+        SimpleModule module = new SimpleModule("GameCustomSerializers");
 
+        // add custom serializers
+        module.addSerializer(Game.class, new CustomGameSerializer());
+        module.addSerializer(Coordinates.class, new CustomCoordinatesSerializer());
+
+        mapper.registerModule(module);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        ObjectMapper mapper = new ObjectMapper();
 
         Map<String, Object> data = new HashMap<>();
 
-        User user = null;
-        Game game = null;
-
         if (session != null) {
-            user = (User) session.getAttribute("user");
+            User user = (User) session.getAttribute("user");
             if (user != null) {
-                game =
-                        ((GameManager) session.getAttribute("gameManager"))
-                                .getGame();
+                GameManager gameManager = (GameManager) session.getAttribute("gameManager");
+                Game game = gameManager.getGame();
                 if (game != null) {
                     data.put("game", game);
                 } else {
@@ -63,5 +73,4 @@ public class HowIsMyGame  extends HttpServlet {
             response.getWriter().write("{\"error\":\"Error serializing data to JSON\"}");
         }
     }
-
 }

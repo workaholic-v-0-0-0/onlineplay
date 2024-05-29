@@ -25,7 +25,12 @@ public class HttpsRedirectFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-        if (!request.isSecure()) {
+        String upgradeHeader = request.getHeader("Upgrade");
+
+        if (upgradeHeader != null && "websocket".equalsIgnoreCase(upgradeHeader)) {
+            chain.doFilter(req, res);
+        }
+        else if (!request.isSecure()) {
             String url = "https://" + request.getServerName() + request.getRequestURI();
             if (request.getQueryString() != null) {
                 url += "?" + request.getQueryString();

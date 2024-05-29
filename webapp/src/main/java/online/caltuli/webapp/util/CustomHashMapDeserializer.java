@@ -5,27 +5,28 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import online.caltuli.model.Coordinates;
+import online.caltuli.model.json.CoordinatesKey;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomHashMapDeserializer extends StdDeserializer<HashMap<CoordinateKey, Integer>> {
+public class CustomHashMapDeserializer extends StdDeserializer<HashMap<CoordinatesKey, Integer>> {
 
     public CustomHashMapDeserializer() {
-        super((Class<HashMap<CoordinateKey, Integer>>)(Class<?>) HashMap.class);
+        super((Class<HashMap<CoordinatesKey, Integer>>)(Class<?>) HashMap.class);
     }
 
     @Override
-    public HashMap<CoordinateKey, Integer> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        HashMap<CoordinateKey, Integer> map = new HashMap<>();
+    public HashMap<CoordinatesKey, Integer> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+        HashMap<CoordinatesKey, Integer> map = new HashMap<>();
         JsonNode node = p.getCodec().readTree(p);
         for (JsonNode entry : node) {
             List<Coordinates> coordsList = new ArrayList<>();
             JsonNode keyNode = entry.get("key");
             keyNode.forEach(coord -> coordsList.add(new Coordinates(coord.get("x").asInt(), coord.get("y").asInt())));
-            CoordinateKey key = new CoordinateKey(coordsList);
+            CoordinatesKey key = new CoordinatesKey(coordsList);
             Integer value = entry.get("value").asInt();
             map.put(key, value);
         }
