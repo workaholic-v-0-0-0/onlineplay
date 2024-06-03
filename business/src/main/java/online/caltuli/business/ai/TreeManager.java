@@ -30,7 +30,7 @@ public class TreeManager {
         while (! queue.isEmpty()) {
             Tree tree = queue.poll();
             if (! tree.canGrow()) {
-                return;
+                continue;
             }
             if (tree.isOnBorder()) {
                 EvaluatedEvolutiveGridParser root = tree.getRoot();

@@ -62,135 +62,42 @@ public class AiUser implements HttpHandler, GameObserver {
 
         new Thread(() -> {
             try {
-                /*
-                logger.info("this.treeManager.getTree().getBranches().get(Column.fromIndex(3)).getBranches().get(Column.fromIndex(2)).getRoot().getNextLine()[" + i + "]" + this.treeManager.getTree().getBranches().get(Column.fromIndex(3)).getBranches().get(Column.fromIndex(2)).getRoot().getNextLine()[i]);
-                EvaluatedEvolutiveGridParser eegp =
-                    this.treeManager.getTree()
-                            .getBranches().get(Column.fromIndex(3))
-                            .getBranches().get(Column.fromIndex(3))
-                            .getBranches().get(Column.fromIndex(4))
-                            .getBranches().get(Column.fromIndex(4))
-                            .getBranches().get(Column.fromIndex(5))
-                            .getBranches().get(Column.fromIndex(5))
-                            .getRoot();
-                Coordinates[][] CA = ConstantGridParser.CA;
-                logger.info(
-                    "eegp.getNextColor()"
-                    +
-                    eegp.getNextColor()
-                );
-                logger.info(
-                    "eegp.getGreenRowsToNbOfGreenCoordinates()"
-                    +
-                    eegp.getGreenRowsToNbOfGreenCoordinates()
-                );
-                logger.info(
-                    "eegp.getRedRowsToNbOfRedCoordinates()"
-                    +
-                    eegp.getRedRowsToNbOfRedCoordinates()
-                );
-                logger.info(
-                    "eegp.getUnWinnableCoordinatesRowsSet()"
-                    +
-                    eegp.getUnWinnableCoordinatesRowsSet()
-                );
-                logger.info("this.treeManager.getTree().getBranches().get(3).getBranches().get(3).getBranches().get(3).getRoot().getNextLine()[" + i + "]" + this.treeManager.getTree().getBranches().get(3).getBranches().get(3).getBranches().get(3).getRoot().getNextLine()[i]);
-                 */
+                // MONITORING
+                logger.info("NEW");
+                EvaluatedEvolutiveGridParser eegp;
+                for (int i=0;i<6;i++) {
+                    for (int j=0;j<7;j++) {
+                        logger.info("i:"+i+" ; j:"+j);
+                        treeManager.prune(Column.fromIndex(j));
+                        treeManager.growOneGeneration();
+                        eegp = this.treeManager.getTree().getRoot();
+                        logger.info("this.treeManager.getTree().canGrow():"+this.treeManager.getTree().canGrow());
+                        logger.info("this.treeManager.getTree().getDepth():"+this.treeManager.getTree().getDepth());
+                        logger.info("eegp.detectWinningColor():"+eegp.detectWinningColor());
+                        logger.info(
+                                "eegp.getNextColor()"
+                                        +
+                                        eegp.getNextColor()
+                        );
+                        logger.info(
+                                "eegp.getGreenRowsToNbOfGreenCoordinates()"
+                                        +
+                                        eegp.getGreenRowsToNbOfGreenCoordinates()
+                        );
+                        logger.info(
+                                "eegp.getRedRowsToNbOfRedCoordinates()"
+                                        +
+                                        eegp.getRedRowsToNbOfRedCoordinates()
+                        );
+                        logger.info(
+                                "eegp.getUnWinnableCoordinatesRowsSet()"
+                                        +
+                                        eegp.getUnWinnableCoordinatesRowsSet()
+                        );
+                    }
+                }
+                // END MONITORING
 
-                /*
-                EvaluatedEvolutiveGridParser eegp =
-                        this.treeManager.getTree()
-                                .getBranches().get(Column.fromIndex(0))
-                                .getBranches().get(Column.fromIndex(0))
-                                .getRoot();
-                logger.info("monitor depth:2");
-                logger.info("this.treeManager.getTree().getDepth():"+this.treeManager.getTree().getDepth());
-                logger.info("this.treeManager.getTree().getBranches().get(Column.C5).getDepth():"+this.treeManager.getTree().getBranches().get(Column.C5).getDepth());
-                logger.info(
-                        "eegp.getNextColor()"
-                                +
-                                eegp.getNextColor()
-                );
-                logger.info(
-                        "eegp.getGreenRowsToNbOfGreenCoordinates()"
-                                +
-                                eegp.getGreenRowsToNbOfGreenCoordinates()
-                );
-                logger.info(
-                        "eegp.getRedRowsToNbOfRedCoordinates()"
-                                +
-                                eegp.getRedRowsToNbOfRedCoordinates()
-                );
-                logger.info(
-                        "eegp.getUnWinnableCoordinatesRowsSet()"
-                                +
-                                eegp.getUnWinnableCoordinatesRowsSet()
-                );
-
-                treeManager.growOneGeneration();
-                eegp =
-                        this.treeManager.getTree()
-                                .getBranches().get(Column.fromIndex(0))
-                                .getBranches().get(Column.fromIndex(0))
-                                .getBranches().get(Column.fromIndex(0))
-                                .getRoot();
-                logger.info("monitor depth:3");
-                logger.info("this.treeManager.getTree().getDepth():"+this.treeManager.getTree().getDepth());
-                logger.info("this.treeManager.getTree().getBranches().get(Column.C5).getDepth():"+this.treeManager.getTree().getBranches().get(Column.C5).getDepth());
-                logger.info(
-                        "eegp.getNextColor()"
-                                +
-                                eegp.getNextColor()
-                );
-                logger.info(
-                        "eegp.getGreenRowsToNbOfGreenCoordinates()"
-                                +
-                                eegp.getGreenRowsToNbOfGreenCoordinates()
-                );
-                logger.info(
-                        "eegp.getRedRowsToNbOfRedCoordinates()"
-                                +
-                                eegp.getRedRowsToNbOfRedCoordinates()
-                );
-                logger.info(
-                        "eegp.getUnWinnableCoordinatesRowsSet()"
-                                +
-                                eegp.getUnWinnableCoordinatesRowsSet()
-                );
-
-                treeManager.growOneGeneration();
-                eegp =
-                        this.treeManager.getTree()
-                                .getBranches().get(Column.fromIndex(0))
-                                .getBranches().get(Column.fromIndex(0))
-                                .getBranches().get(Column.fromIndex(0))
-                                .getBranches().get(Column.fromIndex(0))
-                                .getRoot();
-                logger.info("monitor depth:4");
-                logger.info("this.treeManager.getTree().getDepth():"+this.treeManager.getTree().getDepth());
-                logger.info("this.treeManager.getTree().getBranches().get(Column.C5).getDepth():"+this.treeManager.getTree().getBranches().get(Column.C5).getDepth());
-                logger.info(
-                        "eegp.getNextColor()"
-                                +
-                                eegp.getNextColor()
-                );
-                logger.info(
-                        "eegp.getGreenRowsToNbOfGreenCoordinates()"
-                                +
-                                eegp.getGreenRowsToNbOfGreenCoordinates()
-                );
-                logger.info(
-                        "eegp.getRedRowsToNbOfRedCoordinates()"
-                                +
-                                eegp.getRedRowsToNbOfRedCoordinates()
-                );
-                logger.info(
-                        "eegp.getUnWinnableCoordinatesRowsSet()"
-                                +
-                                eegp.getUnWinnableCoordinatesRowsSet()
-                );
-
-                 */
 
                 HttpClientSSLContext httpClientSSLContext
                         = new HttpClientSSLContext(validateSSL);

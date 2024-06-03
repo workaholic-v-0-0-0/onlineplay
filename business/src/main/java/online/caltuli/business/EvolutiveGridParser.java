@@ -14,32 +14,32 @@ public class EvolutiveGridParser {
 
     // column number y to number of the lowest line x so that (x,y) can be played
     @JsonProperty
-    private int[] nextLine;
+    protected int[] nextLine;
 
     // the color of the player to who it is its turn to play
     @JsonProperty
-    CellState nextColor;
+    protected CellState nextColor;
 
     // map :
     // coordinates row              number of red coordinates
     // R where only red    ----->   in R
     // has played
     @JsonProperty
-    private HashMap<Coordinates[],Integer> redRowsToNbOfRedCoordinates;
+    protected HashMap<Coordinates[],Integer> redRowsToNbOfRedCoordinates;
 
     // map :
     // coordinates row                number of green coordinates
     // R where only green    ----->   in R
     // has played
     @JsonProperty
-    private HashMap<Coordinates[],Integer> greenRowsToNbOfGreenCoordinates;
+    protected HashMap<Coordinates[],Integer> greenRowsToNbOfGreenCoordinates;
 
     // set of Coordinates rows which contain at least one red Coordinates
     // and one green Coordinates
     @JsonProperty
-    private HashSet<Coordinates[]> unWinnableCoordinatesRowsSet;
+    protected HashSet<Coordinates[]> unWinnableCoordinatesRowsSet;
 
-    private Logger logger = LogManager.getLogger(EvolutiveGridParser.class); // to debug
+    protected Logger logger = LogManager.getLogger(EvolutiveGridParser.class); // to debug
 
     public EvolutiveGridParser() {
         nextLine = new int[7];

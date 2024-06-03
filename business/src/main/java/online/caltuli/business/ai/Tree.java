@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Tree {
-    public static int DEPTH = 2;
+    public static int DEPTH = 4;
     private EvaluatedEvolutiveGridParser root;
     private int depth;
     private HashMap<Column, Tree> branches;
