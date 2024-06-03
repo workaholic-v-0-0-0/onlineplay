@@ -112,6 +112,10 @@ public class EvolutiveGridParser {
         return coordinatesPlayed;
     }
 
+    public boolean isLegalMove(int column) {
+        return this.getNextLine()[column] != 6;
+    }
+
     public boolean detectDraw() {
         return unWinnableCoordinatesRowsSet.size() == ConstantGridParser.NUMBER_OF_COORDINATES_ROWS;
     }

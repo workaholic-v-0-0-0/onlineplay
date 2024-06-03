@@ -1,4 +1,4 @@
-package online.caltuli.batch.userInteractionSimulation.withWebGui.clients;
+package online.caltuli.batch.userInteractionSimulation.clients;
 
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -7,7 +7,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.security.KeyStoreException;
-import java.util.Optional;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;

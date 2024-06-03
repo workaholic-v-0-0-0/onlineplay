@@ -1,11 +1,25 @@
-package online.caltuli.batch.userInteractionSimulation.withWebGui;
+package online.caltuli.batch.userInteractionSimulation.clients;
 
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
+import online.caltuli.batch.userInteractionSimulation.virtualUsers.ColorsGridUpdateDescription;
+import online.caltuli.batch.userInteractionSimulation.virtualUsers.GameEvent;
+import online.caltuli.batch.userInteractionSimulation.virtualUsers.GameStateUpdateDescription;
+import online.caltuli.batch.userInteractionSimulation.virtualUsers.interfaces.GameObserver;
+
+import java.io.StringReader;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.WebSocket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
+import online.caltuli.batch.userInteractionSimulation.virtualUsers.interfaces.UpdateDescription;
+
+import online.caltuli.model.GameState;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,6 +27,7 @@ public class GameWebSocketClient {
     private CompletableFuture<WebSocket> futureWebSocket = new CompletableFuture<>();
     private WebSocket webSocket = null;
     private HttpClient httpClient;
+    private List<GameObserver> observers = new ArrayList<>();
     private static final Logger logger = LogManager.getLogger(GameWebSocketClient.class);
 
     public GameWebSocketClient(HttpClient httpClient, String uri) {
@@ -45,12 +60,59 @@ public class GameWebSocketClient {
         }
 
         @Override
-        public CompletionStage<?> onText(WebSocket webSocket, CharSequence data, boolean last) {
+        public CompletionStage<Void> onText(WebSocket webSocket, CharSequence data, boolean last) {
             String receivedText = data.toString();
             logger.info("Message received: {}", receivedText);
+            JsonObject jsonMessage;
+
+            try (JsonReader reader = Json.createReader(new StringReader(receivedText))) {
+                jsonMessage = reader.readObject();
+            } catch (Exception e) {
+                logger.error("Failed to parse the message as JSON", e);
+                return CompletableFuture.completedFuture(null);  // Properly handle completion
+            }
+
+            String whatToBeUpdated = jsonMessage.getString("update", null);
+            if (whatToBeUpdated == null) {
+                logger.error("Update type is missing in the message");
+                return CompletableFuture.completedFuture(null);
+            }
+
+            UpdateDescription updateDescription = null;
+            switch (whatToBeUpdated) {
+                case "colorsGrid":
+                    int column = jsonMessage.getInt("column", -1);
+                    if (column == -1) {
+                        logger.error("Column index is missing or invalid in the message");
+                        return CompletableFuture.completedFuture(null);
+                    }
+                    updateDescription = new ColorsGridUpdateDescription(column);
+                    break;
+                case "gameState":
+                    String newState = jsonMessage.getString("newvalue", null);
+                    if (newState == null) {
+                        logger.error("New game state value is missing in the message");
+                        return CompletableFuture.completedFuture(null);
+                    }
+                    updateDescription = new GameStateUpdateDescription(GameState.valueOf(newState));
+                    break;
+                case "secondPlayer":
+                    // Example placeholder if additional handling is needed
+                    break;
+                default:
+                    logger.warn("Received an unsupported update type: " + whatToBeUpdated);
+                    return CompletableFuture.completedFuture(null);
+            }
+
+            if (updateDescription != null) {
+                GameEvent gameEvent = new GameEvent(whatToBeUpdated, updateDescription);
+                notifyObservers(gameEvent);
+            }
+
             webSocket.request(1); // Request the next message
-            return null;
+            return CompletableFuture.completedFuture(null);
         }
+
 
         @Override
         public void onError(WebSocket webSocket, Throwable error) {
@@ -79,6 +141,20 @@ public class GameWebSocketClient {
             webSocket.sendClose(WebSocket.NORMAL_CLOSURE, "Closing");
         } else {
             logger.warn("Attempted to close WebSocket, but it is not currently open");
+        }
+    }
+
+    public void addObserver(GameObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(GameObserver observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyObservers(GameEvent gameEvent) {
+        for (GameObserver observer : observers) {
+            observer.update(gameEvent);
         }
     }
 

@@ -1,4 +1,4 @@
-package online.caltuli.batch.userInteractionSimulation.withWebGui.jsonUtils;
+package online.caltuli.batch.userInteractionSimulation.jsonUtils;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -11,7 +11,6 @@ import online.caltuli.model.*;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 public class CustomGameDeserializer extends JsonDeserializer<Game> {
 

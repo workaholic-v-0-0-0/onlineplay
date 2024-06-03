@@ -1,4 +1,4 @@
-package online.caltuli.batch.userInteractionSimulation.withWebGui;
+package online.caltuli.batch.userInteractionSimulation.virtualUsers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -6,11 +6,9 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import online.caltuli.batch.userInteractionSimulation.withWebGui.clients.HttpClientSSLContext;
-import online.caltuli.batch.userInteractionSimulation.withWebGui.jsonUtils.CoordinatesKeyDeserializer;
-import online.caltuli.batch.userInteractionSimulation.withWebGui.jsonUtils.CustomColorsGridDeserializer;
-import online.caltuli.batch.userInteractionSimulation.withWebGui.jsonUtils.CustomCoordinatesDeserializer;
-import online.caltuli.batch.userInteractionSimulation.withWebGui.jsonUtils.CustomGameDeserializer;
+import online.caltuli.batch.userInteractionSimulation.clients.GameWebSocketClient;
+import online.caltuli.batch.userInteractionSimulation.clients.HttpClientSSLContext;
+import online.caltuli.batch.userInteractionSimulation.jsonUtils.*;
 import online.caltuli.model.Game;
 import online.caltuli.model.GameState;
 import online.caltuli.model.User;
@@ -18,34 +16,27 @@ import online.caltuli.model.Coordinates;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
-import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Random;
 
-public class DummyUserWithTrust_01 implements HttpHandler {
+public class DummyUser implements HttpHandler {
 
-    private static final Logger logger = LogManager.getLogger(DummyUserWithTrust_01.class);
-    private String urlPrefix;
-    String username;
+    private static final Logger logger = LogManager.getLogger(DummyUser.class);
+    private String httpUrlPrefix;
+    private String wsUrlPrefix;
 
-    DummyUserWithTrust_01(String urlPrefix, String username) {
-        this.urlPrefix = urlPrefix;
+    private String username;
+    private boolean validateSSL;
+
+    public DummyUser(String urlPrefix, String username, boolean validateSSL) {
+        this.httpUrlPrefix = "https://" + urlPrefix;
+        this.wsUrlPrefix = "wss://" + urlPrefix;
         this.username = username;
+        this.validateSSL = validateSSL;
     }
 
     @Override
@@ -53,27 +44,18 @@ public class DummyUserWithTrust_01 implements HttpHandler {
 
         new Thread(() -> {
             try {
-                //HttpClientSSLContext httpClientSSLContext = createTrustedClient();
-                HttpClientSSLContext httpClientSSLContext = new HttpClientSSLContext(true);
+                HttpClientSSLContext httpClientSSLContext
+                        = new HttpClientSSLContext(true);
                 HttpClient client = httpClientSSLContext.getHttpClient();
 
                 // registrer
-                //sendTrustedGetRequest(client, urlPrefix + "registration");
-                httpClientSSLContext.sendGetRequest(urlPrefix + "registration");
+                httpClientSSLContext.sendGetRequest(httpUrlPrefix + "registration");
                 String registrationParams =
                     "username="
                     + URLEncoder.encode(username, "UTF-8")
                     + "&password=123&email=ai.ai@ai.com&message=I'm clever";
-                /*
-                sendTrustedPostRequest(
-                        client,
-                        urlPrefix + "registration",
-                        registrationParams
-                );
-
-                 */
                 httpClientSSLContext.sendPostRequest(
-                        urlPrefix + "registration",
+                        httpUrlPrefix + "registration",
                         registrationParams
                 );
 
@@ -82,16 +64,8 @@ public class DummyUserWithTrust_01 implements HttpHandler {
                     "username="
                     + URLEncoder.encode(username, "UTF-8")
                     + "&password=123";
-                /*
-                sendTrustedPostRequest(
-                        client,
-                        urlPrefix + "authentication",
-                        authParams
-                );
-
-                 */
                 httpClientSSLContext.sendPostRequest(
-                        urlPrefix + "authentication",
+                        httpUrlPrefix + "authentication",
                         authParams
                 );
 
@@ -99,8 +73,7 @@ public class DummyUserWithTrust_01 implements HttpHandler {
                 User user = null;
                 int userId = 0;
                 try {
-                    //user = fetchUser(client, urlPrefix);
-                    user = fetchUser(httpClientSSLContext, urlPrefix);
+                    user = fetchUser(httpClientSSLContext, httpUrlPrefix);
                     if (user != null) {
                         logger.info("user.getId(): " + user.getId());
                         logger.info("user.getUsername(): " + user.getUsername());
@@ -110,21 +83,12 @@ public class DummyUserWithTrust_01 implements HttpHandler {
                     logger.error("Error processing user data", e);
                 }
                 String playerId = String.valueOf(userId);
-
-                Thread.sleep(1000);
+                logger.info("playerId:" + playerId);
 
                 // proposer a game
                 String postParams = "action=" + "new_game";
-                /*
-                sendTrustedPostRequest(
-                        client,
-                        urlPrefix + "home",
-                        postParams
-                );
-
-                 */
                 httpClientSSLContext.sendPostRequest(
-                        urlPrefix + "home",
+                        httpUrlPrefix + "home",
                         postParams
                 );
 
@@ -133,15 +97,18 @@ public class DummyUserWithTrust_01 implements HttpHandler {
                 Game game = null;
                 int gameId = 0;
                 //game = fetchGame(client, urlPrefix);
-                game = fetchGame(httpClientSSLContext, urlPrefix);
+                logger.info("here 4");
+                game = fetchGame(httpClientSSLContext, httpUrlPrefix);
+                logger.info("here 5");
                 gameId = game != null ? game.getId() : 0;
+                logger.info("here 6");
 
                 // create webSocket client and connect it to the server
                 // related to the game
                 GameWebSocketClient webSocketClient =
                     new GameWebSocketClient(
                             client,
-                            "wss://localhost:8443/webapp/game/" + gameId
+                             wsUrlPrefix + "game/" + gameId
                     );
 
                 // récupérer régulièrement l'information de game.GameState jusqu'à
@@ -150,7 +117,7 @@ public class DummyUserWithTrust_01 implements HttpHandler {
                 int pollingInterval = 5000;
                 do {
                     //game = fetchGame(client, urlPrefix);
-                    game = fetchGame(httpClientSSLContext, urlPrefix);
+                    game = fetchGame(httpClientSSLContext, httpUrlPrefix);
                     if (game != null) {
                         gameState = game.getGameState();
                     } else {
@@ -189,8 +156,7 @@ public class DummyUserWithTrust_01 implements HttpHandler {
                         logger.info("Polling interrupted", e);
                     }
 
-                    //if ((game = fetchGame(client, urlPrefix)) != null) {
-                    if ((game = fetchGame(httpClientSSLContext, urlPrefix)) != null) {
+                    if ((game = fetchGame(httpClientSSLContext, httpUrlPrefix)) != null) {
                         gameState = game.getGameState();
                     } else {
                         logger.info("No game information retrieved");
@@ -215,135 +181,21 @@ public class DummyUserWithTrust_01 implements HttpHandler {
         }).start();
     }
 
-    // Custom class to hold multiple objects
-    /*
-    public static class HttpClientSSLContext {
-        private final HttpClient httpClient;
-        private final SSLContext sslContext;
-
-        public HttpClientSSLContext(HttpClient httpClient, SSLContext sslContext) {
-            this.httpClient = httpClient;
-            this.sslContext = sslContext;
-        }
-
-        public HttpClient getHttpClient() {
-            return httpClient;
-        }
-
-        public SSLContext getSslContext() {
-            return sslContext;
-        }
-    }
-
-     */
-
-    /*
-    private HttpClientSSLContext createTrustedClient()
-            throws NoSuchAlgorithmException, KeyManagementException {
-        TrustManager[] trustAllCerts = new TrustManager[]{
-            new X509TrustManager() {
-                public java.security.cert.X509Certificate[]
-                getAcceptedIssuers() {
-                    return null;
-                }
-
-                public void checkClientTrusted(
-                        java.security.cert.X509Certificate[] certs,
-                        String authType
-                ) {
-
-                }
-
-                public void checkServerTrusted(
-                        java.security.cert.X509Certificate[] certs,
-                        String authType
-                ) {
-
-                }
-            }
-        };
-
-        SSLContext sslContext = SSLContext.getInstance("SSL");
-        sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
-
-        CookieManager cookieManager = new CookieManager();
-        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-
-        HttpClient httpClient = HttpClient.newBuilder()
-                .sslContext(sslContext)
-                .cookieHandler(cookieManager)
-                .build();
-
-        return new HttpClientSSLContext(httpClient, sslContext);
-    }
-
-     */
-
-    /*
-    private String sendTrustedGetRequest(HttpClient client, String urlString)
-            throws Exception {
-        HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create(urlString))
-            .GET()
-            .build();
-        HttpResponse<String> response =
-            client.send(request, HttpResponse.BodyHandlers.ofString());
-        Optional<String> jsessionId =
-            response
-                .headers()
-                .firstValue("Set-Cookie")
-                .map(
-                    cookie -> Arrays.stream(cookie.split(";"))
-                        .filter(c -> c.trim().startsWith("JSESSIONID="))
-                        .findFirst()
-                        .orElse(null)
-                );
-        jsessionId.ifPresent(
-            jsid -> logger.info(
-                "JSESSIONID: " + jsid.substring("JSESSIONID=".length())));
-        return response.body();
-    }
-
-     */
-
-    /*
-    private String sendTrustedPostRequest(
-            HttpClient client,
-            String urlString,
-            String postParams)
-            throws Exception {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(urlString))
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .POST(HttpRequest.BodyPublishers.ofString(postParams))
-                .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        return response.body();
-    }
-
-     */
-
-    //public User fetchUser(HttpClient client, String urlPrefix) {
     public User fetchUser(HttpClientSSLContext client, String urlPrefix) {
         String userJson = null;
         UserContainer userContainer = null;
         User user = null;
 
         try {
-            // fetch user from the server
-            /*
-            userJson = sendTrustedGetRequest(
-                    client,
-                    urlPrefix + "who-am-i"
-            );
-
-             */
             userJson = client.sendGetRequest(urlPrefix + "who-am-i");
+            logger.info("here 1 ; userJson:" + userJson);
 
             // deserialize JSON to UserContainer
             ObjectMapper mapper = new ObjectMapper();
             userContainer = mapper.readValue(userJson, UserContainer.class); // Désérialisation avec Jackson
+            logger.info("here 2 ; userContainer:" + userContainer);
             user = userContainer != null ? userContainer.getUser() : null;
+            logger.info("here 3 ; user:" + user);
         } catch (Exception e) {
             logger.error("Error handling request", e);
         }
@@ -352,7 +204,6 @@ public class DummyUserWithTrust_01 implements HttpHandler {
         return user;
     }
 
-    //public Game fetchGame(HttpClient client, String urlPrefix) {
     public Game fetchGame(HttpClientSSLContext client, String urlPrefix) {
         String gameJson = null;
         GameContainer container = null;
@@ -360,7 +211,6 @@ public class DummyUserWithTrust_01 implements HttpHandler {
 
         try {
             // fetch game from the server
-            //gameJson = sendTrustedGetRequest(client, urlPrefix + "how-is-my-game");
             gameJson = client.sendGetRequest(urlPrefix + "how-is-my-game");
 
             // configure Jackson ObjectMapper with custom deserializers

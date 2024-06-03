@@ -1,4 +1,4 @@
-package online.caltuli.batch.userInteractionSimulation.withWebGui;
+package online.caltuli.batch.userInteractionSimulation.jsonUtils;
 
 import online.caltuli.model.Game;
 

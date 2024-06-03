@@ -146,49 +146,12 @@ public class Home extends HttpServlet {
 				// User is currently involved in a game
 				Game game = gameManager.getGame();
 
-				//to debug
-				// Configure ObjectMapper with custom serializers
-				/*
-				ObjectMapper mapper = new ObjectMapper();
-				SimpleModule module = new SimpleModule();
-				module.addSerializer(Coordinates.class, new CustomCoordinatesSerializer());
-				module.addSerializer(Game.class, new CustomGameSerializer());
-				mapper.registerModule(module);
-				// Specifically handle Map<Coordinates, CellState> serialization
-				TypeReference<Map<Coordinates, CellState>> typeRef = new TypeReference<Map<Coordinates, CellState>>() {};
-				String mapJson = mapper.writerFor(typeRef).writeValueAsString(game.getColorsGrid());
-				// Serialize the game object, ensuring to manually inject the mapJson
-				String gameJson = mapper.writeValueAsString(game);
-				gameJson = gameJson.replace("\"colorsGrid\":{}", "\"colorsGrid\":" + mapJson); // Replace the placeholder
-				logger.info("test serializer:" + gameJson);
-
-				 */
-
-
 				// Serialize the game object to JSON, manually escape it to ensure
 				// safety, and set game details as attributes on the request
 				ObjectMapper objectMapper = new ObjectMapper();
 				String rawJson = objectMapper.writeValueAsString(game);
 				String safeJson = rawJson.replace("\"", "\\\"").replace("'", "\\'");; // Basic manual escaping
 				request.setAttribute("game", safeJson);
-
-				//to debug
-				/*
-				SimpleModule module = new SimpleModule("CustomModule");
-				module.addSerializer(new CustomCoordinatesSerializer());
-				module.addDeserializer(HashMap.class, new CustomHashMapDeserializer());
-				ObjectMapper mapper = new ObjectMapper();
-				mapper.registerModule(module);
-				String rawJson2 = mapper.writeValueAsString(gameManager);
-				logger.info("rawJson2:" + rawJson2);
-				String safeJson2 = rawJson2.replace("\"", "\\\""); // Basic manual escaping
-				request.setAttribute("gameManager", safeJson2);
-				logger.info("safeJson2:" + safeJson2);
-				EvolutiveGridParser egp = new EvolutiveGridParser();
-				String json = mapper.writeValueAsString(egp);
-				logger.info("json:" + json);
-
-				 */
 
 
 				request.setAttribute("gameId", game.getId());

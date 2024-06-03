@@ -1,12 +1,14 @@
-package online.caltuli.batch.userInteractionSimulation.withWebGui;
+package online.caltuli.batch.userInteractionSimulation;
 
-import com.sun.net.httpserver.HttpServer;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
+import online.caltuli.batch.userInteractionSimulation.virtualUsers.AiUser;
+import online.caltuli.batch.userInteractionSimulation.virtualUsers.DummyUser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -55,51 +57,29 @@ public class BatchServer {
         });
 
         server.createContext(
-                "/dummyUser_01",
-                new DummyUser_01(
-                        "https://caltuli.online/webapp_version_sylvain/",
-                        "fake-user-01"
+                "/dummyUser_local",
+                new DummyUser(
+                        "localhost:8443/webapp/",
+                        "fake-local-user",
+                        true
                 )
         );
 
         server.createContext(
-                "/dummyUser_02",
-                new DummyUser_01(
-                        "https://caltuli.online/webapp_version_sylvain/",
-                        "fake-user-02"
+                "/dummyUser_distant",
+                new DummyUser(
+                        "caltuli.online/webapp_version_sylvain/",
+                        "fake-distant-user",
+                        false
                 )
         );
 
         server.createContext(
-                "/dummyUser_03",
-                new DummyUser_01(
-                        "https://caltuli.online/webapp_version_sylvain/",
-                        "fake-user-03"
-                )
-        );
-
-        server.createContext(
-                "/dummyUser_local_01",
-                new DummyUserWithTrust_01(
-                        "https://localhost:8443/webapp/",
-                        //"https://caltuli.online/webapp_version_sylvain/",
-                        "fake-local-user-01"
-                )
-        );
-
-        server.createContext(
-                "/dummyUser_local_02",
-                new DummyUserWithTrust_01(
-                        "https://localhost:8443/webapp/",
-                        "fake-local-user-02"
-                )
-        );
-
-        server.createContext(
-                "/dummyUser_local_03",
-                new DummyUserWithTrust_01(
-                        "https://localhost:8443/webapp/",
-                        "fake-local-user-03"
+                "/aiUser_local",
+                new AiUser(
+                        "localhost:8443/webapp/",
+                        "ai-local-user",
+                        true
                 )
         );
 

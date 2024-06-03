@@ -1,4 +1,4 @@
-package online.caltuli.batch.userInteractionSimulation.withWebGui.jsonUtils;
+package online.caltuli.batch.userInteractionSimulation.jsonUtils;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;

@@ -26,7 +26,11 @@
     <dependency>
       <groupId>online.caltuli</groupId>
       <artifactId>model</artifactId>
-  </dependency>
+    </dependency>
+    <dependency>
+      <groupId>online.caltuli</groupId>
+      <artifactId>business</artifactId>
+    </dependency>
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>

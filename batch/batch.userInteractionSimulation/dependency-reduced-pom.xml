@@ -23,7 +23,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>online.caltuli.batch.userInteractionSimulation.withWebGui.BatchServer</mainClass>
+                  <mainClass>online.caltuli.batch.userInteractionSimulation.BatchServer</mainClass>
                 </transformer>
               </transformers>
             </configuration>

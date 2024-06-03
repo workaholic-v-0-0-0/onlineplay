@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2e868744-9572-4a05-bcd5-9d384bde377b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/AiUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/ColorsGridUpdateDescription.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/GameEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/GameStateUpdateDescription.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/interfaces/GameObserver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/interfaces/UpdateDescription.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/BatchServer$1$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/BatchServer$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/BatchServer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/clients/GameWebSocketClient$WebSocketClientListener.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/clients/GameWebSocketClient.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/clients/HttpClientSSLContext$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/clients/HttpClientSSLContext.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/jsonUtils/CoordinatesKeyDeserializer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/jsonUtils/CustomColorsGridDeserializer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/jsonUtils/CustomCoordinatesDeserializer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/jsonUtils/CustomGameDeserializer$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/jsonUtils/CustomGameDeserializer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/jsonUtils/GameContainer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/jsonUtils/UserContainer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/Column.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/DecisionEngine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/EvaluatedEvolutiveGridParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/Tree.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/TreeManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/dependency-reduced-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/withWebGui/BatchServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/BatchServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/withWebGui/DummyUserWithTrust_01.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/DummyUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/withWebGui/DummyUser_01.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/withWebGui/GameContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/jsonUtils/GameContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/withWebGui/GameWebSocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/clients/GameWebSocketClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/withWebGui/UserContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/jsonUtils/UserContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/withWebGui/clients/HttpClientSSLContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/clients/HttpClientSSLContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/withWebGui/jsonUtils/CoordinatesKeyDeserializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/jsonUtils/CoordinatesKeyDeserializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/withWebGui/jsonUtils/CustomColorsGridDeserializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/jsonUtils/CustomColorsGridDeserializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/withWebGui/jsonUtils/CustomCoordinatesDeserializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/jsonUtils/CustomCoordinatesDeserializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/withWebGui/jsonUtils/CustomGameDeserializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/jsonUtils/CustomGameDeserializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/batch/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/EvolutiveGridParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/EvolutiveGridParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/servlet/gui/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/servlet/gui/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/websocket/GameWebSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/websocket/GameWebSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/main/react-webapp/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/react-webapp/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/main/resources/maven.properties" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/resources/maven.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="Enum" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/site/markdown/annexe-b-etude-cours-nebra.md" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/site/markdown/annexe-c-etude-cours-loic-guibert.md" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/servlet/Home.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="$USER_HOME$/.m2/repository" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../../apache-maven-3.9.5" />
+        <option name="useMavenConfig" value="false" />
+        <option name="userSettingsFile" value="$USER_HOME$/.m2/settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2aaevu2CZQE7HdaBZo2mEL7Caqp" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;last_directory_selection&quot;: &quot;/home/workaholic/env/maven/maven-workspace/onlineplay/webapp/src/main/java/online/caltuli/webapp&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/workaholic/env/maven/maven-workspace/onlineplay/webapp/src/main/react-webapp/src&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.26008064&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/webapp/src/main/react-webapp/src" />
+      <recent name="$PROJECT_DIR$/src/site/resources/images" />
+      <recent name="$PROJECT_DIR$/src/site/markdown/images" />
+      <recent name="$PROJECT_DIR$/src/site/markdown" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/webapp/src/main/webapp/resources/css" />
+      <recent name="$PROJECT_DIR$/model/src/main/resources/META-INF" />
+      <recent name="$PROJECT_DIR$/src/site/markdown" />
+      <recent name="$PROJECT_DIR$/src/site" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="online.caltuli.webapp.filter" />
+      <recent name="online.caltuli.webapp" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="online.caltuli.batch.userInteractionSimulation.withWebGui" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="UsersDaoImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="consumer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="online.caltuli.consumer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="online.caltuli.consumer" />
+      <option name="MAIN_CLASS_NAME" value="online.caltuli.consumer.UsersDaoImplTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.UsersDaoImplTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2e868744-9572-4a05-bcd5-9d384bde377b" name="Changes" comment="" />
+      <created>1704561352051</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1704561352051</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:com.google.protobuf:protobuf-java" />
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.py" />
+    <option featureType="dependencySupport" implementationName="maven-packaging:war" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

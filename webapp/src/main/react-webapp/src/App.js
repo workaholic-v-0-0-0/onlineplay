@@ -23,6 +23,7 @@ function App() {
     //const newClient = new W3CWebSocket(`wss://caltuli.online/webapp/game/${window.gameId}`);
     //const newClient = new W3CWebSocket(`wss://192.168.0.11:8443/webapp/game/${window.gameId}`);
     const newClient = new W3CWebSocket(`wss://192.168.180.246:8443/webapp/game/${window.gameId}`);
+    //const newClient = new W3CWebSocket(`wss://caltuli.online/webapp_version_sylvain/game/${window.gameId}`);
     console.log('newClient is initialized');
 
     setClient(newClient);
@@ -104,8 +105,8 @@ const handlePlay = (columnIndex) => {
             (isSecondPlayerTurn && (playerId == game.secondPlayer.id))) {
           var move = {
               update: 'colorsGrid',
-              column: columnIndex,
-              playerId: playerId
+              column: columnIndex//,
+              //playerId: playerId
           };
         client.send(JSON.stringify(move));
       } else {

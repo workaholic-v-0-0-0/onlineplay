@@ -46,15 +46,32 @@ public class GameWebSocket {
 
         logger.info("gameId is " + gameId);
 
+
+
         Integer gameKey = null;
+
+        logger.info("HERE 0");
         try {
+            Thread.sleep(1000);  // Pause for 1000 milliseconds (1 second)
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            logger.error("Thread was interrupted", e);
+        }
+        try {
+
             gameKey = Integer.parseInt(gameId);
+            logger.info("HERE -1");
             this.game = this.currentModel.getGames().get(gameKey);
+            logger.info("HERE -2");
         } catch (NumberFormatException e) {
             logger.info("Invalid gameId format: " + gameId);
         }
 
+        logger.info("HERE 1");
+        logger.info("gameKey: " + gameKey);
         gameManager = (GameManager) currentModel.getGameManagers().get(game);
+
+        logger.info("HERE 2");
 
         if (sessions.get(gameKey) == null) {
             sessions.put(gameKey, new HashSet<>());
