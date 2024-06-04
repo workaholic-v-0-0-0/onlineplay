@@ -1,52 +1,131 @@
 package online.caltuli.business.ai;
 
 import online.caltuli.business.EvolutiveGridParser;
+import online.caltuli.model.CellState;
 import online.caltuli.model.Coordinates;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
 public class DecisionEngine {
-    private static long ALTITUDE_WEIGHT = 1;
-    private Tree tree;
+    private TreeManager treeManager;
+    private static final Logger logger = LogManager.getLogger(DecisionEngine.class);
 
-    public DecisionEngine(Tree tree) {
-        this.tree = tree;
+    // to debug
+    public String s;
+
+    public DecisionEngine() {
+        this.treeManager = new TreeManager();
+        // to debug
+        //printEval(this.treeManager.getTree(),0);
     }
 
-    public void updateWithMove(int column) {
-        // as it's called
+    public void updateWithMove(Column column) {
+        treeManager.prune(column);
+        treeManager.growOneGeneration();
     }
 
+    public Column getBestMove() {
+        Column bestMove = Column.C0;
+        long minMaxEvaluation;
+        long maximum = EvaluatedEvolutiveGridParser.MINUS_INFINITY;
+        for (Map.Entry<Column, Tree> entry : this.treeManager.getTree().getBranches().entrySet()) {
+            minMaxEvaluation = minMaxEvaluation(entry.getValue());
+            if (minMaxEvaluation > maximum) {
+                maximum = minMaxEvaluation;
+                bestMove = entry.getKey();
+            }
+        }
+        return bestMove;
+    }
+
+    public long minMaxEvaluation(Tree tree) {
+        long evaluation;
+        long minOrMax = 0;
+        if (tree.isOnBorder() || (! tree.canGrow())) {
+            return tree.getRoot().getEvaluation();
+        }
+        if (tree.getRoot().getNextColor() == CellState.RED) {
+            minOrMax = EvaluatedEvolutiveGridParser.MINUS_INFINITY;
+            //for (Tree child : tree.getBranches().values()) {
+            for (Column column : tree.getBranches().keySet()) {
+                Tree child = tree.getBranches().get(column);
+                evaluation = minMaxEvaluation(child);
+                //logger.info("evaluation:"+evaluation);
+                if (evaluation > minOrMax) {
+                    minOrMax = evaluation;
+                }
+            }
+        }
+        if (tree.getRoot().getNextColor() == CellState.GREEN) {
+            minOrMax = EvaluatedEvolutiveGridParser.INFINITY;
+            //for (Tree child : tree.getBranches().values()) {
+            for (Column column : tree.getBranches().keySet()) {
+                Tree child = tree.getBranches().get(column);
+                evaluation = minMaxEvaluation(child);
+                if (evaluation < minOrMax) {
+                    minOrMax = evaluation;
+                }
+            }
+        }
+        return minOrMax;
+    }
+
+    public TreeManager getTreeManager() {
+        return treeManager;
+    }
+
+    public void setTreeManager(TreeManager treeManager) {
+        this.treeManager = treeManager;
+    }
+
+    /* USELESS because
+    // on peut évaluer la position en fonction de l'évaluation de la position
+    // précédente et du coup joué
     public long evaluation(EvaluatedEvolutiveGridParser eegp) {
         long evaluation = 0;
         for (
                 Map.Entry<Coordinates[], Integer> entry :
                 eegp.getRedRowsToNbOfRedCoordinates().entrySet()) {
-            evaluation += weight(entry.getKey()) * entry.getValue();
+            evaluation +=
+                EvaluatedEvolutiveGridParser
+                        .coordinatesRowToWeight
+                        .get(entry.getKey())
+                        *
+                        entry.getValue();
         }
         for (
                 Map.Entry<Coordinates[], Integer> entry :
                 eegp.getGreenRowsToNbOfGreenCoordinates().entrySet()) {
-            evaluation -= weight(entry.getKey()) * entry.getValue();
+            evaluation -=
+                EvaluatedEvolutiveGridParser
+                    .coordinatesRowToWeight
+                    .get(entry.getKey())
+                *
+                entry.getValue();
         }
         return evaluation;
     }
+     */
 
-    public int getBestMove() {
-        return 0; // placeholder
+    // to debug
+    private String indent(int indent) {
+        if (indent == 0) {
+            return "";
+        }
+        return "    " + indent(indent - 1);
     }
-
-    // the lower the better
-    private long weight(Coordinates[] coordinatesRow) {
-        return
-            DecisionEngine.ALTITUDE_WEIGHT
-            *
-            (14 - coordinatesRow[0].getX() - coordinatesRow[3].getX());
+    private void printEval(Tree tree, int indent) {
+        if (this.s == null) this.s = "";
+        if (tree.isOnBorder() || (! tree.canGrow())) {
+            this.s = this.s + "\n" + indent(indent) + tree.getRoot().getEvaluation();
+        } else {
+            this.s = this.s + "\n" + indent(indent) + minMaxEvaluation(tree);
+            for (int column=0;column<7;column++) {
+                printEval(tree.getBranches().get(Column.fromIndex(column)), indent + 1);
+            }
+        }
     }
 }
-
-
-// on peut évaluer la position en fonction de l'évaluation de la position
-// précédente et du coup joué
-
-// eval =

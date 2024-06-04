@@ -15,21 +15,30 @@ public class Tree {
     private EvaluatedEvolutiveGridParser root;
     private int depth;
     private HashMap<Column, Tree> branches;
+
+    // in order to make iterative evaluation computation
+    private long minBranchesEvaluations;
+    private long maxBranchesEvaluations;
+    private Tree parent;
     private Logger logger = LogManager.getLogger(Tree.class);
 
-    public Tree(
-            EvaluatedEvolutiveGridParser root) {
+    public Tree(EvaluatedEvolutiveGridParser root) {
         this.root = root;
         this.depth = 0;
         this.branches =
-                (
-                    (! this.root.detectDraw())
-                    &&
-                    (! (this.root.detectWinningColor() != CellState.NULL))
-                ) ?
-                    new HashMap<Column,Tree>()
-                    :
-                    null;
+            (
+                (! this.root.detectDraw())
+                &&
+                (! (this.root.detectWinningColor() != CellState.NULL))
+            ) ?
+                new HashMap<Column,Tree>()
+                :
+                null;
+        this.minBranchesEvaluations =
+            EvaluatedEvolutiveGridParser.INFINITY;
+        this.maxBranchesEvaluations =
+                EvaluatedEvolutiveGridParser.MINUS_INFINITY;
+        this.parent = null;
     }
 
     public boolean canGrow() {

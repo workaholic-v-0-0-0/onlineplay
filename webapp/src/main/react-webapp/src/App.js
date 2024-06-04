@@ -105,8 +105,8 @@ const handlePlay = (columnIndex) => {
             (isSecondPlayerTurn && (playerId == game.secondPlayer.id))) {
           var move = {
               update: 'colorsGrid',
-              column: columnIndex//,
-              //playerId: playerId
+              column: columnIndex,
+              playerId: playerId
           };
         client.send(JSON.stringify(move));
       } else {

@@ -2,6 +2,8 @@ package online.caltuli.batch.userInteractionSimulation.virtualUsers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
 import online.caltuli.batch.userInteractionSimulation.clients.GameWebSocketClient;
 import online.caltuli.batch.userInteractionSimulation.clients.HttpClientSSLContext;
 import online.caltuli.batch.userInteractionSimulation.jsonUtils.*;
@@ -10,6 +12,11 @@ import online.caltuli.batch.userInteractionSimulation.virtualUsers.interfaces.Up
 import online.caltuli.business.ConstantGridParser;
 import online.caltuli.business.EvolutiveGridParser;
 import online.caltuli.business.ai.*;
+
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
+import jakarta.json.JsonValue;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -21,6 +28,7 @@ import java.net.http.HttpClient;
 import java.util.Map;
 
 import online.caltuli.model.*;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,7 +41,6 @@ public class AiUser implements HttpHandler, GameObserver {
     private boolean validateSSL;
 
     // ai
-    private TreeManager treeManager;
     private DecisionEngine decisionEngine;
 
     // info about game
@@ -46,12 +53,13 @@ public class AiUser implements HttpHandler, GameObserver {
         // network
         this.httpUrlPrefix = "https://" + urlPrefix;
         this.wsUrlPrefix = "wss://" + urlPrefix;
-        this.username = username;
         this.validateSSL = validateSSL;
 
+        // for web application
+        this.username = username;
+
         // ai
-        this.treeManager = new TreeManager();
-        this.decisionEngine = new DecisionEngine(this.treeManager.getTree());
+        this.decisionEngine = new DecisionEngine();
 
         // information regarding the progress of the game
         this.gameState = null;
@@ -62,43 +70,6 @@ public class AiUser implements HttpHandler, GameObserver {
 
         new Thread(() -> {
             try {
-                // MONITORING
-                logger.info("NEW");
-                EvaluatedEvolutiveGridParser eegp;
-                for (int i=0;i<6;i++) {
-                    for (int j=0;j<7;j++) {
-                        logger.info("i:"+i+" ; j:"+j);
-                        treeManager.prune(Column.fromIndex(j));
-                        treeManager.growOneGeneration();
-                        eegp = this.treeManager.getTree().getRoot();
-                        logger.info("this.treeManager.getTree().canGrow():"+this.treeManager.getTree().canGrow());
-                        logger.info("this.treeManager.getTree().getDepth():"+this.treeManager.getTree().getDepth());
-                        logger.info("eegp.detectWinningColor():"+eegp.detectWinningColor());
-                        logger.info(
-                                "eegp.getNextColor()"
-                                        +
-                                        eegp.getNextColor()
-                        );
-                        logger.info(
-                                "eegp.getGreenRowsToNbOfGreenCoordinates()"
-                                        +
-                                        eegp.getGreenRowsToNbOfGreenCoordinates()
-                        );
-                        logger.info(
-                                "eegp.getRedRowsToNbOfRedCoordinates()"
-                                        +
-                                        eegp.getRedRowsToNbOfRedCoordinates()
-                        );
-                        logger.info(
-                                "eegp.getUnWinnableCoordinatesRowsSet()"
-                                        +
-                                        eegp.getUnWinnableCoordinatesRowsSet()
-                        );
-                    }
-                }
-                // END MONITORING
-
-
                 HttpClientSSLContext httpClientSSLContext
                         = new HttpClientSSLContext(validateSSL);
                 HttpClient client = httpClientSSLContext.getHttpClient();
@@ -166,15 +137,63 @@ public class AiUser implements HttpHandler, GameObserver {
                                 wsUrlPrefix + "game/" + gameId
                         );
 
+                // make it an observer
+                webSocketClient.addObserver(this);
+
+                // récupérer régulièrement l'information de game.GameState jusqu'à
+                // que valle GameState.WAIT_FIRST_PLAYER_MOVE
+                GameState gameState = null;
+                int pollingInterval = 5000;
+                do {
+                    //game = fetchGame(client, urlPrefix);
+                    game = fetchGame(httpClientSSLContext, httpUrlPrefix);
+                    if (game != null) {
+                        gameState = game.getGameState();
+                    } else {
+                        logger.info("No game information retrieved");
+                    }
+                    if (gameState != GameState.WAIT_FIRST_PLAYER_MOVE) {
+                        try {
+                            Thread.sleep(pollingInterval);
+                        } catch (InterruptedException e) {
+                            logger.info("Polling interrupted", e);
+                        }
+                    }
+                } while (gameState != GameState.WAIT_FIRST_PLAYER_MOVE);
+                logger.info("Game is now in state: WAIT_FIRST_PLAYER_MOVE");
+
+                // play the best move
+                Column bestMove;
+                bestMove = decisionEngine.getBestMove();
+                // inform the opponent through the web application via
+                // websocket client
+                webSocketClient.sendMessage(
+                        "{\"update\":\"colorsGrid\",\"column\":"
+                                + bestMove.getIndex()
+                                +",\"playerId\":\""
+                                +playerId
+                                +"\"}"
+                );
+                decisionEngine.updateWithMove(bestMove);
+
+                try {
+                    Thread.sleep(100000);
+                } catch (InterruptedException e) {
+                    logger.info(e);
+                }
+
+                // when the opponent play
+                // decisionEngine.updateWithMove(???)
+
 
                 // ICI
                 // IL FAUT MODIFIER LE CLIENT WEBSOCKET
                 // DE FAÇON À METTRE À JOUR L'ATTRIBUT tree
-                // QUAND UN COUP EST JOUER PAR L'ADVERSAIRE
+                // QUAND UN COUP EST JOUÉ PAR L'ADVERSAIRE
                 // DANS CETTE IMPLÉMENTATION, IL Y AURA
                 // UNE NOUVELLE CRÉATION D'INSTANCE DE Coordinates
                 // ET DE Coordinates[] RELATIVEMENT AUX EGP DE Tree
-                //
+
 
                 String response = "Task terminated!";
                 exchange.sendResponseHeaders(200, response.getBytes().length);
@@ -242,22 +261,31 @@ public class AiUser implements HttpHandler, GameObserver {
     }
 
     public void update(GameEvent gameEvent) {
+        logger.info("update(GameEvent gameEvent)");
         String whatToBeUpdated = null;
         switch (whatToBeUpdated = gameEvent.getWhatToBeUpdated()) {
             case "colorsGrid":
                 decisionEngine.updateWithMove(
-                        ((ColorsGridUpdateDescription)
-                                gameEvent
-                                        .getDescription())
-                                .getColumn()
+                    ((ColorsGridUpdateDescription)
+                        gameEvent
+                            .getDescription())
+                            .getColumn()
                 );
+                logger.info("colorsGrid ; column:"+((ColorsGridUpdateDescription)
+                        gameEvent
+                                .getDescription())
+                        .getColumn());
                 break;
             case "gameState":
                 this.gameState =
-                        ((GameStateUpdateDescription)
-                                gameEvent
-                                        .getDescription())
-                                .getGameState();
+                    ((GameStateUpdateDescription)
+                        gameEvent
+                            .getDescription())
+                            .getGameState();
+                logger.info("gameState:"+((GameStateUpdateDescription)
+                        gameEvent
+                                .getDescription())
+                        .getGameState());
                 break;
         }
     }

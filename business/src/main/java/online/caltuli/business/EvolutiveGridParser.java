@@ -94,7 +94,6 @@ public class EvolutiveGridParser {
                 if ((notPlayedColorRowsToNbOfNotPlayedColorCoordinates.get(coordinatesRow) != null)) {
                     // remove the pair which corresponds to this coordinatesRow in "opponent dictionnary"
                     notPlayedColorRowsToNbOfNotPlayedColorCoordinates.remove(coordinatesRow);
-                    playedColorRowsToNbOfPlayedColorCoordinates.remove(coordinatesRow);
                     // one can't win anymore in this coordinatesRow because it's bicolor
                     unWinnableCoordinatesRowsSet.add(coordinatesRow);
                 } else {

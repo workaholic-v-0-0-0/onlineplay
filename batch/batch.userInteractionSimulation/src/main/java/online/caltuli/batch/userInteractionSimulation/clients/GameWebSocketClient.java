@@ -19,6 +19,7 @@ import java.util.concurrent.CompletionStage;
 
 import online.caltuli.batch.userInteractionSimulation.virtualUsers.interfaces.UpdateDescription;
 
+import online.caltuli.business.ai.Column;
 import online.caltuli.model.GameState;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -69,29 +70,35 @@ public class GameWebSocketClient {
                 jsonMessage = reader.readObject();
             } catch (Exception e) {
                 logger.error("Failed to parse the message as JSON", e);
+                //webSocket.request(1); // Request the next message
                 return CompletableFuture.completedFuture(null);  // Properly handle completion
             }
 
             String whatToBeUpdated = jsonMessage.getString("update", null);
             if (whatToBeUpdated == null) {
                 logger.error("Update type is missing in the message");
+                //webSocket.request(1); // Request the next message
                 return CompletableFuture.completedFuture(null);
             }
 
             UpdateDescription updateDescription = null;
             switch (whatToBeUpdated) {
                 case "colorsGrid":
-                    int column = jsonMessage.getInt("column", -1);
-                    if (column == -1) {
+                    int columnIndex = jsonMessage.getInt("column", -1);
+                    if (columnIndex == -1) {
                         logger.error("Column index is missing or invalid in the message");
+                        //webSocket.request(1); // Request the next message
                         return CompletableFuture.completedFuture(null);
                     }
+                    Column column =
+                        Column.fromIndex(columnIndex);
                     updateDescription = new ColorsGridUpdateDescription(column);
                     break;
                 case "gameState":
                     String newState = jsonMessage.getString("newvalue", null);
                     if (newState == null) {
                         logger.error("New game state value is missing in the message");
+                        //webSocket.request(1); // Request the next message
                         return CompletableFuture.completedFuture(null);
                     }
                     updateDescription = new GameStateUpdateDescription(GameState.valueOf(newState));
@@ -101,6 +108,7 @@ public class GameWebSocketClient {
                     break;
                 default:
                     logger.warn("Received an unsupported update type: " + whatToBeUpdated);
+                    //webSocket.request(1); // Request the next message
                     return CompletableFuture.completedFuture(null);
             }
 

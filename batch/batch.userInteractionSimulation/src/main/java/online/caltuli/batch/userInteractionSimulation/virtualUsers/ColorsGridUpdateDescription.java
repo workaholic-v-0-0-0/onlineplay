@@ -1,15 +1,16 @@
 package online.caltuli.batch.userInteractionSimulation.virtualUsers;
 
 import online.caltuli.batch.userInteractionSimulation.virtualUsers.interfaces.UpdateDescription;
+import online.caltuli.business.ai.Column;
 
 public class ColorsGridUpdateDescription implements UpdateDescription {
-    private int column;
+    private Column column;
 
-    public ColorsGridUpdateDescription(int column) {
+    public ColorsGridUpdateDescription(Column column) {
         this.column = column;
     }
 
-    public int getColumn() {
+    public Column getColumn() {
         return column;
     }
 }
