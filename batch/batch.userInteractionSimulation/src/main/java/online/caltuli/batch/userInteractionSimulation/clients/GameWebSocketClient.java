@@ -84,7 +84,7 @@ public class GameWebSocketClient {
             UpdateDescription updateDescription = null;
             switch (whatToBeUpdated) {
                 case "colorsGrid":
-                    int columnIndex = jsonMessage.getInt("column", -1);
+                    int columnIndex = jsonMessage.getInt("y", -1);
                     if (columnIndex == -1) {
                         logger.error("Column index is missing or invalid in the message");
                         //webSocket.request(1); // Request the next message
@@ -95,12 +95,13 @@ public class GameWebSocketClient {
                     updateDescription = new ColorsGridUpdateDescription(column);
                     break;
                 case "gameState":
-                    String newState = jsonMessage.getString("newvalue", null);
+                    String newState = jsonMessage.getString("newValue", null);
                     if (newState == null) {
                         logger.error("New game state value is missing in the message");
                         //webSocket.request(1); // Request the next message
                         return CompletableFuture.completedFuture(null);
                     }
+                    newState = newState.replace("\"", "");  // Enlève les guillemets autour de l'état
                     updateDescription = new GameStateUpdateDescription(GameState.valueOf(newState));
                     break;
                 case "secondPlayer":

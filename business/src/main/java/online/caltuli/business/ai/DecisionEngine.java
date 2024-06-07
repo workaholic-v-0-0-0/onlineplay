@@ -1,8 +1,6 @@
 package online.caltuli.business.ai;
 
-import online.caltuli.business.EvolutiveGridParser;
 import online.caltuli.model.CellState;
-import online.caltuli.model.Coordinates;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,8 +16,6 @@ public class DecisionEngine {
 
     public DecisionEngine() {
         this.treeManager = new TreeManager();
-        // to debug
-        //printEval(this.treeManager.getTree(),0);
     }
 
     public void updateWithMove(Column column) {
@@ -49,11 +45,10 @@ public class DecisionEngine {
         }
         if (tree.getRoot().getNextColor() == CellState.RED) {
             minOrMax = EvaluatedEvolutiveGridParser.MINUS_INFINITY;
-            //for (Tree child : tree.getBranches().values()) {
-            for (Column column : tree.getBranches().keySet()) {
-                Tree child = tree.getBranches().get(column);
+            for (Tree child : tree.getBranches().values()) {
+            //for (Column column : tree.getBranches().keySet()) {
+                //Tree child = tree.getBranches().get(column);
                 evaluation = minMaxEvaluation(child);
-                //logger.info("evaluation:"+evaluation);
                 if (evaluation > minOrMax) {
                     minOrMax = evaluation;
                 }
@@ -61,9 +56,9 @@ public class DecisionEngine {
         }
         if (tree.getRoot().getNextColor() == CellState.GREEN) {
             minOrMax = EvaluatedEvolutiveGridParser.INFINITY;
-            //for (Tree child : tree.getBranches().values()) {
-            for (Column column : tree.getBranches().keySet()) {
-                Tree child = tree.getBranches().get(column);
+            for (Tree child : tree.getBranches().values()) {
+            //for (Column column : tree.getBranches().keySet()) {
+                //Tree child = tree.getBranches().get(column);
                 evaluation = minMaxEvaluation(child);
                 if (evaluation < minOrMax) {
                     minOrMax = evaluation;
@@ -111,6 +106,7 @@ public class DecisionEngine {
      */
 
     // to debug
+    /*
     private String indent(int indent) {
         if (indent == 0) {
             return "";
@@ -128,4 +124,5 @@ public class DecisionEngine {
             }
         }
     }
+     */
 }

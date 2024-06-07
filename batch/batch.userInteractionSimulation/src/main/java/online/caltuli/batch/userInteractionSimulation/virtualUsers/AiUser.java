@@ -2,21 +2,11 @@ package online.caltuli.batch.userInteractionSimulation.virtualUsers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import jakarta.json.Json;
-import jakarta.json.JsonObject;
 import online.caltuli.batch.userInteractionSimulation.clients.GameWebSocketClient;
 import online.caltuli.batch.userInteractionSimulation.clients.HttpClientSSLContext;
 import online.caltuli.batch.userInteractionSimulation.jsonUtils.*;
 import online.caltuli.batch.userInteractionSimulation.virtualUsers.interfaces.GameObserver;
-import online.caltuli.batch.userInteractionSimulation.virtualUsers.interfaces.UpdateDescription;
-import online.caltuli.business.ConstantGridParser;
-import online.caltuli.business.EvolutiveGridParser;
 import online.caltuli.business.ai.*;
-
-import jakarta.json.Json;
-import jakarta.json.JsonObject;
-import jakarta.json.JsonReader;
-import jakarta.json.JsonValue;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -39,6 +29,8 @@ public class AiUser implements HttpHandler, GameObserver {
     private String wsUrlPrefix;
     private String username;
     private boolean validateSSL;
+    HttpClient client = null;
+    GameWebSocketClient webSocketClient = null;
 
     // ai
     private DecisionEngine decisionEngine;
@@ -58,9 +50,6 @@ public class AiUser implements HttpHandler, GameObserver {
         // for web application
         this.username = username;
 
-        // ai
-        this.decisionEngine = new DecisionEngine();
-
         // information regarding the progress of the game
         this.gameState = null;
     }
@@ -72,7 +61,7 @@ public class AiUser implements HttpHandler, GameObserver {
             try {
                 HttpClientSSLContext httpClientSSLContext
                         = new HttpClientSSLContext(validateSSL);
-                HttpClient client = httpClientSSLContext.getHttpClient();
+                this.client = httpClientSSLContext.getHttpClient();
 
                 // registrer
                 httpClientSSLContext.sendGetRequest(httpUrlPrefix + "registration");
@@ -111,6 +100,8 @@ public class AiUser implements HttpHandler, GameObserver {
                 String playerId = String.valueOf(userId);
                 logger.info("playerId:" + playerId);
 
+                this.decisionEngine = new DecisionEngine();
+
                 // proposer a game
                 String postParams = "action=" + "new_game";
                 httpClientSSLContext.sendPostRequest(
@@ -131,7 +122,7 @@ public class AiUser implements HttpHandler, GameObserver {
 
                 // create webSocket client and connect it to the server
                 // related to the game
-                GameWebSocketClient webSocketClient =
+                this.webSocketClient =
                         new GameWebSocketClient(
                                 client,
                                 wsUrlPrefix + "game/" + gameId
@@ -145,7 +136,6 @@ public class AiUser implements HttpHandler, GameObserver {
                 GameState gameState = null;
                 int pollingInterval = 5000;
                 do {
-                    //game = fetchGame(client, urlPrefix);
                     game = fetchGame(httpClientSSLContext, httpUrlPrefix);
                     if (game != null) {
                         gameState = game.getGameState();
@@ -160,40 +150,40 @@ public class AiUser implements HttpHandler, GameObserver {
                         }
                     }
                 } while (gameState != GameState.WAIT_FIRST_PLAYER_MOVE);
-                logger.info("Game is now in state: WAIT_FIRST_PLAYER_MOVE");
 
-                // play the best move
-                Column bestMove;
-                bestMove = decisionEngine.getBestMove();
-                // inform the opponent through the web application via
-                // websocket client
-                webSocketClient.sendMessage(
-                        "{\"update\":\"colorsGrid\",\"column\":"
-                                + bestMove.getIndex()
-                                +",\"playerId\":\""
-                                +playerId
-                                +"\"}"
+                do {
+                    if (gameState == GameState.WAIT_FIRST_PLAYER_MOVE) {
+
+                        // play the best move
+                        Column bestMove;
+                        bestMove = decisionEngine.getBestMove();
+                        // inform the opponent through the web application via
+                        // websocket client
+                        webSocketClient.getFutureWebSocket().join();
+                        webSocketClient.sendMessage(
+                                "{\"update\":\"colorsGrid\",\"column\":"
+                                        + bestMove.getIndex()
+                                        +",\"playerId\":\""
+                                        +playerId
+                                        +"\"}"
+                        );
+                    }
+                    try {
+                        Thread.sleep(pollingInterval);
+                    } catch (InterruptedException e) {
+                        logger.info("Polling interrupted", e);
+                    }
+
+                    if ((game = fetchGame(httpClientSSLContext, httpUrlPrefix)) != null) {
+                        gameState = game.getGameState();
+                    } else {
+                        logger.info("No game information retrieved");
+                    }
+                } while (
+                        (gameState == GameState.WAIT_FIRST_PLAYER_MOVE)
+                        ||
+                        (gameState == GameState.WAIT_SECOND_PLAYER_MOVE)
                 );
-                decisionEngine.updateWithMove(bestMove);
-
-                try {
-                    Thread.sleep(100000);
-                } catch (InterruptedException e) {
-                    logger.info(e);
-                }
-
-                // when the opponent play
-                // decisionEngine.updateWithMove(???)
-
-
-                // ICI
-                // IL FAUT MODIFIER LE CLIENT WEBSOCKET
-                // DE FAÇON À METTRE À JOUR L'ATTRIBUT tree
-                // QUAND UN COUP EST JOUÉ PAR L'ADVERSAIRE
-                // DANS CETTE IMPLÉMENTATION, IL Y AURA
-                // UNE NOUVELLE CRÉATION D'INSTANCE DE Coordinates
-                // ET DE Coordinates[] RELATIVEMENT AUX EGP DE Tree
-
 
                 String response = "Task terminated!";
                 exchange.sendResponseHeaders(200, response.getBytes().length);
@@ -203,6 +193,16 @@ public class AiUser implements HttpHandler, GameObserver {
             } catch (Exception e) {
                 logger.info("Error handling request: " + e.getMessage(), e);
             } finally {
+                try {
+                    if (webSocketClient != null) {
+                        webSocketClient.close();
+                    }
+                    if (client != null) {
+                        client.close();
+                    }
+                } catch (Exception e) {
+                    logger.error("Failed to clean up resources", e);
+                }
                 exchange.close();
             }
         }).start();
@@ -227,7 +227,6 @@ public class AiUser implements HttpHandler, GameObserver {
             logger.error("Error handling request", e);
         }
 
-        // return the game object or null if there was an error
         return user;
     }
 
@@ -261,9 +260,7 @@ public class AiUser implements HttpHandler, GameObserver {
     }
 
     public void update(GameEvent gameEvent) {
-        logger.info("update(GameEvent gameEvent)");
-        String whatToBeUpdated = null;
-        switch (whatToBeUpdated = gameEvent.getWhatToBeUpdated()) {
+        switch (gameEvent.getWhatToBeUpdated()) {
             case "colorsGrid":
                 decisionEngine.updateWithMove(
                     ((ColorsGridUpdateDescription)

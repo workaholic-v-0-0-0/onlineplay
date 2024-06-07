@@ -6,15 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="2e868744-9572-4a05-bcd5-9d384bde377b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/clients/GameWebSocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/clients/GameWebSocketClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/AiUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/AiUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/ColorsGridUpdateDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/ColorsGridUpdateDescription.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/EvolutiveGridParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/EvolutiveGridParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/batch/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/DecisionEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/DecisionEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/EvaluatedEvolutiveGridParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/EvaluatedEvolutiveGridParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/Tree.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/Tree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/src/main/react-webapp/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/react-webapp/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/src/main/resources/maven.properties" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/resources/maven.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

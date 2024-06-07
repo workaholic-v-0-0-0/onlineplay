@@ -105,6 +105,7 @@ public class EvaluatedEvolutiveGridParser extends EvolutiveGridParser {
                             .get(coordinatesRow);
                 }
             }
+
         }
 
         // extreme cases evaluation update

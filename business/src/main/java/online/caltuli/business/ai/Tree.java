@@ -16,10 +16,13 @@ public class Tree {
     private int depth;
     private HashMap<Column, Tree> branches;
 
-    // in order to make iterative evaluation computation
+    // in order to make iterative evaluation computation ???
+    /*
     private long minBranchesEvaluations;
     private long maxBranchesEvaluations;
     private Tree parent;
+
+     */
     private Logger logger = LogManager.getLogger(Tree.class);
 
     public Tree(EvaluatedEvolutiveGridParser root) {
@@ -34,11 +37,14 @@ public class Tree {
                 new HashMap<Column,Tree>()
                 :
                 null;
+        /*
         this.minBranchesEvaluations =
             EvaluatedEvolutiveGridParser.INFINITY;
         this.maxBranchesEvaluations =
                 EvaluatedEvolutiveGridParser.MINUS_INFINITY;
         this.parent = null;
+
+         */
     }
 
     public boolean canGrow() {
