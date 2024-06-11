@@ -7,25 +7,22 @@ import online.caltuli.batch.userInteractionSimulation.config.network.NetworkConf
 import online.caltuli.batch.userInteractionSimulation.config.virtualUsers.VirtualUserInformationConfig;
 import online.caltuli.batch.userInteractionSimulation.interfaces.GameObserver;
 import online.caltuli.business.ai.DecisionEngine;
-import online.caltuli.business.ai.MinMaxDecisionEngine;
 import online.caltuli.model.GameState;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class VirtualUser implements HttpHandler, GameObserver {
     protected UserActionManager userActionManager;
     protected DecisionEngine decisionEngine;
-    ExecutorService executor = Executors.newFixedThreadPool(1);
     protected GameState gameState;
-    protected static final Logger logger = LogManager.getLogger(AiUserV2.class);
+    protected static final Logger logger = LogManager.getLogger(AiUser.class);
 
     public VirtualUser(
             VirtualUserInformationConfig virtualUserInformationConfig,
@@ -46,14 +43,13 @@ public class VirtualUser implements HttpHandler, GameObserver {
             );
     }
 
-    // to be overrided
+    // to be overridden
     protected void doTask() throws Exception {
-        // to be implemented
+
     }
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        //executor.execute(() -> {
             int responseCode = 200;
             String responseText = "Task Completed";
             try {
@@ -69,7 +65,6 @@ public class VirtualUser implements HttpHandler, GameObserver {
             );
             os.write(responseText.getBytes());
             exchange.close();
-        //});
     }
 
     public void update(GameEvent gameEvent) {

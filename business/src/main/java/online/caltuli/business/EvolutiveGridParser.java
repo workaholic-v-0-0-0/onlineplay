@@ -47,9 +47,9 @@ public class EvolutiveGridParser {
             nextLine[j] = 0;
         }
         nextColor = CellState.RED;
-        redRowsToNbOfRedCoordinates = new HashMap<Coordinates[], Integer>();
-        greenRowsToNbOfGreenCoordinates = new HashMap<Coordinates[], Integer>();
-        unWinnableCoordinatesRowsSet = new HashSet<Coordinates[]>();
+        redRowsToNbOfRedCoordinates = new HashMap<>();
+        greenRowsToNbOfGreenCoordinates = new HashMap<>();
+        unWinnableCoordinatesRowsSet = new HashSet<>();
     }
 
     public EvolutiveGridParser(
@@ -149,23 +149,10 @@ public class EvolutiveGridParser {
         return redRowsToNbOfRedCoordinates;
     }
 
-    public void setRedRowsToNbOfRedCoordinates(HashMap<Coordinates[], Integer> redRowsToNbOfRedCoordinates) {
-        this.redRowsToNbOfRedCoordinates = redRowsToNbOfRedCoordinates;
-    }
-
     public HashMap<Coordinates[], Integer> getGreenRowsToNbOfGreenCoordinates() {
         return greenRowsToNbOfGreenCoordinates;
     }
-
-    public void setGreenRowsToNbOfGreenCoordinates(HashMap<Coordinates[], Integer> greenRowsToNbOfGreenCoordinates) {
-        this.greenRowsToNbOfGreenCoordinates = greenRowsToNbOfGreenCoordinates;
-    }
-
     public HashSet<Coordinates[]> getUnWinnableCoordinatesRowsSet() {
         return unWinnableCoordinatesRowsSet;
-    }
-
-    public void setUnWinnableCoordinatesRowsSet(HashSet<Coordinates[]> unWinnableCoordinatesRowsSet) {
-        this.unWinnableCoordinatesRowsSet = unWinnableCoordinatesRowsSet;
     }
 }

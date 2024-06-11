@@ -2,8 +2,8 @@ package online.caltuli.batch.userInteractionSimulation.virtualUsers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import online.caltuli.batch.userInteractionSimulation.clients.GameWebSocketClientV2;
-import online.caltuli.batch.userInteractionSimulation.clients.HttpClientSSLContextV2;
+import online.caltuli.batch.userInteractionSimulation.clients.GameWebSocketClient;
+import online.caltuli.batch.userInteractionSimulation.clients.HttpClientSSLContext;
 import online.caltuli.batch.userInteractionSimulation.config.network.ClientConfig;
 import online.caltuli.batch.userInteractionSimulation.config.network.NetworkConfig;
 import online.caltuli.batch.userInteractionSimulation.config.virtualUsers.VirtualUserInformationConfig;
@@ -23,17 +23,14 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class UserActionManager {
-    private VirtualUserInformationConfig virtualUserInformationConfig;
-    private NetworkConfig httpsNetworkConfig;
-    private NetworkConfig wssNetworkConfig;
-    private ClientConfig clientConfig;
-    private HttpClientSSLContextV2 httpClientSSLContext;
+    private final VirtualUserInformationConfig virtualUserInformationConfig;
+    private final NetworkConfig httpsNetworkConfig;
+    private final NetworkConfig wssNetworkConfig;
+    private final ClientConfig clientConfig;
+    private HttpClientSSLContext httpClientSSLContext;
     private HttpClient httpClient;
-    private GameWebSocketClientV2 gameWebSocketClient;
+    private GameWebSocketClient gameWebSocketClient;
 
 
     protected static final Logger logger = LogManager.getLogger(UserActionManager.class);
@@ -64,7 +61,7 @@ public class UserActionManager {
             KeyStoreException {
         // http client initialisation
         this.httpClientSSLContext =
-            new HttpClientSSLContextV2(
+            new HttpClientSSLContext(
                 httpsNetworkConfig,
                 clientConfig
             );
@@ -73,7 +70,7 @@ public class UserActionManager {
 
         // wss client initialisation
         gameWebSocketClient =
-            new GameWebSocketClientV2(
+            new GameWebSocketClient(
                 this.httpClient,
                 wssNetworkConfig
                 );
@@ -81,23 +78,19 @@ public class UserActionManager {
 
     public void cleanupClients() {
         logger.info("Cleaning up UserActionManager resources...");
-
-        // Fermeture du client WebSocket
         if (gameWebSocketClient != null) {
             gameWebSocketClient.disconnectFromGame();
             gameWebSocketClient = null;
         }
         gameWebSocketClient =
-            new GameWebSocketClientV2(
+            new GameWebSocketClient(
                     this.httpClient,
                     wssNetworkConfig
             );
-
         if (httpClient != null) {
             httpClientSSLContext.cleanupCookies();
         }
     }
-
 
     public void register() throws Exception {
         this.httpClientSSLContext.sendGetRequest("registration");
@@ -108,8 +101,6 @@ public class UserActionManager {
     }
 
     public void authenticate() throws Exception {
-        logger.info("authenticate");
-        logger.info("authenticationPostParameter() -> "+authenticationPostParameter());
         this.httpClientSSLContext.sendGetRequest("authentication");
         httpClientSSLContext.sendPostRequest(
             "authentication",
@@ -118,13 +109,10 @@ public class UserActionManager {
     }
 
     public void logout() throws Exception {
-        logger.info("logout");
         this.httpClientSSLContext.sendGetRequest("logout");
     }
 
     public void proposeNewGame() throws Exception {
-        logger.info("proposeNewGame()");
-        logger.info("proposeNewGamePostParameter() -> "+ proposeNewGamePostParameter());
         this.httpClientSSLContext.sendGetRequest("home");
         httpClientSSLContext.sendPostRequest(
             "home",
@@ -139,7 +127,6 @@ public class UserActionManager {
 
     public void waitOpponent() {
         GameState gameState = null;
-        int pollingInterval = 5000;
         Game game;
         do {
             game = fetchGame();
@@ -150,9 +137,9 @@ public class UserActionManager {
             }
             if (gameState != GameState.WAIT_FIRST_PLAYER_MOVE) {
                 try {
-                    Thread.sleep(pollingInterval);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
-                    logger.info("Polling interrupted", e);
+                    logger.error(e.getMessage());
                 }
             }
         } while (gameState != GameState.WAIT_FIRST_PLAYER_MOVE);
@@ -170,44 +157,39 @@ public class UserActionManager {
 
     private String registrationPostParameter() {
         return
-                "username="
-                        + virtualUserInformationConfig.getUsername()
-                        + "&password="
-                        + virtualUserInformationConfig.getPassword()
-                        + "&email="
-                        + virtualUserInformationConfig.getEmail()
-                        + "&message="
-                        + virtualUserInformationConfig.getMessage();
+            "username="
+            + virtualUserInformationConfig.getUsername()
+            + "&password="
+            + virtualUserInformationConfig.getPassword()
+            + "&email="
+            + virtualUserInformationConfig.getEmail()
+            + "&message="
+            + virtualUserInformationConfig.getMessage();
     }
 
     private String authenticationPostParameter() {
         return
             "username="
-                    + virtualUserInformationConfig.getUsername()
-                    + "&password="
-                    + virtualUserInformationConfig.getPassword();
+            + virtualUserInformationConfig.getUsername()
+            + "&password="
+            + virtualUserInformationConfig.getPassword();
     }
 
     private String proposeNewGamePostParameter() {
         return "action=new_game";
     }
 
-    private void connectGameWebSocketClient(int gameId) {
-
-    }
-
-
     // actions related to API
 
     public User fetchUser() {
-        String userJson = null;
-        UserContainer userContainer = null;
+        String userJson;
+        UserContainer userContainer;
         User user = null;
         try {
             userJson = this.httpClientSSLContext.sendGetRequest("who-am-i");
             // deserialize JSON to UserContainer
             ObjectMapper mapper = new ObjectMapper();
-            userContainer = mapper.readValue(userJson, UserContainer.class); // Désérialisation avec Jackson
+            userContainer = mapper.readValue(userJson, UserContainer.class);
             user = userContainer != null ? userContainer.getUser() : null;
         } catch (Exception e) {
             logger.error("Error handling request", e);
@@ -216,8 +198,8 @@ public class UserActionManager {
     }
 
     public Game fetchGame() {
-        String gameJson = null;
-        GameContainer container = null;
+        String gameJson;
+        GameContainer container;
         Game game = null;
         try {
             // fetch game from the server
@@ -236,19 +218,6 @@ public class UserActionManager {
         } catch (Exception e) {
             logger.error("Error handling request", e);
         }
-        // return the game object or null if there was an error
         return game;
-    }
-
-    public HttpClientSSLContextV2 getHttpClientSSLContext() {
-        return httpClientSSLContext;
-    }
-
-    public HttpClient getHttpClient() {
-        return httpClient;
-    }
-
-    public GameWebSocketClientV2 getGameWebSocketClient() {
-        return gameWebSocketClient;
     }
 }

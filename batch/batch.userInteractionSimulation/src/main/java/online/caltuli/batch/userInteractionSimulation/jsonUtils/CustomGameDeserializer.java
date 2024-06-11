@@ -19,7 +19,6 @@ public class CustomGameDeserializer extends JsonDeserializer<Game> {
         JsonNode node = p.getCodec().readTree(p);
         int id = node.get("id").asInt();
 
-        // Use ObjectMapper to deserialize complex types correctly
         ObjectMapper mapper = (ObjectMapper) p.getCodec();
         HashMap<Coordinates, CellState> colorsGrid = mapper.readValue(node.get("colorsGrid").traverse(), new TypeReference<HashMap<Coordinates, CellState>>() {});
         Player firstPlayer = mapper.readValue(node.get("firstPlayer").traverse(), Player.class);

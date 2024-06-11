@@ -3,8 +3,8 @@ package online.caltuli.batch.userInteractionSimulation.virtualUsers;
 import online.caltuli.batch.userInteractionSimulation.interfaces.UpdateDescription;
 
 public class GameEvent {
-    private String whatToBeUpdated;
-    private UpdateDescription description;
+    private final String whatToBeUpdated;
+    private final UpdateDescription description;
 
     public GameEvent(
             String whatToBeUpdated,
@@ -17,15 +17,7 @@ public class GameEvent {
         return whatToBeUpdated;
     }
 
-    public void setWhatToBeUpdated(String whatToBeUpdated) {
-        this.whatToBeUpdated = whatToBeUpdated;
-    }
-
     public UpdateDescription getDescription() {
         return description;
-    }
-
-    public void setDescription(UpdateDescription description) {
-        this.description = description;
     }
 }

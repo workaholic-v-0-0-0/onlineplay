@@ -1,6 +1,5 @@
 package online.caltuli.batch.userInteractionSimulation.config.network;
 
-import online.caltuli.batch.userInteractionSimulation.virtualUsers.UserActionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,12 +25,10 @@ public enum NetworkConfig {
     }
 
     public String buildHttpUrl() {
-        logger.info("buildHttpUrl() -> "+protocol + "://" + host + ":" + port + basePath);
         return protocol + "://" + host + ":" + port + basePath;
     }
 
     public String buildWsUrl(int gameId) {
-        logger.info("buildWsUrl() -> "+protocol + "://" + host + ":" + port + basePath + "/" + gameId);
         return protocol + "://" + host + ":" + port + basePath + "/" + gameId;
     }
 }

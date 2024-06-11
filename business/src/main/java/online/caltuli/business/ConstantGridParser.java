@@ -3,12 +3,7 @@ package online.caltuli.business;
 import online.caltuli.model.BidimensionalParametrizationOfSetOfCoordinatesFactory;
 import online.caltuli.model.Coordinates;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class ConstantGridParser {
-
-    private static final Logger logger = LogManager.getLogger(ConstantGridParser.class);
 
     // Coordinates parametrization
     // to optimally fetch a Coordinates instance from its coordinates

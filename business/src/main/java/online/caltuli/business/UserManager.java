@@ -1,23 +1,19 @@
 package online.caltuli.business;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import online.caltuli.business.exception.BusinessException;
-import online.caltuli.model.*;
-
 import online.caltuli.consumer.dao.DaoFactory;
 import online.caltuli.consumer.dao.interfaces.UserConnectionsDao;
 import online.caltuli.consumer.dao.interfaces.UsersDao;
 import online.caltuli.consumer.dao.exceptions.DaoException;
+import online.caltuli.model.exceptions.user.UserException;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import online.caltuli.business.exception.BusinessException;
+import online.caltuli.model.*;
 import java.sql.Timestamp;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import online.caltuli.model.exceptions.user.UserException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.mindrot.jbcrypt.BCrypt;
 
 @ApplicationScoped

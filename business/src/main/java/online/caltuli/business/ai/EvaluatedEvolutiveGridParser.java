@@ -15,7 +15,7 @@ public class EvaluatedEvolutiveGridParser extends EvolutiveGridParser {
     private long evaluation;
 
     static {
-        coordinatesRowToWeight = new HashMap<Coordinates[],Integer>();
+        coordinatesRowToWeight = new HashMap<>();
         Coordinates[][][][] param =
             ConstantGridParser
                 .arrayOfCoordinatesRowsStartingFromBottomWithCoordinates;
@@ -26,11 +26,9 @@ public class EvaluatedEvolutiveGridParser extends EvolutiveGridParser {
                 ) {
                     coordinatesRowToWeight.put(
                         coordinatesRow,
-                        Integer.valueOf(
-                            EvaluatedEvolutiveGridParser.ALTITUDE_WEIGHT
-                            *
-                            (14 - coordinatesRow[0].getX() - coordinatesRow[3].getX())
-                        )
+                        EvaluatedEvolutiveGridParser.ALTITUDE_WEIGHT
+                        *
+                        (14 - coordinatesRow[0].getX() - coordinatesRow[3].getX())
                     );
                 }
             }
@@ -42,12 +40,10 @@ public class EvaluatedEvolutiveGridParser extends EvolutiveGridParser {
         this.evaluation = 0;
     }
 
-    // masquage de updateWithMove(int) qui optimise l'évaluation
-    // de la position en la calculant à partir de l'évaluation précédente
-    // et du coup joué
+    // Overrides updateWithMove(int) to optimize position evaluation by
+    // calculating from the previous evaluation and the move played.
     @Override
     public Coordinates updateWithMove(int column) {
-        long evaluation = this.evaluation;
         int sign;
         Coordinates coordinatesPlayed = ConstantGridParser.CA[nextLine[column]][column];
         HashMap<Coordinates[],Integer>
@@ -77,7 +73,7 @@ public class EvaluatedEvolutiveGridParser extends EvolutiveGridParser {
                 if ((notPlayedColorRowsToNbOfNotPlayedColorCoordinates.get(coordinatesRow) != null)) {
                     // evaluation update
                     this.evaluation +=
-                        sign
+                        (long) sign
                         *
                         EvaluatedEvolutiveGridParser
                                 .coordinatesRowToWeight
@@ -85,9 +81,10 @@ public class EvaluatedEvolutiveGridParser extends EvolutiveGridParser {
                         *
                         notPlayedColorRowsToNbOfNotPlayedColorCoordinates
                                 .get(coordinatesRow);
-                    // remove the pair which corresponds to this coordinatesRow in "opponent dictionnary"
+                    // remove the pair which corresponds to this coordinatesRow in "opponent hashmap"
                     notPlayedColorRowsToNbOfNotPlayedColorCoordinates.remove(coordinatesRow);
-                    // one can't win anymore in this coordinatesRow because it's bicolor
+                    // one can't win anymore in this coordinatesRow because it contains
+                    // already two colors
                     unWinnableCoordinatesRowsSet.add(coordinatesRow);
                 } else {
                     playedColorRowsToNbOfPlayedColorCoordinates.merge(
@@ -98,7 +95,7 @@ public class EvaluatedEvolutiveGridParser extends EvolutiveGridParser {
                     );
                     // evaluation update
                     this.evaluation +=
-                        sign
+                        (long) sign
                         *
                         EvaluatedEvolutiveGridParser
                             .coordinatesRowToWeight

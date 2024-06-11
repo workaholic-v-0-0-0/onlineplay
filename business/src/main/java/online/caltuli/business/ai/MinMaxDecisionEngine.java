@@ -2,14 +2,10 @@ package online.caltuli.business.ai;
 
 import online.caltuli.model.CellState;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.util.Map;
 
 public class MinMaxDecisionEngine implements DecisionEngine {
-    private TreeManager treeManager;
-    private static final Logger logger = LogManager.getLogger(MinMaxDecisionEngine.class);
+    private final TreeManager treeManager;
 
     public MinMaxDecisionEngine() {
         this.treeManager = new TreeManager();
@@ -59,13 +55,5 @@ public class MinMaxDecisionEngine implements DecisionEngine {
             }
         }
         return minOrMax;
-    }
-
-    public TreeManager getTreeManager() {
-        return treeManager;
-    }
-
-    public void setTreeManager(TreeManager treeManager) {
-        this.treeManager = treeManager;
     }
 }
