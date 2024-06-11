@@ -3,10 +3,16 @@ package online.caltuli.batch.userInteractionSimulation.clients;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
+import online.caltuli.batch.userInteractionSimulation.config.network.NetworkConfig;
+import online.caltuli.batch.userInteractionSimulation.interfaces.GameObserver;
+import online.caltuli.batch.userInteractionSimulation.interfaces.UpdateDescription;
 import online.caltuli.batch.userInteractionSimulation.virtualUsers.ColorsGridUpdateDescription;
 import online.caltuli.batch.userInteractionSimulation.virtualUsers.GameEvent;
 import online.caltuli.batch.userInteractionSimulation.virtualUsers.GameStateUpdateDescription;
-import online.caltuli.batch.userInteractionSimulation.interfaces.GameObserver;
+import online.caltuli.business.ai.Column;
+import online.caltuli.model.GameState;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.StringReader;
 import java.net.URI;
@@ -16,29 +22,58 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.TimeUnit;
 
-import online.caltuli.batch.userInteractionSimulation.interfaces.UpdateDescription;
+public class GameWebSocketClientV2 {
+    private int gameId;
 
-import online.caltuli.business.ai.Column;
-import online.caltuli.model.GameState;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-public class GameWebSocketClient {
-    private CompletableFuture<WebSocket> futureWebSocket = new CompletableFuture<>();
+    private NetworkConfig wssNetworkConfig;
+    private CompletableFuture<WebSocket> futureWebSocket;
     private WebSocket webSocket = null;
     private HttpClient httpClient;
     private List<GameObserver> observers = new ArrayList<>();
-    private static final Logger logger = LogManager.getLogger(GameWebSocketClient.class);
+    private static final Logger logger = LogManager.getLogger(GameWebSocketClientV2.class);
 
-    public GameWebSocketClient(HttpClient httpClient, String uri) {
+    public GameWebSocketClientV2(
+            HttpClient httpClient,
+            NetworkConfig wssNetworkConfig) {
         this.httpClient = httpClient;
+        this.wssNetworkConfig = wssNetworkConfig;
+    }
+
+    public void connectToGame(int gameId) {
+        this.gameId = gameId;
+        this.futureWebSocket = new CompletableFuture<>();
         WebSocket.Listener listener = new WebSocketClientListener();
-        logger.info("Attempting to build and connect WebSocket to URI: {}", uri);
-        httpClient.newWebSocketBuilder()
-                .buildAsync(URI.create(uri), listener)
+        logger.info(
+                "Attempting to connect WebSocket to URI: {}",
+                this.wssNetworkConfig.buildWsUrl(gameId)
+        );
+        this
+                .httpClient
+                .newWebSocketBuilder()
+                .buildAsync(
+                        URI.create(
+                                this.wssNetworkConfig.buildWsUrl(gameId)
+                        ),
+                        listener
+                )
                 .thenAccept(this::handleAccept)
                 .exceptionally(this::handleException);
+        this.futureWebSocket.join();
+    }
+
+    public void disconnectFromGame() {
+        if (this.webSocket != null) {
+            logger.info("Sending close to WebSocket");
+            webSocket
+                    .sendClose(WebSocket.NORMAL_CLOSURE, "Closing connection")
+                    .thenRun(() ->
+                            logger.info("WebSocket closed successfully")
+                    );
+        } else {
+            logger.warn("WebSocket is not connected or already closed");
+        }
     }
 
     private void handleAccept(WebSocket ws) {
@@ -50,7 +85,18 @@ public class GameWebSocketClient {
     private Void handleException(Throwable ex) {
         logger.error("Failed to establish WebSocket connection: {}", ex.getMessage(), ex);
         futureWebSocket.completeExceptionally(ex);
+        reconnect();
         return null;
+    }
+
+    private void reconnect() {
+        try {
+            TimeUnit.SECONDS.sleep(1000);
+            connectToGame(gameId);
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt(); // Restore the interrupted status
+            logger.error("Reconnection thread was interrupted", ie);
+        }
     }
 
     private class WebSocketClientListener implements WebSocket.Listener {
@@ -87,18 +133,18 @@ public class GameWebSocketClient {
                     int columnIndex = jsonMessage.getInt("y", -1);
                     if (columnIndex == -1) {
                         logger.error("Column index is missing or invalid in the message");
-                        //webSocket.request(1); // Request the next message
+                        webSocket.request(1); // Request the next message
                         return CompletableFuture.completedFuture(null);
                     }
                     Column column =
-                        Column.fromIndex(columnIndex);
+                            Column.fromIndex(columnIndex);
                     updateDescription = new ColorsGridUpdateDescription(column);
                     break;
                 case "gameState":
                     String newState = jsonMessage.getString("newValue", null);
                     if (newState == null) {
                         logger.error("New game state value is missing in the message");
-                        //webSocket.request(1); // Request the next message
+                        webSocket.request(1); // Request the next message
                         return CompletableFuture.completedFuture(null);
                     }
                     newState = newState.replace("\"", "");  // Enlève les guillemets autour de l'état
@@ -109,7 +155,7 @@ public class GameWebSocketClient {
                     break;
                 default:
                     logger.warn("Received an unsupported update type: " + whatToBeUpdated);
-                    //webSocket.request(1); // Request the next message
+                    webSocket.request(1); // Request the next message
                     return CompletableFuture.completedFuture(null);
             }
 

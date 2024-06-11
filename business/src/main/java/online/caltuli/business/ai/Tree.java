@@ -1,11 +1,8 @@
 package online.caltuli.business.ai;
 
 import online.caltuli.model.CellState;
-import online.caltuli.model.Coordinates;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,13 +34,13 @@ public class Tree {
                 new HashMap<Column,Tree>()
                 :
                 null;
+        // to
         /*
         this.minBranchesEvaluations =
             EvaluatedEvolutiveGridParser.INFINITY;
         this.maxBranchesEvaluations =
                 EvaluatedEvolutiveGridParser.MINUS_INFINITY;
         this.parent = null;
-
          */
     }
 

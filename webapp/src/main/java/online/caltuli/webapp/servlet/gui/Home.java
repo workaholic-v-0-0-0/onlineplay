@@ -198,6 +198,7 @@ public class Home extends HttpServlet {
 			try {
 				gameManager = playerManager.makeUserProposeGame(user);
 				session.setAttribute("gameManager", gameManager);
+				//
 			} catch (BusinessException e) {
 				logger.info("User " + user.getId() + " had not been able to propose a game.");
 			}

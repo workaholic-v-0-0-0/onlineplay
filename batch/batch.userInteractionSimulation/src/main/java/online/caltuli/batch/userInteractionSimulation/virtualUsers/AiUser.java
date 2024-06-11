@@ -5,14 +5,13 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import online.caltuli.batch.userInteractionSimulation.clients.GameWebSocketClient;
 import online.caltuli.batch.userInteractionSimulation.clients.HttpClientSSLContext;
 import online.caltuli.batch.userInteractionSimulation.jsonUtils.*;
-import online.caltuli.batch.userInteractionSimulation.virtualUsers.interfaces.GameObserver;
+import online.caltuli.batch.userInteractionSimulation.interfaces.GameObserver;
 import online.caltuli.business.ai.*;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.util.Map;
@@ -33,7 +32,7 @@ public class AiUser implements HttpHandler, GameObserver {
     GameWebSocketClient webSocketClient = null;
 
     // ai
-    private DecisionEngine decisionEngine;
+    private MinMaxDecisionEngine decisionEngine;
 
     // info about game
     private GameState gameState;
@@ -59,136 +58,145 @@ public class AiUser implements HttpHandler, GameObserver {
 
         new Thread(() -> {
             try {
-                HttpClientSSLContext httpClientSSLContext
-                        = new HttpClientSSLContext(validateSSL);
-                this.client = httpClientSSLContext.getHttpClient();
+                while (true) {
+                    HttpClientSSLContext httpClientSSLContext
+                            = new HttpClientSSLContext(validateSSL);
+                    this.client = httpClientSSLContext.getHttpClient();
 
-                // registrer
-                httpClientSSLContext.sendGetRequest(httpUrlPrefix + "registration");
-                String registrationParams =
-                        "username="
-                                + URLEncoder.encode(username, "UTF-8")
-                                + "&password=123&email=ai.ai@ai.com&message=I'm clever";
-                httpClientSSLContext.sendPostRequest(
-                        httpUrlPrefix + "registration",
-                        registrationParams
-                );
+                    // registrer
+                    httpClientSSLContext.sendGetRequest(httpUrlPrefix + "registration");
+                    String registrationParams =
+                            "username="
+                                    + URLEncoder.encode(username, "UTF-8")
+                                    + "&password=123&email=ai.ai@ai.com&message=I'm clever";
+                    httpClientSSLContext.sendPostRequest(
+                            httpUrlPrefix + "registration",
+                            registrationParams
+                    );
 
-                // authenticate
-                String authParams =
-                        "username="
-                                + URLEncoder.encode(username, "UTF-8")
-                                + "&password=123";
-                httpClientSSLContext.sendPostRequest(
-                        httpUrlPrefix + "authentication",
-                        authParams
-                );
+                    // authenticate
+                    String authParams =
+                            "username="
+                                    + URLEncoder.encode(username, "UTF-8")
+                                    + "&password=123";
+                    httpClientSSLContext.sendPostRequest(
+                            httpUrlPrefix + "authentication",
+                            authParams
+                    );
 
-                // fetch playerId
-                User user = null;
-                int userId = 0;
-                try {
-                    user = fetchUser(httpClientSSLContext, httpUrlPrefix);
-                    if (user != null) {
-                        logger.info("user.getId(): " + user.getId());
-                        logger.info("user.getUsername(): " + user.getUsername());
+                    // fetch playerId
+                    User user = null;
+                    int userId = 0;
+                    try {
+                        user = fetchUser(httpClientSSLContext, httpUrlPrefix);
+                        if (user != null) {
+                            logger.info("user.getId(): " + user.getId());
+                            logger.info("user.getUsername(): " + user.getUsername());
+                        }
+                        userId = user != null ? user.getId() : 0;
+                    } catch (Exception e) {
+                        logger.error("Error processing user data", e);
                     }
-                    userId = user != null ? user.getId() : 0;
-                } catch (Exception e) {
-                    logger.error("Error processing user data", e);
-                }
-                String playerId = String.valueOf(userId);
-                logger.info("playerId:" + playerId);
+                    String playerId = String.valueOf(userId);
+                    logger.info("playerId:" + playerId);
 
-                this.decisionEngine = new DecisionEngine();
+                    this.decisionEngine = new MinMaxDecisionEngine();
 
-                // proposer a game
-                String postParams = "action=" + "new_game";
-                httpClientSSLContext.sendPostRequest(
-                        httpUrlPrefix + "home",
-                        postParams
-                );
+                    // proposer a game
+                    String postParams = "action=" + "new_game";
+                    httpClientSSLContext.sendPostRequest(
+                            httpUrlPrefix + "home",
+                            postParams
+                    );
 
-                // fetch game id in order to request with the suitable
-                // websocket url
-                Game game = null;
-                int gameId = 0;
-                //game = fetchGame(client, urlPrefix);
-                logger.info("here 4");
-                game = fetchGame(httpClientSSLContext, httpUrlPrefix);
-                logger.info("here 5");
-                gameId = game != null ? game.getId() : 0;
-                logger.info("here 6");
+                    // fetch game id in order to request with the suitable
+                    // websocket url
+                    Game game = null;
+                    int gameId = 0;
+                    game = fetchGame(httpClientSSLContext, httpUrlPrefix);
+                    gameId = game != null ? game.getId() : 0;
 
-                // create webSocket client and connect it to the server
-                // related to the game
-                this.webSocketClient =
+                    // create webSocket client and connect it to the server
+                    // related to the game
+                    this.webSocketClient =
                         new GameWebSocketClient(
                                 client,
                                 wsUrlPrefix + "game/" + gameId
                         );
 
-                // make it an observer
-                webSocketClient.addObserver(this);
+                    // make it an observer
+                    webSocketClient.addObserver(this);
 
-                // récupérer régulièrement l'information de game.GameState jusqu'à
-                // que valle GameState.WAIT_FIRST_PLAYER_MOVE
-                GameState gameState = null;
-                int pollingInterval = 5000;
-                do {
-                    game = fetchGame(httpClientSSLContext, httpUrlPrefix);
-                    if (game != null) {
-                        gameState = game.getGameState();
-                    } else {
-                        logger.info("No game information retrieved");
-                    }
-                    if (gameState != GameState.WAIT_FIRST_PLAYER_MOVE) {
+                    // récupérer régulièrement l'information de game.GameState jusqu'à
+                    // que valle GameState.WAIT_FIRST_PLAYER_MOVE
+                    GameState gameState = null;
+                    int pollingInterval = 5000;
+                    do {
+                        game = fetchGame(httpClientSSLContext, httpUrlPrefix);
+                        if (game != null) {
+                            gameState = game.getGameState();
+                        } else {
+                            logger.info("No game information retrieved");
+                        }
+                        if (gameState != GameState.WAIT_FIRST_PLAYER_MOVE) {
+                            try {
+                                Thread.sleep(pollingInterval);
+                            } catch (InterruptedException e) {
+                                logger.info("Polling interrupted", e);
+                            }
+                        }
+                    } while (gameState != GameState.WAIT_FIRST_PLAYER_MOVE);
+
+                    do {
+                        if (gameState == GameState.WAIT_FIRST_PLAYER_MOVE) {
+
+                            // play the best move
+                            Column bestMove;
+                            bestMove = decisionEngine.getBestMove();
+                            // inform the opponent through the web application via
+                            // websocket client
+                            webSocketClient.getFutureWebSocket().join();
+                            webSocketClient.sendMessage(
+                                    "{\"update\":\"colorsGrid\",\"column\":"
+                                            + bestMove.getIndex()
+                                            +",\"playerId\":\""
+                                            +playerId
+                                            +"\"}"
+                            );
+                        }
                         try {
                             Thread.sleep(pollingInterval);
                         } catch (InterruptedException e) {
                             logger.info("Polling interrupted", e);
                         }
-                    }
-                } while (gameState != GameState.WAIT_FIRST_PLAYER_MOVE);
 
-                do {
-                    if (gameState == GameState.WAIT_FIRST_PLAYER_MOVE) {
+                        if ((game = fetchGame(httpClientSSLContext, httpUrlPrefix)) != null) {
+                            gameState = game.getGameState();
+                        } else {
+                            logger.info("No game information retrieved");
+                        }
+                    } while (
+                            (gameState == GameState.WAIT_FIRST_PLAYER_MOVE)
+                                    ||
+                                    (gameState == GameState.WAIT_SECOND_PLAYER_MOVE)
+                    );
 
-                        // play the best move
-                        Column bestMove;
-                        bestMove = decisionEngine.getBestMove();
-                        // inform the opponent through the web application via
-                        // websocket client
-                        webSocketClient.getFutureWebSocket().join();
-                        webSocketClient.sendMessage(
-                                "{\"update\":\"colorsGrid\",\"column\":"
-                                        + bestMove.getIndex()
-                                        +",\"playerId\":\""
-                                        +playerId
-                                        +"\"}"
-                        );
-                    }
+                    //disconnect
+                    httpClientSSLContext.sendGetRequest(httpUrlPrefix + "logout");
+
                     try {
-                        Thread.sleep(pollingInterval);
+                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         logger.info("Polling interrupted", e);
                     }
-
-                    if ((game = fetchGame(httpClientSSLContext, httpUrlPrefix)) != null) {
-                        gameState = game.getGameState();
-                    } else {
-                        logger.info("No game information retrieved");
+                    /*
+                    String response = "Task terminated!";
+                    exchange.sendResponseHeaders(200, response.getBytes().length);
+                    try (OutputStream os = exchange.getResponseBody()) {
+                        os.write(response.getBytes());
                     }
-                } while (
-                        (gameState == GameState.WAIT_FIRST_PLAYER_MOVE)
-                        ||
-                        (gameState == GameState.WAIT_SECOND_PLAYER_MOVE)
-                );
 
-                String response = "Task terminated!";
-                exchange.sendResponseHeaders(200, response.getBytes().length);
-                try (OutputStream os = exchange.getResponseBody()) {
-                    os.write(response.getBytes());
+                     */
                 }
             } catch (Exception e) {
                 logger.info("Error handling request: " + e.getMessage(), e);

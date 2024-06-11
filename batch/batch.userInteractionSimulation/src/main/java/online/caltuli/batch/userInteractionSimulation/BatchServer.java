@@ -1,5 +1,12 @@
 package online.caltuli.batch.userInteractionSimulation;
 
+import online.caltuli.batch.userInteractionSimulation.config.network.ClientConfig;
+import online.caltuli.batch.userInteractionSimulation.config.network.NetworkConfig;
+import online.caltuli.batch.userInteractionSimulation.config.virtualUsers.VirtualUserInformationConfig;
+import online.caltuli.batch.userInteractionSimulation.virtualUsers.AiUser;
+import online.caltuli.batch.userInteractionSimulation.virtualUsers.AiUserV2;
+import online.caltuli.batch.userInteractionSimulation.virtualUsers.DummyUser;
+
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
@@ -7,8 +14,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
-import online.caltuli.batch.userInteractionSimulation.virtualUsers.AiUser;
-import online.caltuli.batch.userInteractionSimulation.virtualUsers.DummyUser;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,7 +36,36 @@ public class BatchServer {
     private static final Logger logger = LogManager.getLogger(BatchServer.class);
 
     public static void main(String[] args) throws IOException {
-        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+        HttpServer server = null;
+        AiUserV2 aiUserLocalV2 = null;
+        AiUserV2 aiUserDistantV2 = null;
+        AiUserV2 aiUserDistantV2Sylvain = null;
+        try {
+            server = HttpServer.create(new InetSocketAddress(8000), 0);
+            aiUserLocalV2 = new AiUserV2(
+                VirtualUserInformationConfig.AI_USER,
+                NetworkConfig.LOCAL_HTTPS,
+                NetworkConfig.LOCAL_WSS,
+                ClientConfig.TRUST
+            );
+            aiUserDistantV2 = new AiUserV2(
+                VirtualUserInformationConfig.AI_USER,
+                NetworkConfig.DROPLET_HTTPS,
+                NetworkConfig.DROPLET_WSS,
+                ClientConfig.TRUST
+            );
+            aiUserDistantV2Sylvain = new AiUserV2(
+                VirtualUserInformationConfig.AI_USER,
+                NetworkConfig.DROPLET_HTTPS_VERSION_SYLVAIN,
+                NetworkConfig.DROPLET_WSS_VERSION_SYLVAIN,
+                ClientConfig.TRUST
+            );
+            logger.info("Server started on port 8000");
+        } catch (IOException e) {
+            logger.error("Failed to start the server", e);
+        } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e) {
+            logger.error("Failed to initialize AiUserV2", e);
+        }
 
         server.createContext("/", new HttpHandler() {
             @Override
@@ -68,7 +106,7 @@ public class BatchServer {
         server.createContext(
                 "/dummyUser_distant",
                 new DummyUser(
-                        "caltuli.online/webapp_version_sylvain/",
+                        "caltuli.online/",
                         "fake-distant-user",
                         false
                 )
@@ -83,6 +121,27 @@ public class BatchServer {
                 )
         );
 
+        server.createContext(
+                "/aiUser_distant",
+                new AiUser(
+                        "caltuli.online/webapp/",
+                        "ai-local-user",
+                        true
+                )
+        );
+
+        server.createContext(
+                "/aiUser-v2",
+                aiUserLocalV2
+        );
+        server.createContext(
+                "/aiUser-v2-distant",
+                aiUserDistantV2
+        );
+        server.createContext(
+                "/aiUser-v2-distant-sylvain",
+                aiUserDistantV2Sylvain
+        );
         server.setExecutor(null);
         server.start();
     }

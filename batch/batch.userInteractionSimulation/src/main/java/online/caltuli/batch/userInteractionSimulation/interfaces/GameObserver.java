@@ -1,4 +1,4 @@
-package online.caltuli.batch.userInteractionSimulation.virtualUsers.interfaces;
+package online.caltuli.batch.userInteractionSimulation.interfaces;
 
 import online.caltuli.batch.userInteractionSimulation.virtualUsers.GameEvent;
 

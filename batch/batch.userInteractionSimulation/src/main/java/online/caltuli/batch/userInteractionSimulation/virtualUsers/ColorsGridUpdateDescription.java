@@ -1,6 +1,6 @@
 package online.caltuli.batch.userInteractionSimulation.virtualUsers;
 
-import online.caltuli.batch.userInteractionSimulation.virtualUsers.interfaces.UpdateDescription;
+import online.caltuli.batch.userInteractionSimulation.interfaces.UpdateDescription;
 import online.caltuli.business.ai.Column;
 
 public class ColorsGridUpdateDescription implements UpdateDescription {

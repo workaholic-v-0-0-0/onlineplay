@@ -17,13 +17,14 @@ function App() {
     if (!window.gameId) return;
     console.log('window.gameId is not null');
 
-    //const newClient = new W3CWebSocket(`wss://localhost:8443/webapp/game/${window.gameId}`);
-    //const newClient = new W3CWebSocket(`wss://192.168.0.14:8443/webapp/game/${window.gameId}`);
-    //const newClient = new W3CWebSocket(`wss://caltuli.online/webapp_version_sylvain/game/${window.gameId}`);
-    //const newClient = new W3CWebSocket(`wss://caltuli.online/webapp/game/${window.gameId}`);
-    //const newClient = new W3CWebSocket(`wss://192.168.0.11:8443/webapp/game/${window.gameId}`);
-    const newClient = new W3CWebSocket(`wss://192.168.180.246:8443/webapp/game/${window.gameId}`);
-    //const newClient = new W3CWebSocket(`wss://caltuli.online/webapp_version_sylvain/game/${window.gameId}`);
+    // Fermez l'ancien client WebSocket s'il est ouvert
+    if (client) {
+        client.close();
+        console.log('Previous WebSocket client closed');
+    }
+
+    //const newClient = new W3CWebSocket(`wss://192.168.180.246:8443/webapp/game/${window.gameId}`);
+    const newClient = new W3CWebSocket(`wss://caltuli.online/webapp_version_sylvain/game/${window.gameId}`);
     console.log('newClient is initialized');
 
     setClient(newClient);
@@ -88,7 +89,7 @@ function App() {
     };
 
     return () => newClient.close();
-  }, []);
+  }, [window.gameId]);
 
 
 useEffect(() => {
@@ -113,7 +114,6 @@ const handlePlay = (columnIndex) => {
             console.log("Not your turn.");
       }
     }
-
 };
 
 const formatColorsGrid = (colorsGrid) => {
