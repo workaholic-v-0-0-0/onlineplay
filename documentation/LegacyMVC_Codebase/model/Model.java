@@ -22,7 +22,7 @@ public final class Model {
   private static final CellState BEGINNING_COLOR = CellState.RED;
 
   // couleur de joueur qui ne commence pas la partie
-  private static final CellState NOT_BEGINNING_COLOR = CellState.YELLOW;
+  private static final CellState NOT_BEGINNING_COLOR = CellState.GREEN;
 
   // joueur qui commence la partie
   private AbstractPlayer beginningPlayer;

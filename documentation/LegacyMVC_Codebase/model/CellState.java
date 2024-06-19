@@ -5,7 +5,7 @@ package model;
 public enum CellState {
 
   RED("X"), // rouge
-  YELLOW("O"), // jaune
+  GREEN("O"), // jaune
   NULL(" "),  // pas de jeton
   TODEBUG("*"); // pour déboguer
 
@@ -34,7 +34,7 @@ public enum CellState {
   // renvoie l'autre couleur joué
   public CellState theOtherColor() {
 
-    return (this == CellState.RED) ? CellState.YELLOW : CellState.RED;
+    return (this == CellState.RED) ? CellState.GREEN : CellState.RED;
 
   }
 
@@ -44,7 +44,7 @@ public enum CellState {
   public String toString() {
     if (this == CellState.RED)
       return "Rouge";
-    else if (this == CellState.YELLOW)
+    else if (this == CellState.GREEN)
       return "Jaune";
     else
       return "null";

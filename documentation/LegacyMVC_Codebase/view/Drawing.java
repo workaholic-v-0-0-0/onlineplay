@@ -172,8 +172,8 @@ public class Drawing
       Color.RED
     );
     this.cellStateToColor.put(
-      CellState.YELLOW,
-      Color.YELLOW
+      CellState.GREEN,
+      Color.GREEN
     );
     // TO DEGUG
     this.cellStateToColor.put(
@@ -192,7 +192,7 @@ public class Drawing
       "rouge"
     );
     this.cellStateToColorAsString.put(
-      CellState.YELLOW,
+      CellState.GREEN,
       "jaune"
     );
 
