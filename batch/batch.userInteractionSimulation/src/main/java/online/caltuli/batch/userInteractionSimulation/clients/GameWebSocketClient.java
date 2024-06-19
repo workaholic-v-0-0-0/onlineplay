@@ -9,7 +9,7 @@ import online.caltuli.batch.userInteractionSimulation.interfaces.UpdateDescripti
 import online.caltuli.batch.userInteractionSimulation.virtualUsers.ColorsGridUpdateDescription;
 import online.caltuli.batch.userInteractionSimulation.virtualUsers.GameEvent;
 import online.caltuli.batch.userInteractionSimulation.virtualUsers.GameStateUpdateDescription;
-import online.caltuli.business.ai.Column;
+import online.caltuli.model.Column;
 import online.caltuli.model.GameState;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -217,23 +217,4 @@ public class GameWebSocketClient {
         return futureWebSocket;
     }
 
-    public void setFutureWebSocket(CompletableFuture<WebSocket> futureWebSocket) {
-        this.futureWebSocket = futureWebSocket;
-    }
-
-    public WebSocket getWebSocket() {
-        return webSocket;
-    }
-
-    public void setWebSocket(WebSocket webSocket) {
-        this.webSocket = webSocket;
-    }
-
-    public HttpClient getHttpClient() {
-        return httpClient;
-    }
-
-    public void setHttpClient(HttpClient httpClient) {
-        this.httpClient = httpClient;
-    }
 }

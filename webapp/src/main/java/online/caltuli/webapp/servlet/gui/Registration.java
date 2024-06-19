@@ -2,17 +2,14 @@ package online.caltuli.webapp.servlet.gui;
 
 import online.caltuli.business.exception.BusinessException;
 import online.caltuli.business.UserManager;
-
 import online.caltuli.model.User;
+import online.caltuli.model.exceptions.user.*;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.inject.Inject;
-
-import online.caltuli.model.exceptions.user.*;
-
 import java.io.IOException;
 
 public class Registration extends HttpServlet {

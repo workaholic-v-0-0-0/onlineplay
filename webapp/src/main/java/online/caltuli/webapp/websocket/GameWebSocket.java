@@ -1,7 +1,11 @@
 package online.caltuli.webapp.websocket;
 
+import online.caltuli.business.GameManager;
+import online.caltuli.business.exception.BusinessException;
+import online.caltuli.model.*;
+import online.caltuli.webapp.util.JsonUtil;
+
 import jakarta.enterprise.inject.spi.CDI;
-import jakarta.inject.Inject;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
@@ -14,12 +18,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-
-import online.caltuli.business.GameManager;
-import online.caltuli.business.exception.BusinessException;
-import online.caltuli.model.*;
-
-import online.caltuli.webapp.util.JsonUtil;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -86,7 +84,6 @@ public class GameWebSocket {
     public void onMessage(String message, Session session) throws IOException {
         logger.info("Message received: " + message);
         logger.info("sessions: " + sessions);
-        //JsonObject json = Json.createReader(new StringReader(message)).readObject();
 
         JsonObject jsonMessage;
         try (JsonReader reader = Json.createReader(new StringReader(message))) {
@@ -224,7 +221,4 @@ public class GameWebSocket {
     public static HashSet<Session> getSessionsRelatedToGameId(Integer gameId) {
         return sessions.get(gameId);
     }
-
-
-
 }

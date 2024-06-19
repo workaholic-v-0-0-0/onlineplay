@@ -52,5 +52,4 @@ public class CurrentModel {
     public void removeWaitingToPlayUser(User user) { this.waitingToPlayUsers.remove(user.getId()); }
     public void removeGame(Game game) { this.games.remove(game.getId()); }
 
-
 }

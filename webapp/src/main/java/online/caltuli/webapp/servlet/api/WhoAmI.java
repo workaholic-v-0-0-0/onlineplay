@@ -49,9 +49,4 @@ public class WhoAmI extends HttpServlet {
             response.getWriter().write("{\"error\":\"Error serializing data to JSON\"}");
         }
     }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
 }

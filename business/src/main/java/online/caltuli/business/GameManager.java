@@ -3,9 +3,6 @@ package online.caltuli.business;
 import online.caltuli.business.exception.BusinessException;
 import online.caltuli.model.*;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class GameManager {
 
     private Game game;
@@ -79,9 +76,5 @@ public class GameManager {
 
     public EvolutiveGridParser getEgp() {
         return egp;
-    }
-
-    public void setEgp(EvolutiveGridParser egp) {
-        this.egp = egp;
     }
 }

@@ -1,6 +1,7 @@
 package online.caltuli.business.ai;
 
 import online.caltuli.model.CellState;
+import online.caltuli.model.Column;
 
 import java.util.HashMap;
 

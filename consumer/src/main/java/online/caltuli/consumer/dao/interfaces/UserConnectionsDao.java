@@ -3,7 +3,6 @@ package online.caltuli.consumer.dao.interfaces;
 import online.caltuli.consumer.dao.exceptions.DaoException;
 
 import java.sql.Timestamp;
-import java.util.List;
 import online.caltuli.model.UserConnection;
 
 public interface UserConnectionsDao {

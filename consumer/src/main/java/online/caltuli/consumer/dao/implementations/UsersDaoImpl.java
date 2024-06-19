@@ -1,6 +1,5 @@
 package online.caltuli.consumer.dao.implementations;
 
-import jakarta.enterprise.inject.spi.CDI;
 import jakarta.inject.Inject;
 import online.caltuli.consumer.dao.DaoFactory;
 import online.caltuli.consumer.dao.exceptions.UserDataAccessException;
@@ -8,10 +7,7 @@ import online.caltuli.consumer.dao.interfaces.UsersDao;
 import online.caltuli.consumer.dao.exceptions.DaoException;
 
 import online.caltuli.model.CurrentModel;
-import online.caltuli.model.Game;
 import online.caltuli.model.User;
-import online.caltuli.model.exceptions.user.*;
-import online.caltuli.model.UserConnection;
 import online.caltuli.model.exceptions.user.UserException;
 
 import java.sql.*;
@@ -102,7 +98,6 @@ public class UsersDaoImpl implements UsersDao {
 
         // try to find the User instance in the CurrentModel @ApplicationScoped bean ;
         // return it if it is found
-        logger.info("currentModel: " + currentModel);
         User user = ((Map<Integer, User>) currentModel.getAuthenticatedUsers()).get(id);
         if (user != null) {
             return user;

@@ -2,7 +2,6 @@ package online.caltuli.consumer.dao.interfaces;
 
 import online.caltuli.consumer.dao.exceptions.DaoException;
 import online.caltuli.model.Game;
-import online.caltuli.model.User;
 
 public interface GamesDao {
 

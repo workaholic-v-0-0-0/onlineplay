@@ -27,10 +27,14 @@
     <!-- ===== Menus ===== -->
     <!-- Adding a menu for documentation -->
     <menu name="Documentation">
-      <!-- Menu entry for the Architecture page -->
-      <item name="Architecture" href="architecture.html"/>
-      <!-- Menu entry for the FAQ page -->
-      <item name="FAQ" href="faq.html" />
+      <item name="batch.userInteractionSimulation documentation" href="batch/batch.userInteractionSimulation/batch.userInteractionSimulationDocumentation.html"/>
+      <item name="business documentation" href="business/businessDocumentation.html"/>
+      <item name="consumer documentation" href="consumer/consumerDocumentation.html"/>
+      <item name="model documentation" href="model/modelDocumentation.html"/>
+      <item name="webapp documentation" href="webapp/webappDocumentation.html"/>
+      <item name="Class diagram" href="class_diagram.html"/>
+      <item name="Entity relationship diagram" href="entity_relationship_diagram.png"/>
+      <item name="Use case diagram" href="use_case_diagram.png"/>
     </menu>
     <!-- Adding a menu for the various reports -->
     <menu ref="reports" inherit="top"/>

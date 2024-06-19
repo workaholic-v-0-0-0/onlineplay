@@ -35,8 +35,4 @@ public class Error extends HttpServlet {
         request.setAttribute("errorMessage", errorMessage);
         request.getRequestDispatcher("/WEB-INF/error.jsp").forward(request, response);
     }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
-    }
 }

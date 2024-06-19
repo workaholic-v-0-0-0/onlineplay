@@ -3,10 +3,7 @@ package online.caltuli.webapp.servlet.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.inject.Inject;
 import online.caltuli.business.PlayerManager;
-import online.caltuli.model.CurrentModel;
-import online.caltuli.model.GameSummary;
 import online.caltuli.model.Player;
-import online.caltuli.model.User;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -15,17 +12,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import online.caltuli.model.exceptions.user.UserException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.google.gson.Gson;
 
 public class UserActivities extends HttpServlet {
 

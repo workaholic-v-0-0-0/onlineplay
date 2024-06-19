@@ -52,15 +52,15 @@
 
 package online.caltuli.webapp.servlet.gui;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import online.caltuli.business.GameManager;
+import online.caltuli.business.PlayerManager;
+import online.caltuli.webapp.websocket.GameWebSocket;
+
 import jakarta.inject.Inject;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.Session;
-import online.caltuli.business.GameManager;
-import online.caltuli.business.PlayerManager;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -71,15 +71,10 @@ import online.caltuli.model.*;
 
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import online.caltuli.webapp.util.CustomColorsGridSerializer;
-import online.caltuli.webapp.util.CustomCoordinatesSerializer;
-import online.caltuli.webapp.util.CustomGameSerializer;
 import online.caltuli.webapp.util.JsonUtil;
-import online.caltuli.webapp.websocket.GameWebSocket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -3,9 +3,7 @@ package online.caltuli.model;
 import java.util.HashMap;
 
 import static online.caltuli.model.GameState.WAIT_OPPONENT;
-
 public class Game {
-
     private int id;
     private HashMap<Coordinates, CellState> colorsGrid;
     private Player firstPlayer;

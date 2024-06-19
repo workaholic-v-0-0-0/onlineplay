@@ -1,5 +1,6 @@
 package online.caltuli.business.ai;
 
+import online.caltuli.model.Column;
 import online.caltuli.model.Coordinates;
 
 import java.util.Arrays;

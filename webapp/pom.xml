@@ -32,12 +32,6 @@
   <!-- Dependency Management -->
   <!-- =============================================================== -->
   <dependencies>
-    <!-- ===== sub-module of module batch ===== -->
-    <dependency>
-      <groupId>online.caltuli</groupId>
-      <artifactId>batch.ai</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
     <!-- ===== Modules ===== -->
     <dependency>
       <groupId>online.caltuli</groupId>

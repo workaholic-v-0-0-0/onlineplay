@@ -27,10 +27,10 @@
     <!-- ===== Menus ===== -->
     <!-- Adding a menu for documentation -->
     <menu name="Documentation">
-      <!-- Menu entry for the Architecture page -->
-      <item name="Architecture" href="architecture.html"/>
-      <!-- Menu entry test -->
-      <item name="Class specifications" href="class-specifications.html" />
+      <item name="model documentation" href="model/modelDocumentation.html"/>
+      <item name="Class diagram" href="class_diagram.html"/>
+      <item name="Entity relationship diagram" href="entity_relationship_diagram.png"/>
+      <item name="Use case diagram" href="use_case_diagram.png"/>
     </menu>
     <!-- Adding a menu for the various reports -->
     <menu ref="reports" inherit="top"/>

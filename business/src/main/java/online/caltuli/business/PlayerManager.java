@@ -2,10 +2,10 @@ package online.caltuli.business;
 
 import online.caltuli.consumer.dao.exceptions.DatabaseConnectionException;
 import online.caltuli.consumer.dao.interfaces.GamesDao;
+import online.caltuli.consumer.dao.interfaces.UsersDao;
 import online.caltuli.business.exception.BusinessException;
 import online.caltuli.consumer.dao.DaoFactory;
 import online.caltuli.consumer.dao.exceptions.DaoException;
-import online.caltuli.consumer.dao.interfaces.UsersDao;
 import online.caltuli.model.*;
 
 import java.util.HashMap;

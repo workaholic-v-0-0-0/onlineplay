@@ -55,7 +55,7 @@
   <!-- Modules -->
   <!-- =============================================================== -->
   <modules>
-    <module>batch</module>
+    <module>batch/batch.userInteractionSimulation</module>
     <module>webapp</module>
     <module>business</module>
     <module>consumer</module>
@@ -401,4 +401,14 @@
       </plugin>
     </plugins>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>4.0.0-M12</version>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>

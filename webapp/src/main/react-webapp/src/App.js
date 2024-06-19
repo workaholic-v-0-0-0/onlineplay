@@ -129,8 +129,7 @@ const formatColorsGrid = (colorsGrid) => {
 
   return (
     <div className="App">
-      {isConnected ? <p>Connected to server</p> : <p>Disconnected</p>}
-      <p>Current Game: {JSON.stringify(game)}</p>
+      {isConnected ? <p>You are playing a game.</p> : <p>You are not playing a game.</p>}
       {game && game.colorsGrid && (
               <GameBoard
                 colorsGrid={formatColorsGrid(game.colorsGrid)}
@@ -146,3 +145,6 @@ const formatColorsGrid = (colorsGrid) => {
 }
 
 export default App;
+
+// to debug
+//<p>Current Game: {JSON.stringify(game)}</p>

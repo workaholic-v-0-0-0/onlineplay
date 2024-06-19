@@ -9,7 +9,7 @@ import online.caltuli.batch.userInteractionSimulation.config.network.NetworkConf
 import online.caltuli.batch.userInteractionSimulation.config.virtualUsers.VirtualUserInformationConfig;
 import online.caltuli.batch.userInteractionSimulation.interfaces.GameObserver;
 import online.caltuli.batch.userInteractionSimulation.jsonUtils.*;
-import online.caltuli.business.ai.Column;
+import online.caltuli.model.Column;
 import online.caltuli.model.Coordinates;
 import online.caltuli.model.Game;
 import online.caltuli.model.GameState;

@@ -2,7 +2,9 @@ package online.caltuli.consumer.dao;
 
 import online.caltuli.consumer.dao.exceptions.DatabaseConnectionException;
 import online.caltuli.consumer.dao.implementations.GamesDaoImpl;
+import online.caltuli.consumer.dao.implementations.MovesDaoImpl;
 import online.caltuli.consumer.dao.interfaces.GamesDao;
+import online.caltuli.consumer.dao.interfaces.MovesDao;
 import online.caltuli.consumer.dao.interfaces.UsersDao;
 import online.caltuli.consumer.dao.interfaces.UserConnectionsDao;
 import online.caltuli.consumer.dao.implementations.UsersDaoImpl;
@@ -12,7 +14,6 @@ import online.caltuli.model.CurrentModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Currency;
 
 public class DaoFactory {
     final private String url;
@@ -57,5 +58,9 @@ public class DaoFactory {
 
     public GamesDao getGamesDao(CurrentModel currentModel) {
         return new GamesDaoImpl(this, currentModel);
+    }
+
+    public MovesDao getMovesDao(CurrentModel currentModel) {
+        return new MovesDaoImpl(this, currentModel);
     }
 }

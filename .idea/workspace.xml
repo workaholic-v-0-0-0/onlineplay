@@ -5,32 +5,636 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e868744-9572-4a05-bcd5-9d384bde377b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/AiUserDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/BatchServerDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/ClientConfigDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/ColorsGridUpdateDescriptionDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/CoordinatesKeyDeserializerDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/CustomColorsGridDeserializerDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/CustomCoordinatesDeserializerDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/CustomGameDeserializerDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/GameContainerDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/GameEventDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/GameObserverDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/GameStateUpdateDescriptionDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/GameWebSocketClientDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/HttpClientSSLContextDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/NetworkConfigDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/UpdateDescriptionDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/UserActionManagerDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/UserContainerDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/VirtualUserDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/VirtualUserInformationConfigDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/markdown/batch.userInteractionSimulationDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/resources/class_diagram.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/resources/entity_relationship_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/resources/use_case_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/site/site.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/site/markdown/BusinessExceptionDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/site/markdown/ConstantGridParserDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/site/markdown/DecisionEngineDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/site/markdown/EvaluatedEvolutiveGridParserDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/site/markdown/EvolutiveGridParserDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/site/markdown/GameManagerDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/site/markdown/MinMaxDecisionEngineDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/site/markdown/PlayerManagerDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/site/markdown/TreeDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/site/markdown/TreeManagerDocumentation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/site/resources/class_diagram.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/site/resources/entity_relationship_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/business/src/site/resources/use_case_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/implementations/MovesDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/interfaces/MovesDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/consumer/src/site/resources/class_diagram.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/consumer/src/site/resources/entity_relationship_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/consumer/src/site/resources/use_case_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/site/resources/class_diagram.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/site/resources/entity_relationship_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/src/site/resources/use_case_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/site/resources/class_diagram.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/site/resources/entity_relationship_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/site/resources/use_case_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/architecture.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/class_diagram.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/construction-environnement-developpement.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/creation-base-de-donnees.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/dependency-convergence.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/dependency-info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/dependency-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/deploiement-sur-droplet-de-digitalocean.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/distribution-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/entity_relationship_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/initialisation-projet-maven-et-referencement-premier-commit-git.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/inventaire-outils-technologies-utilises.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/modules.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/plugin-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/plugins.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/project-info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/summary.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/televersement-projet-git-dans-depot-github.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/site/use_case_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/acces-ressources-projet.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/annexe-a-liens-etudies.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/annexe-b-etude-cours-nebra.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/annexe-c-etude-cours-loic-guibert.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/architecture.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/AiUserDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/ClientConfigDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/ColorsGridUpdateDescriptionDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/CoordinatesKeyDeserializerDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/CustomColorsGridDeserializerDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/CustomCoordinatesDeserializerDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/CustomGameDeserializerDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/GameContainerDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/GameEventDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/GameObserverDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/GameStateUpdateDescriptionDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/GameWebSocketClientDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/HttpClientSSLContextDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/NetworkConfigDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/UpdateDescriptionDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/UserActionManagerDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/UserContainerDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/VirtualUserDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/VirtualUserInformationConfigDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/batch.userInteractionSimulationDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/class_diagram.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/css/apache-maven-fluido-2.0.0-M8.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/css/print.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/css/site.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/dependencies.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/dependency-info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/dependency-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/distribution-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/entity_relationship_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/accessories-text-editor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/add.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/apache-maven-project-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/application-certificate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/close.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/contact-new.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/document-properties.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/drive-harddisk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/fix.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/icon_error_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/icon_help_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/icon_info_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/icon_success_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/icon_warning_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/image-x-generic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/internet-web-browser.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/logos/build-by-maven-black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/logos/build-by-maven-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/logos/maven-feather.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/network-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/package-x-generic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/profiles/pre-release.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/profiles/retired.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/profiles/sandbox.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/remove.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/rss.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/update.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/images/window-new.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/img/glyphicons-halflings-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/img/glyphicons-halflings.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/js/apache-maven-fluido-2.0.0-M8.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/plugin-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/plugins.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/project-info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/summary.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/batch/batch.userInteractionSimulation/use_case_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/BusinessExceptionDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/ConstantGridParserDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/DecisionEngineDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/EvaluatedEvolutiveGridParserDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/EvolutiveGridParserDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/GameManagerDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/MinMaxDecisionEngineDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/PlayerManagerDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/TreeDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/TreeManagerDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/UserManagerDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/businessDocumentation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/class_diagram.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/css/apache-maven-fluido-2.0.0-M8.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/css/print.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/css/site.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/dependencies.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/dependency-info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/dependency-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/distribution-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/entity_relationship_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/accessories-text-editor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/add.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/apache-maven-project-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/application-certificate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/close.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/contact-new.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/document-properties.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/drive-harddisk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/fix.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/icon_error_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/icon_help_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/icon_info_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/icon_success_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/icon_warning_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/image-x-generic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/internet-web-browser.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/logos/build-by-maven-black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/logos/build-by-maven-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/logos/maven-feather.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/network-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/package-x-generic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/profiles/pre-release.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/profiles/retired.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/profiles/sandbox.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/remove.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/rss.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/update.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/images/window-new.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/img/glyphicons-halflings-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/img/glyphicons-halflings.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/js/apache-maven-fluido-2.0.0-M8.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/plugin-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/plugins.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/project-info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/summary.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/business/use_case_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/class_diagram.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/construction-environnement-developpement.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/class-specifications.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/class_diagram.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/css/apache-maven-fluido-2.0.0-M8.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/css/print.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/css/site.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/dependencies.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/dependency-info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/dependency-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/distribution-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/entity_relationship_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/accessories-text-editor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/add.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/apache-maven-project-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/application-certificate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/close.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/contact-new.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/document-properties.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/drive-harddisk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/fix.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/icon_error_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/icon_help_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/icon_info_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/icon_success_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/icon_warning_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/image-x-generic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/internet-web-browser.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/logos/build-by-maven-black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/logos/build-by-maven-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/logos/maven-feather.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/network-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/package-x-generic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/profiles/pre-release.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/profiles/retired.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/profiles/sandbox.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/remove.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/rss.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/update.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/images/window-new.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/img/glyphicons-halflings-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/img/glyphicons-halflings.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/branchfc.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/branchnc.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/branchpc.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/bundle.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/class.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/down.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/greenbar.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/group.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/method.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/package.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/prettify.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/prettify.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/redbar.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/report.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/report.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/session.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/sort.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/sort.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/source.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-resources/up.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco-sessions.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/jacoco.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.api.abuseipdb.exception/AbuseIpDbException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.api.abuseipdb.exception/AbuseIpDbException.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.api.abuseipdb.exception/ConfigurationLoadException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.api.abuseipdb.exception/ConfigurationLoadException.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.api.abuseipdb.exception/JsonDoesNotDescribeIpDetailsException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.api.abuseipdb.exception/JsonDoesNotDescribeIpDetailsException.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.api.abuseipdb.exception/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.api.abuseipdb.exception/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.api.abuseipdb/AbuseIpDbClient.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.api.abuseipdb/AbuseIpDbClient.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.api.abuseipdb/IpValidator$1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.api.abuseipdb/IpValidator.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.api.abuseipdb/IpValidator.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.api.abuseipdb/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.api.abuseipdb/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.exceptions/DaoException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.exceptions/DaoException.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.exceptions/DatabaseConnectionException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.exceptions/DatabaseConnectionException.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.exceptions/InvalidUserDetailsException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.exceptions/InvalidUserDetailsException.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.exceptions/UserDataAccessException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.exceptions/UserDataAccessException.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.exceptions/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.exceptions/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.implementations/GamesDaoImpl.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.implementations/GamesDaoImpl.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.implementations/MovesDaoImpl.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.implementations/MovesDaoImpl.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.implementations/UserConnectionsDaoImpl.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.implementations/UserConnectionsDaoImpl.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.implementations/UsersDaoImpl.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.implementations/UsersDaoImpl.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.implementations/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao.implementations/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao/DaoFactory.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao/DaoFactory.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/jacoco/online.caltuli.consumer.dao/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/js/apache-maven-fluido-2.0.0-M8.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/plugin-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/plugins.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/project-info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/summary.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/consumer/use_case_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/creation-base-de-donnees.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/css/apache-maven-fluido-2.0.0-M8.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/css/print.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/css/site.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/dependency-convergence.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/dependency-info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/dependency-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/deploiement-sur-droplet-de-digitalocean.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/distribution-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/entity_relationship_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/accessories-text-editor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/add.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/apache-maven-project-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/application-certificate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/class_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/class_diagram_for_collaboration.drawio.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/class_diagram_presentation.drawio.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/class_diagram_presentation_batch.drawio.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/class_diagramm.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/contact-new.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/document-properties.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/drive-harddisk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/entity_relationship_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/fix.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/icon_error_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/icon_help_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/icon_info_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/icon_success_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/icon_warning_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/image-x-generic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/internet-web-browser.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/logos/build-by-maven-black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/logos/build-by-maven-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/logos/maven-feather.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/network-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/package-x-generic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/profiles/pre-release.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/profiles/retired.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/profiles/sandbox.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/remove.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/rss.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/update.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/use_case_diagram.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/use_case_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/images/window-new.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/img/glyphicons-halflings-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/img/glyphicons-halflings.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/initialisation-projet-maven-et-referencement-premier-commit-git.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/inventaire-outils-technologies-utilises.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/js/apache-maven-fluido-2.0.0-M8.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/User-specification.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/UserConnection-specification.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/class-specifications.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/class_diagram.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/css/apache-maven-fluido-2.0.0-M8.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/css/print.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/css/site.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/dependencies.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/dependency-info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/dependency-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/distribution-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/entity_relationship_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/accessories-text-editor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/add.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/apache-maven-project-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/application-certificate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/close.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/contact-new.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/document-properties.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/drive-harddisk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/fix.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/icon_error_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/icon_help_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/icon_info_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/icon_success_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/icon_warning_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/image-x-generic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/internet-web-browser.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/logos/build-by-maven-black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/logos/build-by-maven-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/logos/maven-feather.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/network-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/package-x-generic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/profiles/pre-release.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/profiles/retired.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/profiles/sandbox.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/remove.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/rss.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/update.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/images/window-new.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/img/glyphicons-halflings-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/img/glyphicons-halflings.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/branchfc.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/branchnc.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/branchpc.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/bundle.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/class.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/down.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/greenbar.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/group.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/method.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/package.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/prettify.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/prettify.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/redbar.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/report.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/report.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/session.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/sort.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/sort.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/source.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-resources/up.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco-sessions.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/jacoco.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.user/InvalidMailException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.user/InvalidMailException.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.user/InvalidMessageException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.user/InvalidMessageException.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.user/InvalidPasswordHashException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.user/InvalidPasswordHashException.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.user/InvalidUsernameException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.user/InvalidUsernameException.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.user/UserException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.user/UserException.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.user/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.user/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.userconnection/UserConnectionException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.userconnection/UserConnectionException.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.userconnection/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions.userconnection/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions/BeanException.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions/BeanException.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.exceptions/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.json/CoordinatesKey.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.json/CoordinatesKey.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.json/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model.json/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/BidimensionalParametrizationOfSetOfCoordinatesFactory.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/BidimensionalParametrizationOfSetOfCoordinatesFactory.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/CellState.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/CellState.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/Column.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/Column.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/Coordinates.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/Coordinates.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/CurrentModel.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/CurrentModel.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/Game.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/Game.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/GameState.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/GameState.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/GameSummary.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/GameSummary.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/Move.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/Move.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/Player.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/Player.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/User.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/User.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/UserConnection.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/UserConnection.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/jacoco/online.caltuli.model/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/js/apache-maven-fluido-2.0.0-M8.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/plugin-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/plugins.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/project-info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/summary.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/model/use_case_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/modules.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/plugin-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/plugins.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/project-info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/summary.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/televersement-projet-git-dans-depot-github.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/use_case_diagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/Authentication-specification.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/Error-specification.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/Home-specification.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/HttpsRedirectFilter-specification.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/IpCheckFilter-specification.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/Logout-specification.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/Registration-specification.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/SessionCheckFilter-specification.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/SessionManagement-specification.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/class-specifications.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/css/apache-maven-fluido-2.0.0-M8.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/css/print.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/css/site.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/dependencies.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/dependency-info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/dependency-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/distribution-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/accessories-text-editor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/add.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/apache-maven-project-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/application-certificate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/close.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/contact-new.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/document-properties.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/drive-harddisk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/fix.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/icon_error_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/icon_help_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/icon_info_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/icon_success_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/icon_warning_sml.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/image-x-generic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/internet-web-browser.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/logos/build-by-maven-black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/logos/build-by-maven-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/logos/maven-feather.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/network-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/package-x-generic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/profiles/pre-release.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/profiles/retired.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/profiles/sandbox.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/remove.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/rss.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/update.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/images/window-new.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/img/glyphicons-halflings-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/img/glyphicons-halflings.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/js/apache-maven-fluido-2.0.0-M8.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/plugin-management.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/plugins.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/project-info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/staging/webapp/summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/BatchServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/BatchServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.ai/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.ai/src/main/java/online/caltuli/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/clients/GameWebSocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/clients/GameWebSocketClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/clients/GameWebSocketClientV2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/clients/HttpClientSSLContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/clients/HttpClientSSLContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/clients/HttpClientSSLContextV2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/config/network/NetworkConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/config/network/NetworkConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/jsonUtils/CustomGameDeserializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/jsonUtils/CustomGameDeserializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/AiUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/AiUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/AiUserConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/AiUserV2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/DummyUser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/GameEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/GameEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/ColorsGridUpdateDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/ColorsGridUpdateDescription.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/UserActionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/UserActionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/VirtualUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/VirtualUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ConstantGridParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ConstantGridParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/EvolutiveGridParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/EvolutiveGridParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/UserManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/Column.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/Column.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/batch/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/GameManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/PlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/PlayerManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/Column.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/online/caltuli/model/Column.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/DecisionEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/DecisionEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/EvaluatedEvolutiveGridParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/EvaluatedEvolutiveGridParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/MinMaxDecisionEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/MinMaxDecisionEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/Tree.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/Tree.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/TreeManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/ai/TreeManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/business/src/site/markdown/UserManager-specification.md" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/site/markdown/UserManagerDocumentation.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/business/src/site/markdown/class-specifications.md" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/site/markdown/businessDocumentation.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/business/src/site/site.xml" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/site/site.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/api/abuseipdb/AbuseIpDbClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/api/abuseipdb/AbuseIpDbClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/DaoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/DaoFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/implementations/GamesDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/implementations/GamesDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/implementations/UsersDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/implementations/UsersDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/interfaces/GamesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/interfaces/GamesDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/interfaces/UserConnectionsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/interfaces/UserConnectionsDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/interfaces/UsersDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/interfaces/UsersDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/consumer/src/site/site.xml" beforeDir="false" afterPath="$PROJECT_DIR$/consumer/src/site/site.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/online/caltuli/model/Cell.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/online/caltuli/model/ColumnNumber.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/online/caltuli/model/CurrentModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/online/caltuli/model/CurrentModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/online/caltuli/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/online/caltuli/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/online/caltuli/model/Grid.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/online/caltuli/model/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/online/caltuli/model/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/online/caltuli/model/SetOfCoordinatesFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/site/site.xml" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/site/site.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/site/resources/images/class_diagram.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/site/resources/images/class_diagram.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/site/resources/images/entity_relationship_diagram.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/site/resources/images/entity_relationship_diagram.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/site/site.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/site/site.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/servlet/api/UserActivities.java" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/servlet/api/UserActivities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/servlet/api/WhoAmI.java" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/servlet/api/WhoAmI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/servlet/gui/Authentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/servlet/gui/Authentication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/servlet/gui/Error.java" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/servlet/gui/Error.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/servlet/gui/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/servlet/gui/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/servlet/gui/Registration.java" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/servlet/gui/Registration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/util/CustomCoordinatesSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/util/CustomCoordinatesSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/websocket/GameWebSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/websocket/GameWebSocket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webapp/src/main/react-webapp/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/react-webapp/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webapp/src/main/resources/maven.properties" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/resources/maven.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/webapp/src/main/webapp/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/webapp/src/main/webapp/docs/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,8 +645,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -86,6 +690,7 @@
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
     &quot;last_directory_selection&quot;: &quot;/home/workaholic/env/maven/maven-workspace/onlineplay/webapp/src/main/java/online/caltuli/webapp&quot;,
@@ -111,6 +716,7 @@
       <recent name="$PROJECT_DIR$/src/site" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="online.caltuli.model" />
       <recent name="online.caltuli.webapp.filter" />
       <recent name="online.caltuli.webapp" />
     </key>

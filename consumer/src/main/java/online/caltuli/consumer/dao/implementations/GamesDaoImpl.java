@@ -2,16 +2,13 @@ package online.caltuli.consumer.dao.implementations;
 
 import online.caltuli.consumer.dao.DaoFactory;
 
-import jakarta.inject.Inject;
 import online.caltuli.consumer.dao.exceptions.DaoException;
-import online.caltuli.consumer.dao.exceptions.UserDataAccessException;
 import online.caltuli.consumer.dao.interfaces.GamesDao;
 import online.caltuli.consumer.dao.interfaces.UsersDao;
 import online.caltuli.model.CurrentModel;
 import online.caltuli.model.Game;
 import online.caltuli.model.GameState;
 import online.caltuli.model.User;
-import online.caltuli.model.exceptions.user.UserException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

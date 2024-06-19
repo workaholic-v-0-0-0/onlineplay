@@ -1,0 +1,208 @@
+<mxfile host="Electron" modified="2024-03-30T11:37:53.079Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.1.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="tJwQsUvm7A9XfkiDiiZF" version="24.1.0" type="device">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="1485" dy="969" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="2339" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="meUaEyug3TkI90eewDag-17" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Class&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ field: Type&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ method(): Type&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="240" y="1150" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="meUaEyug3TkI90eewDag-18" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;UserManager&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- connectedUserList: Map&amp;lt;Integer, User&amp;gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ logUserConnection(String ipAddress, Timestamp timestamp): UserConnection&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="910" y="990" width="440" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="meUaEyug3TkI90eewDag-22" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Module business&lt;/font&gt;" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="40" y="900" width="1330" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="meUaEyug3TkI90eewDag-28" value="" style="group" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1" connectable="0">
+          <mxGeometry x="60" y="535.96" width="580" height="295" as="geometry" />
+        </mxCell>
+        <mxCell id="meUaEyug3TkI90eewDag-29" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Module batch&lt;/font&gt;" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;" parent="meUaEyug3TkI90eewDag-28" vertex="1">
+          <mxGeometry width="580" height="295" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-0" value="OPTIONNEL&lt;div style=&quot;font-size: 25px;&quot;&gt;Gère la simulation d&#39;un utilisateur IA qui&amp;nbsp;&lt;/div&gt;&lt;div style=&quot;font-size: 25px;&quot;&gt;restera continuelle connecté en reprosant une&amp;nbsp;&lt;/div&gt;&lt;div style=&quot;font-size: 25px;&quot;&gt;partie dès qu&#39;il en aura terminé une.&lt;/div&gt;&lt;div style=&quot;font-size: 25px;&quot;&gt;Utilise les services du package business.ai.&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=25;" vertex="1" parent="meUaEyug3TkI90eewDag-28">
+          <mxGeometry x="15.69" y="40" width="544.31" height="238.3" as="geometry" />
+        </mxCell>
+        <mxCell id="meUaEyug3TkI90eewDag-19" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Module webapp&lt;/font&gt;" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="674" y="320" width="2560" height="516" as="geometry" />
+        </mxCell>
+        <mxCell id="meUaEyug3TkI90eewDag-24" value="" style="group;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1" connectable="0">
+          <mxGeometry x="1850" y="227.65" width="1257.29" height="568.34" as="geometry" />
+        </mxCell>
+        <mxCell id="meUaEyug3TkI90eewDag-20" value="" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=139;tabHeight=30;tabPosition=left;html=1;whiteSpace=wrap;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" parent="meUaEyug3TkI90eewDag-24" vertex="1">
+          <mxGeometry y="150" width="1257.29" height="418.34" as="geometry" />
+        </mxCell>
+        <mxCell id="meUaEyug3TkI90eewDag-21" value="package webapp.filter" style="text;html=1;align=center;verticalAlign=middle;resizable=1;points=[];autosize=1;strokeColor=none;fillColor=none;movable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" parent="meUaEyug3TkI90eewDag-24" vertex="1">
+          <mxGeometry y="150" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&quot;servlet filter&quot;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;HttpsRedirectFilter&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;Transforme les requêtes HTTP en requêtes HTTPS&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="meUaEyug3TkI90eewDag-24">
+          <mxGeometry x="810" y="252.35" width="350" height="101.47" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-5" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&quot;servlet&amp;nbsp;&lt;/b&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;filter&lt;/b&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;&quot;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;SessionCheckFilterFilter&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&quot;application scoped CDI bean&quot; sessionManagement: S&lt;span style=&quot;background-color: initial;&quot;&gt;essionManagement&lt;/span&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;Vérifie la présence d&#39;une session pour chaque requête. Si aucune session&lt;br&gt; n&#39;est détectée, en crée une et initialise son attribut &lt;br&gt;‘userConnection’ à l&#39;aide du service &lt;code&gt;SessionManagement&lt;/code&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="meUaEyug3TkI90eewDag-24">
+          <mxGeometry x="610" y="407.83000000000004" width="404.16" height="135.29" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-10" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&quot;servlet&amp;nbsp;&lt;/b&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;filter&lt;/b&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;&quot;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;IpCheckFilterFilter&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;Vérifie si l&#39;adresse IP d&#39;une requête n&#39;est pas interdite, en extrayant cette information de l&#39;attribut &lt;code&gt;userConnection&lt;/code&gt; dans la session. Si l&#39;IP est interdite, la requête est redirigée vers une page d&#39;erreur avec un message approprié.&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="meUaEyug3TkI90eewDag-24">
+          <mxGeometry x="85.84" y="402.34999999999997" width="404.16" height="146.26" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-14" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;b&gt;&quot;application scoped bean CDI&lt;/b&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;&quot;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;SessionManagement&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;hr style=&quot;border-style: solid;&quot; size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;&quot;application scoped CDI bean&quot; userManager: U&lt;span style=&quot;background-color: initial;&quot;&gt;serManager&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;Responsable de la gestion des sessions dans l&#39;application, en &lt;br/&gt;s&#39;assurant que chaque session est correctement initialisée avec une &lt;br/&gt;instance &lt;code&gt;UserConnection&lt;/code&gt;. Cette instance enregistre les &lt;br/&gt;informations relatives à la connexion de l&#39;utilisateur, y compris &lt;br/&gt;l&#39;adresse IP et le moment de la connexion.&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="meUaEyug3TkI90eewDag-24">
+          <mxGeometry x="50" y="202.35" width="404.16" height="167.65" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-56" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;Filter&lt;/span&gt;" style="verticalAlign=top;align=center;overflow=fill;html=1;whiteSpace=wrap;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="meUaEyug3TkI90eewDag-24">
+          <mxGeometry x="490" y="-17.650000000000006" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-57" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=1;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="meUaEyug3TkI90eewDag-24" source="PqHHg7SWkQRDzhW8_tbn-1" target="PqHHg7SWkQRDzhW8_tbn-56">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="310" y="-27.650000000000006" as="sourcePoint" />
+            <mxPoint x="-87" y="-223.65" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-58" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=0;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="meUaEyug3TkI90eewDag-24" source="PqHHg7SWkQRDzhW8_tbn-10" target="PqHHg7SWkQRDzhW8_tbn-56">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="850" y="-57.650000000000006" as="sourcePoint" />
+            <mxPoint x="504" y="-254.65" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-59" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="meUaEyug3TkI90eewDag-24" source="PqHHg7SWkQRDzhW8_tbn-5" target="PqHHg7SWkQRDzhW8_tbn-56">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="710" y="-67.65" as="sourcePoint" />
+            <mxPoint x="364" y="-264.65" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="meUaEyug3TkI90eewDag-26" value="" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=160;tabHeight=31;tabPosition=left;html=1;whiteSpace=wrap;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="710" y="350" width="1080" height="450" as="geometry" />
+        </mxCell>
+        <mxCell id="meUaEyug3TkI90eewDag-27" value="package webapp.servlet" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="709.9982246791" y="349.9970588235294" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="meUaEyug3TkI90eewDag-36" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&quot;servlet&quot;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Home&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- userManager: UserManager&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Gère les requêtes HTTP GET et POST&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;pour la page d&#39;accueil de l&#39;application web. Elle est responsable&lt;/span&gt;&lt;/p&gt;d&#39;afficher la liste des utilisateurs actuellement connectés." style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="850" y="580" width="315.33" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="meUaEyug3TkI90eewDag-37" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&quot;servlet&quot;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Authentication&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- userManager: UserManager&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;Gè&lt;span style=&quot;background-color: initial;&quot;&gt;rer les requêtes HTTP GET et POST pour l&#39;authentification des utilisateurs. Elle affiche le formulaire d&#39;authentification et traite les soumissions pour authentifier les utilisateurs.&lt;/span&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1470" y="520.99" width="150" height="219.01" as="geometry" />
+        </mxCell>
+        <mxCell id="meUaEyug3TkI90eewDag-38" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&quot;servlet&quot;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Registration&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-&lt;span style=&quot;background-color: initial;&quot;&gt;&quot;application scoped CDI bean&quot; userManager: U&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;serManager&lt;/span&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;G&lt;span style=&quot;background-color: initial;&quot;&gt;ère la logique d&#39;enregistrement des nouveaux utilisateurs&lt;br&gt;dans l&#39;application&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;. Elle traite les requêtes HTTP GET pour afficher le&lt;br&gt;formulaire d&#39;inscription et les requêtes HTTP POST pour soumettre le formulaire d&#39;inscription.&lt;/span&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="723" y="400" width="367" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="meUaEyug3TkI90eewDag-39" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&quot;servlet&quot;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Logout&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;&quot;application scoped CDI bean&quot; userManager: U&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;serManager&lt;/span&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;ère les requêtes HTTP GET et POST pour déconnecter les utilisateurs. Elle invalide la session en cours et redirige l&#39;utilisateur vers la page d&#39;accueil.&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1180" y="477.97" width="249" height="154.04" as="geometry" />
+        </mxCell>
+        <mxCell id="meUaEyug3TkI90eewDag-40" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&quot;servlet&quot;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Error&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;Gère l&#39;affichage des messages d&#39;erreur personnalisés en récupérant un &lt;br/&gt;message d&#39;erreur depuis la session de l&#39;utilisateur, si disponible, ou &lt;br/&gt;en affichant un message par défaut.&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1660" y="400" width="120" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-16" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;b&gt;&quot;application scoped bean CDI&lt;/b&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;&quot;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;span style=&quot;text-align: left;&quot;&gt;UserManager&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;hr style=&quot;border-style: solid;&quot; size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;-connectedUserList: Map&amp;lt;Integer, User&amp;gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+logUserConnection(String ipAddress, Timestamp timestamp): UserConnection&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+updateUserConnection(UserConnection userConnection): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+registerUser(String username, String password, String email, String message): User&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+authenticateUser(&lt;span style=&quot;background-color: initial;&quot;&gt;String username, String password&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;): User&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;+disconnectUser(int userId)&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;+getConnectedUserList():&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Map&amp;lt;Integer, User&amp;gt;&lt;/span&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="804.42" y="1016.17" width="465.58" height="193.83" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-19" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Module model&lt;/font&gt;" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1420" y="900" width="1330" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-20" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;span style=&quot;text-align: left; background-color: initial;&quot;&gt;User&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;hr style=&quot;border-style: solid;&quot; size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;-id: int&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;-username: String&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;-passwordHash: String&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;-email: String&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;-message: String&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+User()&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+User(&lt;span style=&quot;background-color: initial;&quot;&gt;String&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;username,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;String p&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;asswordHash,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;String&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;email,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;String&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;message&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;)&lt;/span&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1500" y="990" width="420" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-21" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;span style=&quot;text-align: left; background-color: initial;&quot;&gt;UserConnection&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;hr style=&quot;border-style: solid;&quot; size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;-id: int&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;-ipAddress: String&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;-timestamp: T&lt;span style=&quot;background-color: initial;&quot;&gt;imestamp&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;-userId: Integer&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;-isAllowed: Boolean&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+UserConnection()&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+UserConnection(&lt;span style=&quot;background-color: initial;&quot;&gt;String&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;ipAddress,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Integer&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;userId&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;)&lt;/span&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1500" y="1200" width="280" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-29" value="" style="group" vertex="1" connectable="0" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="160" y="990" width="390" height="328" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-26" value="" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=160;tabHeight=31;tabPosition=left;html=1;whiteSpace=wrap;" vertex="1" parent="PqHHg7SWkQRDzhW8_tbn-29">
+          <mxGeometry width="390.00000000000006" height="328.00000000000006" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-28" value="package business.ai" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="PqHHg7SWkQRDzhW8_tbn-29">
+          <mxGeometry x="7" y="5.54" width="136" height="16.34" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-30" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;OPTIONNEL&lt;/font&gt;&lt;div style=&quot;font-size: 25px;&quot;&gt;&lt;font style=&quot;font-size: 25px;&quot;&gt;Gère l&#39;IA.&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 25px;&quot;&gt;&lt;font style=&quot;font-size: 25px;&quot;&gt;Calcule et fournit le coup à jouer dans une partie.&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="PqHHg7SWkQRDzhW8_tbn-29">
+          <mxGeometry x="45" y="70" width="295" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-31" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;Module consumer&lt;/font&gt;" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="80" y="1540" width="2660" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-32" value="" style="group" vertex="1" connectable="0" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="110" y="1570" width="600" height="490" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-33" value="" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=160;tabHeight=31;tabPosition=left;html=1;whiteSpace=wrap;" vertex="1" parent="PqHHg7SWkQRDzhW8_tbn-32">
+          <mxGeometry width="600.0000000000001" height="490.00000000000006" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-34" value="package consumer.api" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="PqHHg7SWkQRDzhW8_tbn-32">
+          <mxGeometry x="-21.427197802197803" y="8.276219512195121" width="209.2307692307692" height="24.410365853658536" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-36" value="" style="group" vertex="1" connectable="0" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="766.13" y="1620" width="1613.87" height="328" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-37" value="" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=160;tabHeight=31;tabPosition=left;html=1;whiteSpace=wrap;" vertex="1" parent="PqHHg7SWkQRDzhW8_tbn-36">
+          <mxGeometry width="1332.3322525904316" height="328.00000000000006" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-38" value="package business.ai" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="PqHHg7SWkQRDzhW8_tbn-36">
+          <mxGeometry x="23.91365581572569" y="5.54" width="464.60817013409917" height="16.34" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-44" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;NON DÉTAILLÉ&lt;/font&gt;&lt;div style=&quot;font-size: 25px;&quot;&gt;Gère la communication avec la base de donnée &quot;onlineplay&quot; contenant les tables suivantes :&lt;/div&gt;&lt;div style=&quot;font-size: 25px;&quot;&gt;- users&lt;/div&gt;&lt;div style=&quot;font-size: 25px;&quot;&gt;-connections&lt;/div&gt;&lt;div style=&quot;font-size: 25px;&quot;&gt;-moves&lt;/div&gt;&lt;div style=&quot;font-size: 25px;&quot;&gt;-users&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="PqHHg7SWkQRDzhW8_tbn-36">
+          <mxGeometry x="-225.91572272770568" y="30" width="1839.7857227277057" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-40" value="" style="group" vertex="1" connectable="0" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="130" y="1650" width="550" height="328" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-41" value="" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=160;tabHeight=31;tabPosition=left;html=1;whiteSpace=wrap;" vertex="1" parent="PqHHg7SWkQRDzhW8_tbn-40">
+          <mxGeometry x="-11.458333333333332" width="561.4583333333333" height="328" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-42" value="package consumer.api.abuseipdb" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="PqHHg7SWkQRDzhW8_tbn-40">
+          <mxGeometry x="8.020833333333332" y="5.54" width="155.83333333333331" height="16.34" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-43" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;NON DÉTAILLÉ&lt;/font&gt;&lt;div style=&quot;font-size: 25px;&quot;&gt;Gère la communication avec l&#39;API AbuseIpDb.&lt;/div&gt;&lt;div style=&quot;font-size: 25px;&quot;&gt;Détermine si une IP est autorisée.&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="PqHHg7SWkQRDzhW8_tbn-40">
+          <mxGeometry x="-1" y="70" width="538.5416666666666" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-45" value="&lt;font style=&quot;font-size: 50px;&quot;&gt;Diagramme des classes partiel décrivant la gestion des informations utilisateur&amp;nbsp;&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="690" y="50" width="1470" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-47" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center; font-size: 25px;&quot;&gt;&lt;font style=&quot;font-size: 25px;&quot;&gt;&lt;span style=&quot;text-align: left; background-color: initial;&quot;&gt;HttpServlet&lt;/span&gt;&lt;br&gt;&lt;/font&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style: solid; font-size: 25px;&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px; font-size: 25px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1160" y="200" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-48" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=0.155;entryY=1.042;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="meUaEyug3TkI90eewDag-38" target="PqHHg7SWkQRDzhW8_tbn-47">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1238.13" y="460" as="sourcePoint" />
+            <mxPoint x="1398.13" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-49" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="meUaEyug3TkI90eewDag-39">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1407" y="534.98" as="sourcePoint" />
+            <mxPoint x="1270" y="239.98000000000002" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-50" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=1;entryY=1;entryDx=0;entryDy=0;exitX=0.556;exitY=-0.019;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="meUaEyug3TkI90eewDag-40" target="PqHHg7SWkQRDzhW8_tbn-47">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1440" y="290" as="sourcePoint" />
+            <mxPoint x="1633" y="-5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-51" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=0.833;entryY=1.075;entryDx=0;entryDy=0;exitX=0.324;exitY=-0.001;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="meUaEyug3TkI90eewDag-37" target="PqHHg7SWkQRDzhW8_tbn-47">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1460" y="260" as="sourcePoint" />
+            <mxPoint x="1653" y="-35" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-52" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=0.312;entryY=1.142;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.862;exitY=0.003;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="meUaEyug3TkI90eewDag-36" target="PqHHg7SWkQRDzhW8_tbn-47">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1480" y="280" as="sourcePoint" />
+            <mxPoint x="1240" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-60" value="Commentaire :&lt;div&gt;Chaque servlet est associé à un url dans le fichier de configuration onlineplay/webapp/src/main/webapp/WEB-INF/web.xml.&lt;/div&gt;&lt;div&gt;Par exemple, le servlet Home est associé à l&#39;url /home. Ainsi, quand le serveur Tomcat reçoit la requête HTTP GET avec l&#39;url&lt;/div&gt;&lt;div&gt;https://caltuli.online/webapp/home, le serveur Tomcat exécute la méthode doGet de l&#39;instance du servlet Home&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;et cette méthode prépare la réponse en incluant la liste des utilisateurs connectés récupérée par &lt;/span&gt;&lt;code style=&quot;background-color: initial;&quot;&gt;userManager.getConnectedUserList()&lt;/code&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;. Ensuite, elle transfère la requête et la réponse vers le fichier JSP onlineplay/&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;webapp/src/main/webapp/WEB-INF/home.jsp&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;pour générer le contenu HTML envoyé au client. Cette approche permet de séparer la logique de traitement des données de la présentation, en utilisant le modèle MVC (Modèle-Vue-Contrôleur) pour structurer &lt;br&gt;l&#39;application web.&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;strokeColor=default;glass=0;shadow=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1520" y="127.65" width="800" height="142.35" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-63" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.127;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PqHHg7SWkQRDzhW8_tbn-47" target="PqHHg7SWkQRDzhW8_tbn-60">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1790" y="490" as="sourcePoint" />
+            <mxPoint x="1440" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-64" value="Commentaire :&lt;div&gt;Dans le fichier de configuration &lt;code&gt;web.xml&lt;/code&gt;, situé à &lt;code&gt;onlineplay/webapp/src/main/webapp/WEB-INF/web.xml&lt;/code&gt;, les filtres sont déclarés et configurés pour prétraiter les requêtes avant qu&#39;elles atteignent les servlets. Le filtre &lt;code&gt;HttpsRedirectFilter&amp;nbsp;&lt;/code&gt;est un exemple pratique qui améliore la sécurité. Lorsqu&#39;une requête HTTP arrive, ce filtre vérifie si elle est sécurisée ; si ce n&#39;est pas le cas, il redirige la requête vers HTTPS, assurant ainsi que la communication entre le client et le serveur est cryptée. Cette opération est cruciale pour protéger les données sensibles et maintenir la &lt;br&gt;confidentialité des échanges sur Internet.&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;strokeColor=default;glass=0;shadow=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="2570" y="137.65" width="660" height="152.35" as="geometry" />
+        </mxCell>
+        <mxCell id="PqHHg7SWkQRDzhW8_tbn-65" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0.004;entryY=0.088;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PqHHg7SWkQRDzhW8_tbn-56" target="PqHHg7SWkQRDzhW8_tbn-64">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2480" y="150" as="sourcePoint" />
+            <mxPoint x="2670" y="96" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

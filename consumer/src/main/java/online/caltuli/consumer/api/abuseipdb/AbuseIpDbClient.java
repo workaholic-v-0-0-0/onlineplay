@@ -40,15 +40,6 @@ public class AbuseIpDbClient {
             logger.info("Error loading properties file");
             throw new ConfigurationLoadException("Error loading properties file");
         }
-
-        // Afficher les propriétés chargées
-        /*
-        System.out.println("Properties loaded:");
-        for (String key : properties.stringPropertyNames()) {
-            String value = properties.getProperty(key);
-            System.out.println(key + "=" + value);
-        }
-        */
     }
 
     public static AbuseIpDbClient getInstance() throws ConfigurationLoadException {
@@ -80,7 +71,3 @@ public class AbuseIpDbClient {
         return response;
     }
 }
-
-/*
-{"data":{"ipAddress":"82.65.137.201","isPublic":true,"ipVersion":4,"isWhitelisted":null,"abuseConfidenceScore":0,"countryCode":"FR","usageType":"Fixed Line ISP","isp":"Free SAS","domain":"free.fr","hostnames":["82-65-137-201.subs.proxad.net"],"isTor":false,"totalReports":0,"numDistinctUsers":0,"lastReportedAt":null}}
- */

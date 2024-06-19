@@ -1,5 +1,11 @@
 package online.caltuli.webapp.servlet.gui;
 
+import online.caltuli.business.exception.BusinessException;
+import online.caltuli.business.UserManager;
+import online.caltuli.model.UserConnection;
+import online.caltuli.model.User;
+import online.caltuli.model.exceptions.user.UserException;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,12 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.inject.Inject;
 import java.io.IOException;
-
-import online.caltuli.business.exception.BusinessException;
-import online.caltuli.business.UserManager;
-import online.caltuli.model.UserConnection;
-import online.caltuli.model.User;
-import online.caltuli.model.exceptions.user.UserException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
