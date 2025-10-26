@@ -1,2 +1,12 @@
 consumer/src/main/resources/config.properties
 
+# Maven / builds
+/**/target/
+/**/site/
+/out/
+/build/
+
+# IDE
+/.idea/
+/*.iml
+
